@@ -22,8 +22,17 @@ function th_log(string $mensaje): void {
 set_exception_handler(function (Throwable $e): void {
     th_log('Excepción: ' . $e->getMessage() . ' en ' . $e->getFile() . ':' . $e->getLine());
     http_response_code(500);
-    header('Content-Type: text/plain; charset=utf-8');
-    echo 'Ocurrió un error inesperado. Ya quedó registrado; probá de nuevo en un momento.';
+    $mensaje = 'Ocurrió un error inesperado. Ya quedó registrado; probá de nuevo en un momento.';
+    // Si el pedido venía de una de las api/*.php del panel, devolvemos JSON:
+    // el JavaScript del panel siempre espera poder leer la respuesta como
+    // JSON, y si no puede, termina mostrando un mensaje todavía más genérico.
+    if (str_contains($_SERVER['REQUEST_URI'] ?? '', '/api/')) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => false, 'error' => $mensaje]);
+    } else {
+        header('Content-Type: text/plain; charset=utf-8');
+        echo $mensaje;
+    }
     exit;
 });
 

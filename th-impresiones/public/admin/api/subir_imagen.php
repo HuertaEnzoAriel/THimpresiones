@@ -52,16 +52,33 @@ function th_extension_para_mime(string $mime): string {
     };
 }
 
-function th_cargar_imagen_gd(string $ruta, string $mime) {
+function th_funcion_gd_para_cargar(string $mime): ?string {
     return match ($mime) {
-        'image/jpeg' => @imagecreatefromjpeg($ruta),
-        'image/png' => @imagecreatefrompng($ruta),
-        'image/webp' => @imagecreatefromwebp($ruta),
-        default => false,
+        'image/jpeg' => 'imagecreatefromjpeg',
+        'image/png' => 'imagecreatefrompng',
+        'image/webp' => 'imagecreatefromwebp',
+        default => null,
+    };
+}
+function th_funcion_gd_para_guardar(string $mime): ?string {
+    return match ($mime) {
+        'image/jpeg' => 'imagejpeg',
+        'image/png' => 'imagepng',
+        'image/webp' => 'imagewebp',
+        default => null,
     };
 }
 
-$imagenOriginal = th_cargar_imagen_gd($archivo['tmp_name'], $mime);
+$funcionCarga = th_funcion_gd_para_cargar($mime);
+$funcionGuardado = th_funcion_gd_para_guardar($mime);
+if (!$funcionCarga || !$funcionGuardado || !function_exists($funcionCarga) || !function_exists($funcionGuardado)) {
+    // Pasa si el PHP del servidor tiene la extensión GD compilada sin
+    // soporte para ese formato (es común que falte WebP en instalaciones
+    // viejas). Mejor avisar claro que dejar que explote más adelante.
+    th_error_response('Este servidor no puede procesar fotos ' . strtoupper(th_extension_para_mime($mime)) . '. Probá con un JPG o un PNG.', 400, "GD sin soporte para $mime (falta $funcionCarga o $funcionGuardado)");
+}
+
+$imagenOriginal = @call_user_func($funcionCarga, $archivo['tmp_name']);
 if (!$imagenOriginal) {
     th_error_response('No pudimos procesar esa foto. Probá con otra.', 400, 'GD no pudo decodificar el archivo subido');
 }
@@ -91,12 +108,8 @@ if (!is_dir(TH_UPLOADS_DIR)) {
 $nombreArchivo = bin2hex(random_bytes(10)) . '.' . th_extension_para_mime($mime);
 $rutaFinal = TH_UPLOADS_DIR . '/' . $nombreArchivo;
 
-$guardada = match ($mime) {
-    'image/jpeg' => imagejpeg($imagenFinal, $rutaFinal, 82),
-    'image/png' => imagepng($imagenFinal, $rutaFinal, 6),
-    'image/webp' => imagewebp($imagenFinal, $rutaFinal, 82),
-    default => false,
-};
+$calidad = $mime === 'image/png' ? 6 : 82;
+$guardada = @call_user_func($funcionGuardado, $imagenFinal, $rutaFinal, $calidad);
 imagedestroy($imagenFinal);
 
 if (!$guardada) {

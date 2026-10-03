@@ -147,6 +147,7 @@ require __DIR__ . '/_layout_top.php';
     const inputFile = document.createElement('input');
     inputFile.type = 'file';
     inputFile.accept = 'image/jpeg,image/png,image/webp';
+    inputFile.style.display = 'none';
     foto.append(badge, img, inputFile);
 
     foto.addEventListener('click', e => { if (e.target !== inputFile) inputFile.click(); });
