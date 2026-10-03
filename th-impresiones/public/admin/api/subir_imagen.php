@@ -32,8 +32,9 @@ if (!is_uploaded_file($archivo['tmp_name'])) {
     th_error_response('No se pudo subir la foto. Probá de nuevo.', 400, 'tmp_name no es un archivo subido real');
 }
 
-if ($archivo['size'] > TH_MAX_IMAGEN_BYTES) {
-    $maxMb = round(TH_MAX_IMAGEN_BYTES / 1024 / 1024, 1);
+$limiteBytes = th_limite_imagen_bytes();
+if ($archivo['size'] > $limiteBytes) {
+    $maxMb = round($limiteBytes / 1024 / 1024, 1);
     th_error_response("La foto pesa más de {$maxMb} MB. Probá con una más liviana.", 400);
 }
 
@@ -95,7 +96,6 @@ if ($anchoOriginal > TH_MAX_IMAGEN_ANCHO) {
         imagesavealpha($redimensionada, true);
     }
     imagecopyresampled($redimensionada, $imagenOriginal, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $anchoOriginal, $altoOriginal);
-    imagedestroy($imagenOriginal);
     $imagenFinal = $redimensionada;
 } else {
     $imagenFinal = $imagenOriginal;
@@ -110,7 +110,6 @@ $rutaFinal = TH_UPLOADS_DIR . '/' . $nombreArchivo;
 
 $calidad = $mime === 'image/png' ? 6 : 82;
 $guardada = @call_user_func($funcionGuardado, $imagenFinal, $rutaFinal, $calidad);
-imagedestroy($imagenFinal);
 
 if (!$guardada) {
     th_error_response('No pudimos guardar la foto procesada. Probá de nuevo.', 500, 'Fallo al escribir la imagen reprocesada en uploads/');

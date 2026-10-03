@@ -8,6 +8,14 @@
     return meta ? meta.content : '';
   }
 
+  // Límite real de tamaño de foto para este servidor (lo calcula el PHP según
+  // su propio php.ini, nunca es mayor a eso aunque el panel quisiera más).
+  function limiteImagenBytes() {
+    const meta = document.querySelector('meta[name="limite-imagen-bytes"]');
+    const n = meta ? parseInt(meta.content, 10) : NaN;
+    return Number.isFinite(n) && n > 0 ? n : 5 * 1024 * 1024;
+  }
+
   async function apiFetch(url, opciones = {}) {
     const esFormData = opciones.body instanceof FormData;
     const headers = Object.assign(
@@ -143,5 +151,5 @@
     };
   }
 
-  window.Panel = { csrfToken, apiFetch, money, avisar, mostrarDeshacer, confirmarEnLinea, crearControladorGuardado };
+  window.Panel = { csrfToken, apiFetch, money, avisar, mostrarDeshacer, confirmarEnLinea, crearControladorGuardado, limiteImagenBytes };
 })();

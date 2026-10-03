@@ -11,6 +11,42 @@ ini_set('log_errors', '1');
 ini_set('error_log', TH_LOG_FILE);
 error_reporting(E_ALL);
 
+/* Convierte valores de php.ini como "2M", "512K" o "8" a bytes. */
+function th_ini_bytes_a_numero(string $valor): int {
+    $valor = trim($valor);
+    if ($valor === '') {
+        return 0;
+    }
+    $unidad = strtoupper(substr($valor, -1));
+    $numero = (int) $valor;
+    return match ($unidad) {
+        'G' => $numero * 1024 * 1024 * 1024,
+        'M' => $numero * 1024 * 1024,
+        'K' => $numero * 1024,
+        default => (int) $valor,
+    };
+}
+
+/* El límite real de una foto nunca puede ser mayor a lo que el propio PHP
+ * deja subir (upload_max_filesize) ni a lo que deja mandar por POST en total
+ * (post_max_size, con un margen para el resto del formulario). Si el
+ * php.ini del servidor es más chico que TH_MAX_IMAGEN_BYTES, el límite
+ * efectivo baja solo — así el panel nunca promete algo que el servidor
+ * después rechaza antes de que nuestro código llegue a correr. */
+function th_limite_imagen_bytes(): int {
+    $subida = th_ini_bytes_a_numero((string) ini_get('upload_max_filesize'));
+    $post = th_ini_bytes_a_numero((string) ini_get('post_max_size'));
+    $margen = 256 * 1024; // lugar para el resto de los campos del formulario
+    $limite = TH_MAX_IMAGEN_BYTES;
+    if ($subida > 0) {
+        $limite = min($limite, $subida);
+    }
+    if ($post > 0) {
+        $limite = min($limite, max(0, $post - $margen));
+    }
+    return $limite;
+}
+
 function th_log(string $mensaje): void {
     if (!is_dir(TH_LOGS_DIR)) {
         @mkdir(TH_LOGS_DIR, 0750, true);

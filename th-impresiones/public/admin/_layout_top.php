@@ -4,6 +4,7 @@
  * ya haber llamado a th_exigir_login(). */
 $usuarioActual = th_usuario_actual();
 $csrf = th_token_csrf();
+$limiteImagenBytes = th_limite_imagen_bytes();
 $items_nav = [
     'inicio' => 'Inicio',
     'precios' => 'Precios',
@@ -19,6 +20,7 @@ $items_nav = [
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title><?= h($tituloPagina) ?> · Panel TH Impresiones</title>
 <meta name="csrf-token" content="<?= h($csrf) ?>">
+<meta name="limite-imagen-bytes" content="<?= h((string) $limiteImagenBytes) ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">

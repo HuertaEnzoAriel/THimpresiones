@@ -104,8 +104,10 @@ require __DIR__ . '/_layout_top.php';
 
   async function subirArchivo(file, nodo) {
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) {
-      Panel.avisar('La foto pesa más de 5 MB. Probá con una más liviana.');
+    const limite = Panel.limiteImagenBytes();
+    if (file.size > limite) {
+      const limiteMb = (limite / 1024 / 1024).toFixed(1);
+      Panel.avisar('La foto pesa más de ' + limiteMb + ' MB. Probá con una más liviana.');
       return;
     }
     if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {

@@ -35,6 +35,30 @@ Verificá que están activas:
 php -m | grep -iE "gd|fileinfo|json|session"
 ```
 
+### Tamaño máximo de las fotos que se suben
+
+El panel deja subir fotos de hasta 5 MB, pero PHP por defecto suele venir configurado más chico que eso (`upload_max_filesize=2M` es un valor por defecto muy común). Si no lo subís, el navegador va a recibir un error `413` genérico *antes* de que el panel pueda avisar nada con sentido.
+
+Encontrá el `php.ini` que usa PHP-FPM (es el mismo que mostró el comando anterior, o corré `php --ini`) y asegurate de que tenga, como mínimo:
+
+```ini
+upload_max_filesize = 8M
+post_max_size = 9M
+```
+
+(`post_max_size` siempre tiene que ser un poco más grande que `upload_max_filesize`, porque incluye el resto de los datos del formulario además de la foto.)
+
+Después de editar el `php.ini`, reiniciá PHP-FPM:
+
+```bash
+sudo systemctl restart php8.1-fpm   # ajustá la versión si es distinta
+```
+
+Confirmá el cambio:
+```bash
+php -i | grep -iE "upload_max_filesize|post_max_size"
+```
+
 Tenés que ver las cuatro líneas. Si falta alguna, instalala (ej: `sudo apt install -y php-gd`) y después `sudo systemctl restart php*-fpm` (o `apache2`).
 
 ## 2. Subir el proyecto
@@ -100,6 +124,11 @@ server {
     root /var/www/th-impresiones/public;
     index index.html;
 
+    # Nginx también tiene su propio límite de tamaño de pedido, separado del
+    # de PHP (ver paso 3). Si lo dejás por defecto (1M), las fotos nunca van
+    # a llegar a PHP: Nginx las corta antes con un error 413.
+    client_max_body_size 9M;
+
     # Bloquea cualquier .php dentro de uploads/, aunque alguna vez
     # terminara ahí un archivo con esa extensión.
     location ^~ /uploads/ {
@@ -156,6 +185,11 @@ Creá `/etc/apache2/sites-available/th-impresiones.conf`:
     <Directory /var/www/th-impresiones/public>
         AllowOverride All
         Require all granted
+        # Igual que con Nginx: Apache tiene su propio límite de tamaño de
+        # pedido (por defecto, sin límite en Apache puro, pero algunos
+        # paneles de hosting lo bajan). Lo dejamos explícito para que las
+        # fotos de hasta el tamaño que permite PHP (paso 3) no se corten acá.
+        LimitRequestBody 9437184
     </Directory>
 
     # Redundante con el .htaccess de uploads/, pero por si AllowOverride
@@ -304,3 +338,4 @@ Los cambios de contenido (precios, fotos, textos) viven en `public/data/datos.js
 - **No puedo iniciar sesión en el panel, pero la contraseña es correcta**: revisá que estés entrando por `https://` (no `http://`) — la cookie de sesión no se guarda sin HTTPS, a propósito.
 - **"No se pudo guardar"**: casi siempre son permisos. Confirmá que `public/data/datos.json` es escribible por `www-data` (paso 3).
 - **Subir una foto falla siempre**: revisá que la extensión `gd` de PHP esté instalada (`php -m | grep gd`) y que `public/uploads/` tenga permiso de escritura para `www-data`.
+- **Subir fotos funciona con algunas y con otras no, sin un mensaje claro (o directamente un error 413)**: es el caso de arriba, "Tamaño máximo de las fotos que se suben" — `upload_max_filesize`/`post_max_size` de PHP, o `client_max_body_size` (Nginx) / `LimitRequestBody` (Apache), están por debajo de 5 MB. El panel detecta el límite real del servidor y avisa antes de intentar subir, pero solo si esos valores están bien configurados.
