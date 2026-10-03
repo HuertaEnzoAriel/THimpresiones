@@ -1,0 +1,494 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TH Impresiones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/secciones.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="cmyk-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap head-in">
+    <a class="brand" href="#inicio" aria-label="TH Impresiones, inicio">
+      <span class="brand-mark" role="img" aria-label="Logo de TH Impresiones"></span>
+      <span data-cfg="nombre">TH Impresiones</span>
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#servicios">Servicios</a>
+      <a href="#precios">Precios</a>
+      <a href="#trabajos">Trabajos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="head-act">
+      <button class="tema" type="button" id="tema" aria-label="Cambiar tema"><span id="tema-ico" aria-hidden="true"></span><span class="tema-txt" id="tema-txt"></span></button>
+      <a class="btn btn-primary btn-sm js-wa" target="_blank" rel="noopener" href="#contacto">Escribinos</a>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero band band-hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Impresión digital · Gran formato · Papelería</p>
+        <h1><span>Salió como</span><span>lo pensaste.</span></h1>
+        <p class="lead">Copias, planos, tarjetas, flyers, stickers y lonas. Mandanos tu archivo y te pasamos el precio.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#precios">Calcular mi pedido</a>
+          <a class="btn btn-ghost" href="#trabajos">Ver trabajos</a>
+        </div>
+        <dl class="facts">
+          <div><dt>Formatos</dt><dd>A4 a A0</dd></div>
+          <div><dt>Papeles</dt><dd>75 a 350 g</dd></div>
+          <div><dt>Archivos</dt><dd>PDF · JPG · PNG</dd></div>
+        </dl>
+      </div>
+
+      <svg class="sheet" viewBox="0 0 440 440" role="img" aria-label="Hoja de prueba de color con tres círculos cian, magenta y amarillo superpuestos, marcas de corte y una barra de color">
+        <rect x="55" y="57" width="340" height="340" fill="#000" opacity=".12"/>
+        <rect class="paper" x="50" y="50" width="340" height="340"/>
+        <g class="cm">
+          <path d="M22 50H40M50 22V40"/><path d="M400 50H418M390 22V40"/>
+          <path d="M22 390H40M50 400V418"/><path d="M400 390H418M390 400V418"/>
+        </g>
+        <circle class="plate plate-c" cx="172" cy="188" r="88"/>
+        <circle class="plate plate-m" cx="244" cy="188" r="88"/>
+        <circle class="plate plate-y" cx="208" cy="250" r="88"/>
+        <text class="pm" x="72" y="76">PRUEBA DE COLOR · A4</text>
+        <g class="reg"><circle cx="360" cy="74" r="8"/><path d="M349 74H371M360 63V85"/></g>
+        <g>
+          <rect x="72" y="344" width="26" height="22" fill="#3A9AC2"/>
+          <rect x="98" y="344" width="26" height="22" fill="#E06D93"/>
+          <rect x="124" y="344" width="26" height="22" fill="#EFBE41"/>
+          <rect x="150" y="344" width="26" height="22" fill="#16244F"/>
+          <rect x="176" y="344" width="26" height="22" fill="#3A9AC2" fill-opacity=".5"/>
+          <rect x="202" y="344" width="26" height="22" fill="#E06D93" fill-opacity=".5"/>
+          <rect x="228" y="344" width="26" height="22" fill="#EFBE41" fill-opacity=".5"/>
+          <rect x="254" y="344" width="26" height="22" fill="#16244F" fill-opacity=".5"/>
+        </g>
+        <text class="pm" x="72" y="381">C 100 · M 100 · Y 100 · K 100 · 300 ppp</text>
+      </svg>
+    </div>
+  </section>
+
+  <section id="servicios" class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Servicios</p>
+        <h2>Qué imprimimos</h2>
+        <p class="sec-lead">Desde una copia suelta hasta una lona de varios metros. Si no ves lo que buscás, escribinos y lo resolvemos.</p>
+      </div>
+      <ul class="servicios">
+        <li class="serv">
+          <h3>Copias e impresiones</h3>
+          <p>Apuntes, tesis, informes y presentaciones. Blanco y negro o color, en hoja simple o doble faz.</p>
+          <p class="spec">A4 · A3 · 75 a 90 g</p>
+          <a href="#precios" data-cat="oficina">Ver precios</a>
+        </li>
+        <li class="serv">
+          <h3>Planos y afiches</h3>
+          <p>Planos de obra, láminas y afiches en gran formato, con línea nítida y escala respetada.</p>
+          <p class="spec">A2 · A1 · A0</p>
+          <a href="#precios" data-cat="planos">Ver precios</a>
+        </li>
+        <li class="serv">
+          <h3>Tarjetas y flyers</h3>
+          <p>Papelería para tu comercio en papel de 150 a 300 g, con terminación mate o brillante.</p>
+          <p class="spec">Hasta 350 g · mate o brillante</p>
+          <a href="#precios" data-cat="comercial">Ver precios</a>
+        </li>
+        <li class="serv">
+          <h3>Stickers</h3>
+          <p>Etiquetas y stickers en vinilo con corte a medida, listos para pegar.</p>
+          <p class="spec">Vinilo blanco · laminado</p>
+          <a href="#precios" data-cat="especiales">Ver precios</a>
+        </li>
+        <li class="serv">
+          <h3>Banners y lonas</h3>
+          <p>Cartelería para ferias, locales y eventos, con ojales para colgar.</p>
+          <p class="spec">Lona 13 oz · ojales</p>
+          <a href="#precios" data-cat="especiales">Ver precios</a>
+        </li>
+        <li class="serv">
+          <h3>Anillado y armado</h3>
+          <p>Anillados, tapas y armado de cuadernillos para entregas y cursos.</p>
+          <p class="spec">Hasta 100 hojas</p>
+          <a href="#precios" data-cat="especiales">Ver precios</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="precios" class="sec band band-cyan">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Precios</p>
+        <h2>Cuanto más imprimís, menos pagás</h2>
+        <p class="sec-lead">Elegí una categoría para ver la lista, o calculá tu pedido a la derecha. El precio baja por cantidad.</p>
+      </div>
+      <div class="precios-grid">
+        <div>
+          <div class="tabs" id="tabs" role="group" aria-label="Categorías de precios"></div>
+          <ul class="lista" id="lista"></ul>
+          <p class="nota">Precios de referencia en pesos argentinos. El valor final se confirma al revisar tu archivo, el papel y la terminación.</p>
+        </div>
+        <aside class="calc" aria-labelledby="calc-t">
+          <h3 id="calc-t">Calculá tu pedido</h3>
+          <div class="field">
+            <label for="calc-item">Trabajo</label>
+            <select id="calc-item"></select>
+          </div>
+          <div class="field">
+            <label for="calc-qty">Cantidad <span class="mono" id="calc-unit"></span></label>
+            <div class="qty">
+              <button type="button" id="qty-minus" aria-label="Restar uno">−</button>
+              <input id="calc-qty" type="number" inputmode="numeric" min="1" max="9999" value="100">
+              <button type="button" id="qty-plus" aria-label="Sumar uno">+</button>
+            </div>
+          </div>
+          <dl class="calc-out">
+            <div><dt>Precio por unidad</dt><dd id="calc-unitprice"></dd></div>
+            <div class="total"><dt>Total estimado</dt><dd id="calc-total"></dd></div>
+          </dl>
+          <p class="hint" id="calc-hint" aria-live="polite"></p>
+          <div class="calc-actions">
+            <a class="btn btn-primary" id="calc-wa" target="_blank" rel="noopener" href="#contacto">Consultar por WhatsApp</a>
+            <button class="btn btn-ghost" type="button" id="calc-copy">Copiar detalle</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="trabajos" class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Trabajos</p>
+        <h2>Muestras de lo que hacemos</h2>
+        <p class="sec-lead">Tocá cualquier pieza para verla más grande y pedir algo parecido.</p>
+      </div>
+      <div class="filtros" role="group" aria-label="Filtrar trabajos">
+        <button class="tab filtro" type="button" data-f="todo" aria-pressed="true">Todo</button>
+        <button class="tab filtro" type="button" data-f="papeleria" aria-pressed="false" style="--tab-c:#E98346;--tab-c-fg:#16244F">Papelería</button>
+        <button class="tab filtro" type="button" data-f="stickers" aria-pressed="false" style="--tab-c:#EFBE41;--tab-c-fg:#16244F">Stickers</button>
+        <button class="tab filtro" type="button" data-f="gran-formato" aria-pressed="false" style="--tab-c:#3A9AC2;--tab-c-fg:#16244F">Gran formato</button>
+      </div>
+
+      <ul class="galeria" id="galeria">
+
+        <li data-cat="papeleria">
+          <button class="work" type="button" data-title="Tarjetas personales" data-spec="300 g · mate · 9 × 5 cm · ambas caras" data-desc="Tarjeta de frente con logo y dorso con datos de contacto, en papel de 300 g con terminación mate.">
+            <span class="work-art">
+              <svg viewBox="0 0 400 300" role="img" aria-label="Dos tarjetas personales de un café, una verde oliva con logo y otra clara con datos de contacto">
+                <g transform="rotate(-7 160 130)">
+                  <rect class="shadow" x="69" y="83" width="200" height="120" rx="4"/>
+                  <rect x="64" y="76" width="200" height="120" rx="4" fill="#3B4A22"/>
+                  <circle cx="110" cy="136" r="22" fill="none" stroke="#E8DFB5" stroke-width="3"/>
+                  <path d="M99 145c2-15 13-22 26-22-1 14-10 23-26 22z" fill="#E8DFB5"/>
+                  <text class="sd" x="148" y="134" font-size="27" fill="#F4EDD0" textLength="98" lengthAdjust="spacingAndGlyphs">CAFÉ OLIVA</text>
+                  <text class="sm" x="148" y="152" font-size="8" letter-spacing="2" fill="#B9C08F">TOSTADO LOCAL</text>
+                </g>
+                <g transform="rotate(5 250 206)">
+                  <rect class="shadow" x="155" y="153" width="200" height="120" rx="4"/>
+                  <rect x="150" y="146" width="200" height="120" rx="4" fill="#F4EDD0"/>
+                  <text class="sd" x="172" y="182" font-size="22" fill="#3B4A22" textLength="112" lengthAdjust="spacingAndGlyphs">LUCÍA FERRERO</text>
+                  <text class="sm" x="172" y="198" font-size="7.5" letter-spacing="1" fill="#6B6F52">BARISTA Y TOSTADORA</text>
+                  <rect x="172" y="209" width="28" height="3" fill="#3B4A22"/>
+                  <text class="sm" x="172" y="230" font-size="8" fill="#3B4A22">+54 9 0000 00-0000</text>
+                  <text class="sm" x="172" y="244" font-size="8" fill="#3B4A22">hola@cafeoliva.ar</text>
+                </g>
+              </svg>
+            </span>
+            <span class="work-cap"><span class="work-name">Tarjetas personales</span><span class="work-spec">300 g · mate · 9 × 5 cm</span></span>
+          </button>
+        </li>
+
+        <li data-cat="papeleria">
+          <button class="work" type="button" data-title="Flyer A5 para taller" data-spec="150 g · ambas caras · A5" data-desc="Flyer a dos tintas planas más negro, pensado para repartir en mano y dejar en mostradores.">
+            <span class="work-art">
+              <svg viewBox="0 0 400 300" role="img" aria-label="Dos flyers: uno amarillo con la palabra service y una bicicleta, otro celeste detrás con círculos">
+                <g transform="rotate(8 260 160)">
+                  <rect class="shadow" x="190" y="46" width="150" height="212"/>
+                  <rect x="185" y="40" width="150" height="212" fill="#3A9AC2"/>
+                  <circle cx="262" cy="118" r="34" fill="#A33678"/>
+                  <circle cx="288" cy="140" r="34" fill="#EFBE41" style="mix-blend-mode:multiply"/>
+                  <text class="sm" x="200" y="62" font-size="7.5" letter-spacing="2" fill="#16244F">CLASE ABIERTA</text>
+                  <text class="sd" x="200" y="226" font-size="30" fill="#16244F" textLength="110" lengthAdjust="spacingAndGlyphs">SÁBADOS</text>
+                </g>
+                <g transform="rotate(-4 160 150)">
+                  <rect class="shadow" x="92" y="47" width="150" height="212"/>
+                  <rect x="86" y="40" width="150" height="212" fill="#EFBE41"/>
+                  <text class="sm" x="101" y="62" font-size="7.5" letter-spacing="2" fill="#16244F">TALLER NORTE · BICICLETAS</text>
+                  <text class="sd" x="101" y="110" font-size="48" fill="#16244F" textLength="120" lengthAdjust="spacingAndGlyphs">SERVICE</text>
+                  <text class="sd" x="101" y="142" font-size="34" fill="#A33678" textLength="120" lengthAdjust="spacingAndGlyphs">COMPLETO</text>
+                  <g fill="none" stroke="#16244F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="120" cy="205" r="20"/><circle cx="184" cy="205" r="20"/>
+                    <path d="M120 205 L144 176 L176 176 L184 205 M144 176 L158 205 L120 205 M158 205 L176 176 M176 176 L172 166 L182 166 M144 176 L140 168 L150 168"/>
+                  </g>
+                  <text class="sm" x="101" y="242" font-size="7" letter-spacing="1" fill="#16244F">AJUSTE · FRENOS · CAMBIOS</text>
+                </g>
+              </svg>
+            </span>
+            <span class="work-cap"><span class="work-name">Flyer A5 para taller</span><span class="work-spec">150 g · ambas caras · A5</span></span>
+          </button>
+        </li>
+
+        <li data-cat="stickers">
+          <button class="work" type="button" data-title="Plancha de stickers" data-spec="Vinilo laminado · corte a medida · A4" data-desc="Stickers de vinilo con corte por contorno, entregados en una plancha lista para despegar.">
+            <span class="work-art">
+              <svg viewBox="0 0 400 300" role="img" aria-label="Plancha de stickers con un sol, una etiqueta celeste, una hoja verde, un cartel negro, un círculo y una estrella">
+                <rect class="shadow" x="55" y="48" width="300" height="216" rx="3"/>
+                <rect x="50" y="42" width="300" height="216" rx="3" fill="#D9E0E6"/>
+                <g stroke="#FFFFFF" stroke-width="7" paint-order="stroke" stroke-linejoin="round">
+                  <circle cx="104" cy="98" r="30" fill="#EFBE41"/>
+                  <rect x="152" y="80" width="112" height="36" rx="18" fill="#3A9AC2"/>
+                  <path d="M286 128c-9-32 10-54 42-54 7 32-8 54-42 54z" fill="#E98346"/>
+                  <rect x="70" y="156" width="104" height="66" rx="10" fill="#16244F"/>
+                  <circle cx="236" cy="192" r="34" fill="#3A9AC2"/>
+                  <polygon points="320,160 327.6,179.5 348.5,180.7 332.4,194 337.6,214.3 320,203 302.4,214.3 307.6,194 291.5,180.7 312.4,179.5" fill="#A33678"/>
+                </g>
+                <circle cx="104" cy="98" r="13" fill="#A33678"/>
+                <text class="sd" x="170" y="105" font-size="17" fill="#16244F" textLength="76" lengthAdjust="spacingAndGlyphs">ÑANDÚ BIKES</text>
+                <path d="M292 122c10-16 22-30 32-42" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+                <text class="sd" x="82" y="187" font-size="26" fill="#EFBE41" textLength="80" lengthAdjust="spacingAndGlyphs">HECHO</text>
+                <text class="sd" x="82" y="212" font-size="24" fill="#FBFBF9" textLength="80" lengthAdjust="spacingAndGlyphs">A MANO</text>
+                <circle cx="236" cy="192" r="21" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+                <circle cx="236" cy="192" r="8" fill="#EFBE41"/>
+              </svg>
+            </span>
+            <span class="work-cap"><span class="work-name">Plancha de stickers</span><span class="work-spec">Vinilo laminado · corte a medida</span></span>
+          </button>
+        </li>
+
+        <li data-cat="gran-formato">
+          <button class="work" type="button" data-title="Banner de feria" data-spec="Lona 13 oz · 3 × 1,2 m · ojales" data-desc="Lona impresa a color con ojales reforzados para colgar entre postes o en una pared.">
+            <span class="work-art">
+              <svg viewBox="0 0 400 300" role="img" aria-label="Banner de lona magenta con el texto Feria de otoño colgado entre dos postes">
+                <rect x="0" y="262" width="400" height="38" fill="#000" opacity=".06"/>
+                <rect x="30" y="40" width="6" height="224" fill="#7B8591"/>
+                <rect x="364" y="40" width="6" height="224" fill="#7B8591"/>
+                <rect class="shadow" x="40" y="92" width="328" height="132"/>
+                <rect x="36" y="86" width="328" height="132" fill="#A33678"/>
+                <circle cx="318" cy="150" r="42" fill="#3A9AC2" style="mix-blend-mode:multiply"/>
+                <circle cx="292" cy="172" r="42" fill="#EFBE41" style="mix-blend-mode:multiply"/>
+                <rect x="41" y="91" width="318" height="122" fill="none" stroke="#FFFFFF" stroke-opacity=".55" stroke-dasharray="3 3"/>
+                <text class="sd" x="56" y="140" font-size="46" fill="#EFBE41" textLength="176" lengthAdjust="spacingAndGlyphs">FERIA DE</text>
+                <text class="sd" x="56" y="190" font-size="58" fill="#FBFBF9" textLength="150" lengthAdjust="spacingAndGlyphs">OTOÑO</text>
+                <text class="sm" x="56" y="207" font-size="8" letter-spacing="2" fill="#FBFBF9">ENTRADA LIBRE Y GRATUITA</text>
+                <g fill="#DDE3E8" stroke="#6C7683" stroke-width="1.2">
+                  <circle cx="45" cy="95" r="3.5"/><circle cx="355" cy="95" r="3.5"/>
+                  <circle cx="45" cy="209" r="3.5"/><circle cx="355" cy="209" r="3.5"/>
+                  <circle cx="200" cy="95" r="3.5"/><circle cx="200" cy="209" r="3.5"/>
+                </g>
+                <text class="st" x="200" y="250" text-anchor="middle">LONA 13 OZ · 3 × 1,2 M</text>
+              </svg>
+            </span>
+            <span class="work-cap"><span class="work-name">Banner de feria</span><span class="work-spec">Lona 13 oz · 3 × 1,2 m · ojales</span></span>
+          </button>
+        </li>
+
+        <li data-cat="gran-formato">
+          <button class="work" type="button" data-title="Plano de vivienda" data-spec="Plotter A1 · línea · escala 1:100" data-desc="Planta de una vivienda impresa en plotter, con espesores de línea diferenciados y cotas legibles.">
+            <span class="work-art">
+              <svg viewBox="0 0 400 300" role="img" aria-label="Plano de planta de una vivienda con cotas, puertas, ventanas y un cuadro de rótulo">
+                <rect class="shadow" x="30" y="40" width="352" height="232"/>
+                <rect x="24" y="34" width="352" height="232" fill="#FBFBF9"/>
+                <rect x="34" y="44" width="332" height="212" fill="none" stroke="#16244F" stroke-width=".8"/>
+                <g fill="none" stroke="#16244F" stroke-linecap="square">
+                  <rect x="60" y="76" width="180" height="110" stroke-width="4"/>
+                  <g stroke-width="3"><path d="M150 76V186M60 140H150M150 126H240M200 126V186"/></g>
+                </g>
+                <g stroke="#FBFBF9" stroke-width="6">
+                  <path d="M85 140H105M150 92V116M215 126H232M160 126H177M60 95V115"/>
+                </g>
+                <g fill="none" stroke="#16244F" stroke-width=".8">
+                  <path d="M85 140V160M105 140A20 20 0 0 1 85 160"/>
+                  <path d="M215 126V143M232 126A17 17 0 0 1 215 143"/>
+                  <path d="M160 126V143M177 126A17 17 0 0 1 160 143"/>
+                  <path d="M60 95H80M80 95A20 20 0 0 1 60 115"/>
+                </g>
+                <g fill="#FBFBF9" stroke="#16244F" stroke-width=".8">
+                  <rect x="80" y="74" width="40" height="4"/><rect x="170" y="74" width="40" height="4"/>
+                  <rect x="238" y="146" width="4" height="26"/><rect x="85" y="184" width="40" height="4"/>
+                </g>
+                <g class="sm" font-size="6" fill="#16244F" text-anchor="middle">
+                  <text x="105" y="112">LIVING</text><text x="105" y="166">DORM. 1</text>
+                  <text x="195" y="104">COCINA</text><text x="175" y="160">DORM. 2</text><text x="220" y="160">BAÑO</text>
+                </g>
+                <g fill="none" stroke="#16244F" stroke-width=".7">
+                  <path d="M60 64H240M56 68L64 60M236 68L244 60"/>
+                  <path d="M256 76V186M252 80L260 72M252 190L260 182"/>
+                </g>
+                <text class="sm" x="150" y="60" font-size="6" text-anchor="middle" fill="#16244F">9,00 m</text>
+                <text class="sm" font-size="6" fill="#16244F" text-anchor="middle" transform="translate(266 131) rotate(90)">5,50 m</text>
+                <g fill="none" stroke="#16244F" stroke-width=".8">
+                  <circle cx="330" cy="92" r="14"/><path d="M330 80L335 96L330 93L325 96Z" fill="#16244F"/>
+                  <path d="M276 196H336M276 193V199M306 193V199M336 193V199"/>
+                  <rect x="268" y="214" width="98" height="42"/><path d="M268 228H366"/>
+                </g>
+                <text class="sm" x="330" y="120" font-size="6" text-anchor="middle" fill="#16244F">N</text>
+                <text class="sm" x="276" y="208" font-size="5" fill="#16244F">0</text>
+                <text class="sm" x="303" y="208" font-size="5" fill="#16244F">1</text>
+                <text class="sm" x="332" y="208" font-size="5" fill="#16244F">2 m</text>
+                <text class="sm" x="272" y="224" font-size="5.5" fill="#16244F">VIVIENDA UNIFAMILIAR</text>
+                <text class="sm" x="272" y="239" font-size="5" fill="#16244F">PLANTA BAJA · ESC. 1:100</text>
+                <text class="sm" x="272" y="250" font-size="5" fill="#16244F">LÁM. 02 / 06</text>
+              </svg>
+            </span>
+            <span class="work-cap"><span class="work-name">Plano de vivienda</span><span class="work-spec">Plotter A1 · línea · escala 1:100</span></span>
+          </button>
+        </li>
+
+        <li data-cat="papeleria">
+          <button class="work" type="button" data-title="Tríptico gastronómico" data-spec="150 g · A4 plegado en 3 · ambas caras" data-desc="Tríptico con tapa, menú y contacto, plegado en tres y con tramas de punto para los degradados.">
+            <span class="work-art">
+              <svg viewBox="0 0 400 300" role="img" aria-label="Tríptico de una panadería con portada azul, menú con precios y contratapa con datos de contacto">
+                <defs>
+                  <pattern id="tri-dots" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.8" fill="#EFBE41"/></pattern>
+                </defs>
+                <rect class="shadow" x="50" y="62" width="312" height="190"/>
+                <rect x="44" y="56" width="104" height="190" fill="#233466"/>
+                <rect x="148" y="56" width="104" height="190" fill="#FBFBF9"/>
+                <rect x="252" y="56" width="104" height="190" fill="#FBFBF9"/>
+                <rect x="148" y="56" width="6" height="190" fill="#000" opacity=".07"/>
+                <rect x="252" y="56" width="6" height="190" fill="#000" opacity=".07"/>
+                <circle cx="96" cy="118" r="26" fill="#EFBE41"/>
+                <circle cx="96" cy="118" r="26" fill="none" stroke="#FBFBF9" stroke-width="2" stroke-opacity=".6" transform="translate(0 0)"/>
+                <text class="sd" x="58" y="190" font-size="38" fill="#FBFBF9" textLength="76" lengthAdjust="spacingAndGlyphs">LUCERO</text>
+                <text class="sm" x="58" y="208" font-size="7" letter-spacing="2.2" fill="#EFBE41">PANADERÍA</text>
+                <text class="sm" x="58" y="224" font-size="6" letter-spacing="1.4" fill="#BFD0E4">ARTESANAL</text>
+                <text class="sd" x="160" y="84" font-size="22" fill="#16244F" textLength="44" lengthAdjust="spacingAndGlyphs">MENÚ</text>
+                <rect x="160" y="91" width="24" height="3" fill="#A33678"/>
+                <g class="sm" font-size="6" fill="#16244F">
+                  <text x="160" y="116">Medialunas x6</text><text x="242" y="116" text-anchor="end">$2.400</text>
+                  <text x="160" y="139">Pan de campo</text><text x="242" y="139" text-anchor="end">$3.200</text>
+                  <text x="160" y="162">Miga x12</text><text x="242" y="162" text-anchor="end">$1.800</text>
+                  <text x="160" y="185">Tarta del día</text><text x="242" y="185" text-anchor="end">$2.900</text>
+                  <text x="160" y="208">Café + tostada</text><text x="242" y="208" text-anchor="end">$1.700</text>
+                  <text x="160" y="231">Combo merienda</text><text x="242" y="231" text-anchor="end">$4.500</text>
+                </g>
+                <g stroke="#C9CFD6" stroke-width=".7" stroke-dasharray="1 2">
+                  <path d="M160 120H242M160 143H242M160 166H242M160 189H242M160 212H242"/>
+                </g>
+                <rect x="258" y="56" width="98" height="48" fill="#A33678"/>
+                <rect x="258" y="56" width="98" height="48" fill="url(#tri-dots)"/>
+                <text class="sd" x="266" y="134" font-size="20" fill="#16244F" textLength="74" lengthAdjust="spacingAndGlyphs">VISITANOS</text>
+                <g class="sm" font-size="6" fill="#16244F">
+                  <text x="266" y="152">Lun a sáb</text><text x="266" y="162">7 a 20 h</text>
+                  <text x="266" y="182">@panaderialucero</text>
+                  <text x="266" y="200">Encargos por</text><text x="266" y="210">WhatsApp</text>
+                </g>
+                <rect x="266" y="222" width="30" height="3" fill="#233466"/>
+              </svg>
+            </span>
+            <span class="work-cap"><span class="work-name">Tríptico gastronómico</span><span class="work-spec">150 g · A4 plegado en 3</span></span>
+          </button>
+        </li>
+      </ul>
+      <p class="muestra-nota">Las marcas y los diseños de estas muestras son ilustrativos.</p>
+    </div>
+  </section>
+
+  <section id="contacto" class="sec band band-pink">
+    <div class="wrap contacto-grid">
+      <div>
+        <div class="sec-head">
+          <p class="eyebrow">Contacto</p>
+          <h2>Pedí tu presupuesto</h2>
+          <p class="sec-lead">Escribinos por WhatsApp con tu archivo o con la idea. Te respondemos con precio y plazo.</p>
+        </div>
+        <ol class="pasos">
+          <li><div><h3>Mandanos el archivo</h3><p>Por WhatsApp o por mail, en PDF, JPG o PNG. Si no tenés diseño, contanos qué necesitás.</p></div></li>
+          <li><div><h3>Confirmamos precio y detalles</h3><p>Revisamos medidas, papel y colores, y te pasamos el presupuesto final.</p></div></li>
+          <li><div><h3>Retirás o coordinamos el envío</h3><p>Te avisamos apenas está listo.</p></div></li>
+        </ol>
+        <div class="ficha">
+          <div class="ficha-row">
+            <div><p class="ficha-k">WhatsApp</p><p class="ficha-v" id="v-tel" data-cfg="telefono"></p></div>
+            <div class="ficha-btns">
+              <a class="btn btn-primary btn-sm js-wa" target="_blank" rel="noopener" href="#contacto">Abrir</a>
+              <button class="btn btn-ghost btn-sm" type="button" data-copy="v-tel">Copiar</button>
+            </div>
+          </div>
+          <div class="ficha-row">
+            <div><p class="ficha-k">Mail</p><p class="ficha-v" id="v-mail" data-cfg="email"></p></div>
+            <div class="ficha-btns"><button class="btn btn-ghost btn-sm" type="button" data-copy="v-mail">Copiar</button></div>
+          </div>
+          <div class="ficha-row">
+            <div><p class="ficha-k">Instagram</p><p class="ficha-v" id="v-ig" data-cfg="instagram"></p></div>
+            <div class="ficha-btns">
+              <a class="btn btn-ghost btn-sm" id="ig-link" target="_blank" rel="noopener" href="https://instagram.com">Abrir</a>
+              <button class="btn btn-ghost btn-sm" type="button" data-copy="v-ig">Copiar</button>
+            </div>
+          </div>
+          <dl class="horarios" id="horarios"></dl>
+        </div>
+      </div>
+
+      <form class="pedido" id="pedido" novalidate>
+        <h3>Armá tu consulta</h3>
+        <p>Completá lo que sepas y abrimos WhatsApp con el mensaje listo para enviar.</p>
+        <div class="field">
+          <label for="p-nombre">Tu nombre</label>
+          <input id="p-nombre" type="text" autocomplete="name" placeholder="Ej: Martina">
+        </div>
+        <div class="field">
+          <label for="p-trabajo">Qué necesitás</label>
+          <select id="p-trabajo"></select>
+        </div>
+        <div class="field">
+          <label for="p-detalle">Cantidad, medidas y plazo</label>
+          <textarea id="p-detalle" rows="4" placeholder="Ej: 200 flyers A5 a color, los necesito para el viernes"></textarea>
+        </div>
+        <div class="field">
+          <span class="label">Así va a salir el mensaje</span>
+          <div class="preview" id="p-preview" aria-live="polite"></div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" id="p-wa" target="_blank" rel="noopener" href="#contacto">Abrir en WhatsApp</a>
+          <button class="btn btn-ghost" type="button" id="p-copy">Copiar mensaje</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="cmyk-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap foot-in">
+    <a class="brand" href="#inicio"><span class="brand-mark" role="img" aria-hidden="true"></span><span data-cfg="nombre">TH Impresiones</span></a>
+    <p>© 2026 · Precios de referencia, sujetos a confirmación según archivo, papel y terminación.</p>
+  </div>
+</footer>
+
+<dialog class="visor" id="visor" aria-labelledby="visor-t">
+  <div class="visor-body">
+    <div class="visor-art" id="visor-art"></div>
+    <div class="visor-info">
+      <button class="visor-x" type="button" id="visor-x" aria-label="Cerrar">×</button>
+      <h3 id="visor-t"></h3>
+      <p class="spec" id="visor-s"></p>
+      <p id="visor-d"></p>
+      <a class="btn btn-primary" id="visor-cta" target="_blank" rel="noopener" href="#contacto">Pedir algo parecido</a>
+    </div>
+  </div>
+</dialog>
+
+<script src="js/config.js" defer></script>
+<script src="js/precios.js" defer></script>
+<script src="js/utils.js" defer></script>
+<script src="js/calculadora.js" defer></script>
+<script src="js/galeria.js" defer></script>
+<script src="js/contacto.js" defer></script>
+<script src="js/tema.js" defer></script>
+<script src="js/main.js" defer></script>
+
+</body>
+</html>

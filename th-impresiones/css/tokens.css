@@ -1,0 +1,45 @@
+/* Tokens: colores, tipografías y radios de la marca. Define el tema claro (por defecto),
+   el tema oscuro (por preferencia del sistema o por data-theme="dark") y el tema claro forzado
+   (data-theme="light"). Todo color usado en los demás archivos CSS sale de estas variables. */
+:root{
+  --bg:#F5F3EE;
+  --surface:#FFFFFF;
+  --surface-2:#EAE6DC;
+  --fg:#1C2D5F;
+  --muted:#4A5A84;
+  --line:#D8D3C6;
+  --accent:#A33678;
+  --on-accent:#FFFFFF;
+  --ink:#16244F;
+  --hero-bg:#233466; --hero-fg:#F5F3EE; --hero-muted:#C9D0EA; --hero-line:#EFBE41;
+  --cyan-bg:#3A9AC2; --cyan-fg:#0F1B45; --cyan-muted:#14214F; --cyan-line:#EFBE41;
+  --pink-bg:#A33678; --pink-fg:#FFFFFF; --pink-muted:#FFE3F0; --pink-line:#EFBE41;
+  --foot-bg:#141F45;
+  --c:#3A9AC2;
+  --m:#E06D93;
+  --y:#EFBE41;
+  --o:#E98346;
+  --paper:#FBFBF9;
+  --display:"Archivo","Arial Narrow",Impact,sans-serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --radius:6px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101733; --surface:#18214A; --surface-2:#222C5C; --fg:#F5F3EE; --muted:#A9B3D6;
+    --line:#2D386B; --accent:#E06D93; --on-accent:#16244F; color-scheme:dark;
+    --hero-bg:#233466; --hero-fg:#F5F3EE; --hero-muted:#C9D0EA; --hero-line:#EFBE41;
+    --cyan-bg:#1D5A78; --cyan-fg:#F5F3EE; --cyan-muted:#D3ECF7; --cyan-line:#EFBE41;
+    --pink-bg:#6E2152; --pink-fg:#F5F3EE; --pink-muted:#F6D5E6; --pink-line:#EFBE41;
+    --foot-bg:#0A0F25;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101733; --surface:#18214A; --surface-2:#222C5C; --fg:#F5F3EE; --muted:#A9B3D6;
+  --line:#2D386B; --accent:#E06D93; --on-accent:#16244F; color-scheme:dark;
+  --hero-bg:#233466; --hero-fg:#F5F3EE; --hero-muted:#C9D0EA; --hero-line:#EFBE41;
+  --cyan-bg:#1D5A78; --cyan-fg:#F5F3EE; --cyan-muted:#D3ECF7; --cyan-line:#EFBE41;
+  --pink-bg:#6E2152; --pink-fg:#F5F3EE; --pink-muted:#F6D5E6; --pink-line:#EFBE41;
+  --foot-bg:#0A0F25;
+}
