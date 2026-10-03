@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TH Impresiones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/secciones.css">
+</head>
+<body>
+
+<div id="aviso-datos" class="aviso-datos" role="alert" hidden>
+  No pudimos cargar los datos de la página. Recargá la página o escribinos directamente por
+  <a class="js-wa" target="_blank" rel="noopener" href="#contacto">WhatsApp</a>.
+</div>
+
+<header class="site-header">
+  <div class="cmyk-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap head-in">
+    <a class="brand" href="#inicio" aria-label="TH Impresiones, inicio">
+      <span class="brand-mark" role="img" aria-label="Logo de TH Impresiones"></span>
+      <span data-cfg="nombre">TH Impresiones</span>
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#servicios">Servicios</a>
+      <a href="#precios">Precios</a>
+      <a href="#trabajos">Trabajos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="head-act">
+      <button class="tema" type="button" id="tema" aria-label="Cambiar tema"><span id="tema-ico" aria-hidden="true"></span><span class="tema-txt" id="tema-txt"></span></button>
+      <a class="btn btn-primary btn-sm js-wa" target="_blank" rel="noopener" href="#contacto">Escribinos</a>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero band band-hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Impresión digital · Fotografía · Papelería</p>
+        <h1><span>Salió como</span><span>lo pensaste.</span></h1>
+        <p class="lead">Impresiones, fotos, tarjetas, flyers, stickers y credenciales. Mandanos tu archivo y te pasamos el precio.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#precios">Calcular mi pedido</a>
+          <a class="btn btn-ghost" href="#trabajos">Ver trabajos</a>
+        </div>
+        <dl class="facts">
+          <div><dt>Formatos</dt><dd>A6 a A4</dd></div>
+          <div><dt>Papeles</dt><dd>64 a 300 g</dd></div>
+          <div><dt>Archivos</dt><dd>PDF · JPG · PNG</dd></div>
+        </dl>
+      </div>
+
+      <svg class="sheet" viewBox="0 0 440 440" role="img" aria-label="Hoja de prueba de color con tres círculos cian, magenta y amarillo superpuestos, marcas de corte y una barra de color">
+        <rect x="55" y="57" width="340" height="340" fill="#000" opacity=".12"/>
+        <rect class="paper" x="50" y="50" width="340" height="340"/>
+        <g class="cm">
+          <path d="M22 50H40M50 22V40"/><path d="M400 50H418M390 22V40"/>
+          <path d="M22 390H40M50 400V418"/><path d="M400 390H418M390 400V418"/>
+        </g>
+        <circle class="plate plate-c" cx="172" cy="188" r="88"/>
+        <circle class="plate plate-m" cx="244" cy="188" r="88"/>
+        <circle class="plate plate-y" cx="208" cy="250" r="88"/>
+        <text class="pm" x="72" y="76">PRUEBA DE COLOR · A4</text>
+        <g class="reg"><circle cx="360" cy="74" r="8"/><path d="M349 74H371M360 63V85"/></g>
+        <g>
+          <rect x="72" y="344" width="26" height="22" fill="#3A9AC2"/>
+          <rect x="98" y="344" width="26" height="22" fill="#E06D93"/>
+          <rect x="124" y="344" width="26" height="22" fill="#EFBE41"/>
+          <rect x="150" y="344" width="26" height="22" fill="#16244F"/>
+          <rect x="176" y="344" width="26" height="22" fill="#3A9AC2" fill-opacity=".5"/>
+          <rect x="202" y="344" width="26" height="22" fill="#E06D93" fill-opacity=".5"/>
+          <rect x="228" y="344" width="26" height="22" fill="#EFBE41" fill-opacity=".5"/>
+          <rect x="254" y="344" width="26" height="22" fill="#16244F" fill-opacity=".5"/>
+        </g>
+        <text class="pm" x="72" y="381">C 100 · M 100 · Y 100 · K 100 · 300 ppp</text>
+      </svg>
+    </div>
+  </section>
+
+  <section id="servicios" class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Servicios</p>
+        <h2>Qué imprimimos</h2>
+        <p class="sec-lead">Desde una hoja suelta hasta fotos, credenciales y CD/DVD. Si no ves lo que buscás, escribinos y lo resolvemos.</p>
+      </div>
+      <ul class="servicios">
+        <li class="serv">
+          <h3>Impresiones</h3>
+          <p>Archivos en A4 y Oficio, blanco y negro o color, en papel de 64 a 90 g. Sin fotocopias.</p>
+          <p class="spec">A4 · Oficio · 64 a 90 g</p>
+          <a href="#precios" data-cat="oficina">Ver precios</a>
+        </li>
+        <li class="serv">
+          <h3>Fotografías</h3>
+          <p>Fotos en 10 × 15, 13 × 18, 20 × 25 cm y A4, con impresión sin bordes.</p>
+          <p class="spec">Sin bordes · hasta A4</p>
+          <a href="#precios" data-cat="fotos">Ver precios</a>
+        </li>
+        <li class="serv">
+          <h3>Tarjetas y flyers</h3>
+          <p>Papelería para tu comercio en papel fotográfico o ilustración de 102 a 300 g, con doble faz manual.</p>
+          <p class="spec">102 a 300 g · doble faz manual</p>
+          <a href="#precios" data-cat="comercial">Ver precios</a>
+        </li>
+        <li class="serv">
+          <h3>Stickers</h3>
+          <p>Stickers en plancha A4 de papel adhesivo, listos para pegar.</p>
+          <p class="spec">Papel adhesivo · plancha A4</p>
+          <a href="#precios" data-cat="especiales">Ver precios</a>
+        </li>
+        <li class="serv">
+          <h3>CD/DVD y credenciales PVC</h3>
+          <p>Impresión directa sobre CD, DVD y credenciales PVC de 54 × 86 mm.</p>
+          <p class="spec">CD · DVD · PVC 54 × 86 mm</p>
+          <a href="#precios" data-cat="especiales">Ver precios</a>
+        </li>
+        <li class="serv">
+          <h3>Anillado y armado</h3>
+          <p>Anillados, tapas y armado de cuadernillos para entregas y cursos.</p>
+          <p class="spec">Hasta 100 hojas</p>
+          <a href="#precios" data-cat="especiales">Ver precios</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="precios" class="sec band band-cyan">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Precios</p>
+        <h2>Cuanto más imprimís, menos pagás</h2>
+        <p class="sec-lead">Elegí una categoría para ver la lista, o calculá tu pedido a la derecha. El precio baja por cantidad.</p>
+      </div>
+      <div class="precios-grid">
+        <div>
+          <div class="tabs" id="tabs" role="group" aria-label="Categorías de precios"></div>
+          <ul class="lista" id="lista"></ul>
+          <p class="nota">Precios de referencia en pesos argentinos. El valor final se confirma al revisar tu archivo, el papel y la terminación.</p>
+        </div>
+        <aside class="calc" aria-labelledby="calc-t">
+          <h3 id="calc-t">Calculá tu pedido</h3>
+          <div class="field">
+            <label for="calc-item">Trabajo</label>
+            <select id="calc-item"></select>
+          </div>
+          <div class="field">
+            <label for="calc-qty">Cantidad <span class="mono" id="calc-unit"></span></label>
+            <div class="qty">
+              <button type="button" id="qty-minus" aria-label="Restar uno">−</button>
+              <input id="calc-qty" type="number" inputmode="numeric" min="1" max="9999" value="100">
+              <button type="button" id="qty-plus" aria-label="Sumar uno">+</button>
+            </div>
+          </div>
+          <dl class="calc-out">
+            <div><dt>Precio por unidad</dt><dd id="calc-unitprice"></dd></div>
+            <div class="total"><dt>Total estimado</dt><dd id="calc-total"></dd></div>
+          </dl>
+          <p class="hint" id="calc-hint" aria-live="polite"></p>
+          <div class="calc-actions">
+            <a class="btn btn-primary" id="calc-wa" target="_blank" rel="noopener" href="#contacto">Consultar por WhatsApp</a>
+            <button class="btn btn-ghost" type="button" id="calc-copy">Copiar detalle</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="trabajos" class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Trabajos</p>
+        <h2>Muestras de lo que hacemos</h2>
+        <p class="sec-lead">Tocá cualquier pieza para verla más grande y pedir algo parecido.</p>
+      </div>
+      <div class="filtros" role="group" aria-label="Filtrar trabajos"></div>
+
+      <ul class="galeria" id="galeria"></ul>
+      <p class="muestra-nota">Las marcas y los diseños de estas muestras son ilustrativos.</p>
+    </div>
+  </section>
+
+  <section id="contacto" class="sec band band-pink">
+    <div class="wrap contacto-grid">
+      <div>
+        <div class="sec-head">
+          <p class="eyebrow">Contacto</p>
+          <h2>Pedí tu presupuesto</h2>
+          <p class="sec-lead">Escribinos por WhatsApp con tu archivo o con la idea. Te respondemos con precio y plazo.</p>
+        </div>
+        <ol class="pasos">
+          <li><div><h3>Mandanos el archivo</h3><p>Por WhatsApp o por mail, en PDF, JPG o PNG. Si no tenés diseño, contanos qué necesitás.</p></div></li>
+          <li><div><h3>Confirmamos precio y detalles</h3><p>Revisamos medidas, papel y colores, y te pasamos el presupuesto final.</p></div></li>
+          <li><div><h3>Retirás o coordinamos el envío</h3><p>Te avisamos apenas está listo.</p></div></li>
+        </ol>
+        <div class="ficha">
+          <div class="ficha-row">
+            <div><p class="ficha-k">WhatsApp</p><p class="ficha-v" id="v-tel" data-cfg="telefono"></p></div>
+            <div class="ficha-btns">
+              <a class="btn btn-primary btn-sm js-wa" target="_blank" rel="noopener" href="#contacto">Abrir</a>
+              <button class="btn btn-ghost btn-sm" type="button" data-copy="v-tel">Copiar</button>
+            </div>
+          </div>
+          <div class="ficha-row">
+            <div><p class="ficha-k">Mail</p><p class="ficha-v" id="v-mail" data-cfg="email"></p></div>
+            <div class="ficha-btns"><button class="btn btn-ghost btn-sm" type="button" data-copy="v-mail">Copiar</button></div>
+          </div>
+          <div class="ficha-row">
+            <div><p class="ficha-k">Instagram</p><p class="ficha-v" id="v-ig" data-cfg="instagram"></p></div>
+            <div class="ficha-btns">
+              <a class="btn btn-ghost btn-sm" id="ig-link" target="_blank" rel="noopener" href="https://instagram.com">Abrir</a>
+              <button class="btn btn-ghost btn-sm" type="button" data-copy="v-ig">Copiar</button>
+            </div>
+          </div>
+          <dl class="horarios" id="horarios"></dl>
+        </div>
+      </div>
+
+      <form class="pedido" id="pedido" novalidate>
+        <h3>Armá tu consulta</h3>
+        <p>Completá lo que sepas y abrimos WhatsApp con el mensaje listo para enviar.</p>
+        <div class="field">
+          <label for="p-nombre">Tu nombre</label>
+          <input id="p-nombre" type="text" autocomplete="name" placeholder="Ej: Martina">
+        </div>
+        <div class="field">
+          <label for="p-trabajo">Qué necesitás</label>
+          <select id="p-trabajo"></select>
+        </div>
+        <div class="field">
+          <label for="p-detalle">Cantidad, medidas y plazo</label>
+          <textarea id="p-detalle" rows="4" placeholder="Ej: 200 flyers A5 a color, los necesito para el viernes"></textarea>
+        </div>
+        <div class="field">
+          <span class="label">Así va a salir el mensaje</span>
+          <div class="preview" id="p-preview" aria-live="polite"></div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" id="p-wa" target="_blank" rel="noopener" href="#contacto">Abrir en WhatsApp</a>
+          <button class="btn btn-ghost" type="button" id="p-copy">Copiar mensaje</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="cmyk-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap foot-in">
+    <a class="brand" href="#inicio"><span class="brand-mark" role="img" aria-hidden="true"></span><span data-cfg="nombre">TH Impresiones</span></a>
+    <p>© 2026 · Precios de referencia, sujetos a confirmación según archivo, papel y terminación.</p>
+  </div>
+</footer>
+
+<dialog class="visor" id="visor" aria-labelledby="visor-t">
+  <div class="visor-body">
+    <div class="visor-art" id="visor-art"><img id="visor-img" alt=""></div>
+    <div class="visor-info">
+      <button class="visor-x" type="button" id="visor-x" aria-label="Cerrar">×</button>
+      <h3 id="visor-t"></h3>
+      <p class="spec" id="visor-s"></p>
+      <p id="visor-d"></p>
+      <a class="btn btn-primary" id="visor-cta" target="_blank" rel="noopener" href="#contacto">Pedir algo parecido</a>
+    </div>
+  </div>
+</dialog>
+
+<script src="js/config.js" defer></script>
+<script src="js/precios.js" defer></script>
+<script src="js/utils.js" defer></script>
+<script src="js/datos.js" defer></script>
+<script src="js/calculadora.js" defer></script>
+<script src="js/galeria.js" defer></script>
+<script src="js/contacto.js" defer></script>
+<script src="js/tema.js" defer></script>
+<script src="js/main.js" defer></script>
+
+</body>
+</html>

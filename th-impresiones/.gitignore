@@ -1,0 +1,12 @@
+# Datos sensibles o que se generan solos en el servidor: no van al repositorio.
+private/usuarios.json
+private/intentos.json
+private/.datos.lock
+private/.intentos.lock
+private/backups/*.json
+private/logs/*.log
+
+# Fotos que suba el panel (no son parte del código).
+public/uploads/*
+!public/uploads/.htaccess
+!public/uploads/.gitkeep

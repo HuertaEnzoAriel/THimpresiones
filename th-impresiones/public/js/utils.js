@@ -1,6 +1,8 @@
 /* Utils: helpers genéricos usados por los demás módulos — selección de elementos,
-   formato de dinero, enlace de WhatsApp, cálculo de precio por escala de cantidad
-   y copiar texto al portapapeles (con reserva de selección si falla). */
+   formato de dinero, enlace de WhatsApp, cálculo de precio por escala de cantidad,
+   copiar texto al portapapeles (con reserva de selección si falla) y escapado de
+   texto para cuando se inserta con innerHTML (los datos vienen del panel, nunca
+   hay que insertarlos como HTML sin escapar). */
 window.TH = window.TH || {};
 
 (function () {
@@ -10,19 +12,24 @@ window.TH = window.TH || {};
   const money = n => new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(n);
   const waLink = text => "https://wa.me/" + TH.config.whatsapp + "?text=" + encodeURIComponent(text);
 
+  const ENTIDADES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, c => ENTIDADES[c]);
+  }
+
   function tierPrice(item, qty) {
-    let p = item.tiers[0][1];
-    item.tiers.forEach(([from, price]) => { if (qty >= from) p = price; });
+    let p = item.escalas[0].precio;
+    item.escalas.forEach(e => { if (qty >= e.desde) p = e.precio; });
     return p;
   }
   function nextTier(item, qty) {
-    return item.tiers.find(([from]) => from > qty) || null;
+    return item.escalas.find(e => e.desde > qty) || null;
   }
   function rangeLabel(item, idx) {
-    const from = item.tiers[idx][0];
-    const next = item.tiers[idx + 1];
+    const from = item.escalas[idx].desde;
+    const next = item.escalas[idx + 1];
     if (!next) return from + " o más";
-    const to = next[0] - 1;
+    const to = next.desde - 1;
     return from === to ? String(from) : from + " a " + to;
   }
 
@@ -50,5 +57,5 @@ window.TH = window.TH || {};
     }
   }
 
-  TH.utils = { $, $$, money, waLink, tierPrice, nextTier, rangeLabel, flash, copyText };
+  TH.utils = { $, $$, money, waLink, esc, tierPrice, nextTier, rangeLabel, flash, copyText };
 })();

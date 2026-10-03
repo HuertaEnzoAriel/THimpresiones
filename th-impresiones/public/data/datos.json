@@ -1,0 +1,420 @@
+{
+    "negocio": {
+        "nombre": "TH Impresiones",
+        "whatsapp": "2644775316",
+        "telefono": "+54 9 2644775316",
+        "email": "thimpresiones18@gmail.com",
+        "instagram": "@thimpresiones",
+        "horarios": [
+            {
+                "dia": "Lunes a viernes",
+                "horas": "9:00 a 13:00 y 16:00 a 20:00"
+            },
+            {
+                "dia": "Sábados",
+                "horas": "9:00 a 13:00"
+            },
+            {
+                "dia": "Domingos",
+                "horas": "Cerrado"
+            }
+        ]
+    },
+    "categoriasPrecios": [
+        {
+            "id": "oficina",
+            "nombre": "Impresiones",
+            "color": "#EFBE41"
+        },
+        {
+            "id": "fotos",
+            "nombre": "Fotografías",
+            "color": "#E06D93"
+        },
+        {
+            "id": "comercial",
+            "nombre": "Papelería comercial",
+            "color": "#3A9AC2"
+        },
+        {
+            "id": "especiales",
+            "nombre": "Especiales",
+            "color": "#E98346"
+        }
+    ],
+    "precios": [
+        {
+            "id": "a4-bn",
+            "categoria": "oficina",
+            "nombre": "A4 blanco y negro",
+            "detalle": "75 a 80 g · simple faz",
+            "unidad": "hoja",
+            "plural": "hojas",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 120
+                },
+                {
+                    "desde": 50,
+                    "precio": 90
+                },
+                {
+                    "desde": 200,
+                    "precio": 70
+                }
+            ]
+        },
+        {
+            "id": "a4-color",
+            "categoria": "oficina",
+            "nombre": "A4 color",
+            "detalle": "80 g · simple faz",
+            "unidad": "hoja",
+            "plural": "hojas",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 350
+                },
+                {
+                    "desde": 50,
+                    "precio": 280
+                },
+                {
+                    "desde": 200,
+                    "precio": 220
+                }
+            ]
+        },
+        {
+            "id": "oficio-color",
+            "categoria": "oficina",
+            "nombre": "Oficio color",
+            "detalle": "80 g · simple faz",
+            "unidad": "hoja",
+            "plural": "hojas",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 350
+                },
+                {
+                    "desde": 50,
+                    "precio": 280
+                },
+                {
+                    "desde": 200,
+                    "precio": 220
+                }
+            ]
+        },
+        {
+            "id": "foto-10x15",
+            "categoria": "fotos",
+            "nombre": "Foto 10 × 15 cm",
+            "detalle": "papel fotográfico brillante · sin bordes",
+            "unidad": "foto",
+            "plural": "fotos",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 600
+                },
+                {
+                    "desde": 20,
+                    "precio": 500
+                },
+                {
+                    "desde": 50,
+                    "precio": 420
+                }
+            ]
+        },
+        {
+            "id": "foto-13x18",
+            "categoria": "fotos",
+            "nombre": "Foto 13 × 18 cm",
+            "detalle": "papel fotográfico brillante · sin bordes",
+            "unidad": "foto",
+            "plural": "fotos",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 900
+                },
+                {
+                    "desde": 20,
+                    "precio": 750
+                },
+                {
+                    "desde": 50,
+                    "precio": 650
+                }
+            ]
+        },
+        {
+            "id": "foto-20x25",
+            "categoria": "fotos",
+            "nombre": "Foto 20 × 25 cm (8 × 10\")",
+            "detalle": "papel fotográfico brillante · sin bordes",
+            "unidad": "foto",
+            "plural": "fotos",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 1600
+                },
+                {
+                    "desde": 20,
+                    "precio": 1350
+                },
+                {
+                    "desde": 50,
+                    "precio": 1150
+                }
+            ]
+        },
+        {
+            "id": "foto-a4",
+            "categoria": "fotos",
+            "nombre": "Foto A4 sin bordes",
+            "detalle": "papel fotográfico brillante · sin bordes",
+            "unidad": "foto",
+            "plural": "fotos",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 2200
+                },
+                {
+                    "desde": 20,
+                    "precio": 1900
+                },
+                {
+                    "desde": 50,
+                    "precio": 1650
+                }
+            ]
+        },
+        {
+            "id": "tarjetas",
+            "categoria": "comercial",
+            "nombre": "Tarjetas personales 9 × 5 cm",
+            "detalle": "papel fotográfico o ilustración · doble faz manual · mate o brillante",
+            "unidad": "pack de 100",
+            "plural": "packs de 100",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 9500
+                },
+                {
+                    "desde": 3,
+                    "precio": 8500
+                },
+                {
+                    "desde": 10,
+                    "precio": 7500
+                }
+            ]
+        },
+        {
+            "id": "flyers",
+            "categoria": "comercial",
+            "nombre": "Flyers A5",
+            "detalle": "papel fotográfico o ilustración · doble faz manual",
+            "unidad": "pack de 100",
+            "plural": "packs de 100",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 14000
+                },
+                {
+                    "desde": 3,
+                    "precio": 12500
+                },
+                {
+                    "desde": 10,
+                    "precio": 11000
+                }
+            ]
+        },
+        {
+            "id": "triptico",
+            "categoria": "comercial",
+            "nombre": "Trípticos A4",
+            "detalle": "papel fotográfico o ilustración · doble faz manual · plegados",
+            "unidad": "pack de 100",
+            "plural": "packs de 100",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 32000
+                },
+                {
+                    "desde": 3,
+                    "precio": 29000
+                }
+            ]
+        },
+        {
+            "id": "stickers",
+            "categoria": "especiales",
+            "nombre": "Stickers en papel adhesivo",
+            "detalle": "plancha A4 · papel adhesivo",
+            "unidad": "plancha A4",
+            "plural": "planchas A4",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 2800
+                },
+                {
+                    "desde": 10,
+                    "precio": 2400
+                },
+                {
+                    "desde": 30,
+                    "precio": 2000
+                }
+            ]
+        },
+        {
+            "id": "cd-dvd",
+            "categoria": "especiales",
+            "nombre": "CD / DVD impreso",
+            "detalle": "impresión directa sobre CD o DVD",
+            "unidad": "unidad",
+            "plural": "unidades",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 1500
+                },
+                {
+                    "desde": 10,
+                    "precio": 1200
+                },
+                {
+                    "desde": 50,
+                    "precio": 950
+                }
+            ]
+        },
+        {
+            "id": "credencial-pvc",
+            "categoria": "especiales",
+            "nombre": "Credencial PVC 54 × 86 mm",
+            "detalle": "impresión directa sobre PVC",
+            "unidad": "unidad",
+            "plural": "unidades",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 1800
+                },
+                {
+                    "desde": 10,
+                    "precio": 1450
+                },
+                {
+                    "desde": 50,
+                    "precio": 1150
+                }
+            ]
+        },
+        {
+            "id": "anillado",
+            "categoria": "especiales",
+            "nombre": "Anillado",
+            "detalle": "tapa transparente y contratapa · hasta 100 hojas",
+            "unidad": "anillado",
+            "plural": "anillados",
+            "escalas": [
+                {
+                    "desde": 1,
+                    "precio": 2500
+                },
+                {
+                    "desde": 10,
+                    "precio": 2200
+                }
+            ]
+        }
+    ],
+    "categoriasTrabajos": [
+        {
+            "id": "papeleria",
+            "nombre": "Papelería",
+            "color": "#E98346"
+        },
+        {
+            "id": "stickers",
+            "nombre": "Stickers",
+            "color": "#EFBE41"
+        },
+        {
+            "id": "gran-formato",
+            "nombre": "Fotos y credenciales",
+            "color": "#3A9AC2"
+        }
+    ],
+    "trabajos": [
+        {
+            "id": "tarjetas-personales",
+            "titulo": "Tarjetas personales",
+            "especificacion": "300 g · mate · 9 × 5 cm · ambas caras",
+            "descripcion": "Tarjeta de frente con logo y dorso con datos de contacto, en papel de 300 g con terminación mate.",
+            "categoria": "papeleria",
+            "imagen": "img/muestras/tarjetas.svg",
+            "visible": true
+        },
+        {
+            "id": "flyer-a5-taller",
+            "titulo": "Flyer A5 para taller",
+            "especificacion": "150 g · ambas caras · A5",
+            "descripcion": "Flyer a dos tintas planas más negro, pensado para repartir en mano y dejar en mostradores.",
+            "categoria": "papeleria",
+            "imagen": "img/muestras/flyer-a5.svg",
+            "visible": true
+        },
+        {
+            "id": "plancha-stickers",
+            "titulo": "Plancha de stickers",
+            "especificacion": "Papel adhesivo · plancha A4",
+            "descripcion": "Stickers impresos en una plancha A4 de papel adhesivo, lista para recortar a mano y pegar.",
+            "categoria": "stickers",
+            "imagen": "img/muestras/stickers.svg",
+            "visible": true
+        },
+        {
+            "id": "foto-13x18-sin-bordes",
+            "titulo": "Foto 13 × 18 sin bordes",
+            "especificacion": "Papel fotográfico · sin bordes · 13 × 18 cm",
+            "descripcion": "Foto impresa a página completa, sin márgenes, en papel fotográfico brillante.",
+            "categoria": "gran-formato",
+            "imagen": "img/muestras/foto-13x18.svg",
+            "visible": true
+        },
+        {
+            "id": "credencial-pvc",
+            "titulo": "Credencial PVC",
+            "especificacion": "PVC · 54 × 86 mm · impresión directa",
+            "descripcion": "Credencial impresa directo sobre PVC, con foto, nombre y número de identificación ficticios.",
+            "categoria": "gran-formato",
+            "imagen": "img/muestras/credencial-pvc.svg",
+            "visible": true
+        },
+        {
+            "id": "triptico-gastronomico",
+            "titulo": "Tríptico gastronómico",
+            "especificacion": "150 g · A4 plegado en 3 · ambas caras",
+            "descripcion": "Tríptico con tapa, menú y contacto, plegado en tres y con tramas de punto para los degradados.",
+            "categoria": "papeleria",
+            "imagen": "img/muestras/triptico.svg",
+            "visible": true
+        }
+    ]
+}

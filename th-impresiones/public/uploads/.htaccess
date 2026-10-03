@@ -1,0 +1,31 @@
+# Esta carpeta solo debe contener imágenes. Aunque el panel ya controla qué
+# se puede subir (tipo real de archivo, tamaño, nombre generado por el
+# servidor), esto es una segunda barrera por si algún día cambia algo: ni
+# PHP ni ningún otro script se ejecuta acá, pase lo que pase.
+
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+  php_flag engine off
+</IfModule>
+
+<FilesMatch "\.(php|phtml|php\d|phar|pl|py|cgi|sh)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Si el servidor usa PHP-FPM (handler en vez de módulo), esto quita el
+# handler para que esta carpeta nunca pase por el intérprete de PHP.
+<FilesMatch "\.php$">
+  SetHandler none
+  RemoveHandler .php
+</FilesMatch>

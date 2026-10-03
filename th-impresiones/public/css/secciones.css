@@ -103,13 +103,7 @@
   transition:border-color .15s,transform .15s}
 .work:hover{border-color:var(--fg);transform:translateY(-2px)}
 .work-art{display:block;aspect-ratio:4/3;background:var(--surface-2)}
-.galeria li:nth-child(1) .work-art{background:#E98346}
-.galeria li:nth-child(2) .work-art{background:#E06D93}
-.galeria li:nth-child(3) .work-art{background:#EFBE41}
-.galeria li:nth-child(4) .work-art{background:#3A9AC2}
-.galeria li:nth-child(5) .work-art{background:#233466}
-.galeria li:nth-child(6) .work-art{background:#A33678}
-.work-art svg{display:block;width:100%;height:100%;isolation:isolate}
+.work-art img{display:block;width:100%;height:100%;object-fit:cover;isolation:isolate}
 .work-cap{display:grid;gap:3px;padding:14px 16px 16px}
 .work-name{font:700 1.0625rem/1.25 var(--display);font-stretch:92%}
 .work-spec{font:400 .75rem/1.45 var(--mono);color:var(--muted)}
@@ -121,7 +115,7 @@ dialog.visor::backdrop{background:rgba(8,10,13,.68)}
 .visor-body{display:grid;gap:0}
 @media(min-width:760px){.visor-body{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}}
 .visor-art{background:var(--surface-2);aspect-ratio:4/3}
-.visor-art svg{display:block;width:100%;height:100%;isolation:isolate}
+.visor-art img{display:block;width:100%;height:100%;object-fit:cover;isolation:isolate}
 .visor-info{display:grid;gap:12px;align-content:start;padding:24px;position:relative}
 .visor-info h3{font:800 1.75rem/1 var(--display);font-stretch:72%;text-transform:uppercase;padding-right:44px}
 .visor-info .spec{font:400 .8125rem/1.45 var(--mono);color:var(--muted)}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Dos flyers: uno amarillo con la palabra service y una bicicleta, otro celeste detrás con círculos">
+  <g transform="rotate(8 260 160)">
+    <rect x="190" y="46" width="150" height="212" fill="#000" opacity=".14"/>
+    <rect x="185" y="40" width="150" height="212" fill="#3A9AC2"/>
+    <circle cx="262" cy="118" r="34" fill="#A33678"/>
+    <circle cx="288" cy="140" r="34" fill="#EFBE41" style="mix-blend-mode:multiply"/>
+    <text x="200" y="62" font-family="Consolas, Menlo, monospace" font-weight="500" font-size="7.5" letter-spacing="2" fill="#16244F">CLASE ABIERTA</text>
+    <text x="200" y="226" font-family="Arial Narrow, Arial, sans-serif" font-weight="800" font-size="30" fill="#16244F" textLength="110" lengthAdjust="spacingAndGlyphs">SÁBADOS</text>
+  </g>
+  <g transform="rotate(-4 160 150)">
+    <rect x="92" y="47" width="150" height="212" fill="#000" opacity=".14"/>
+    <rect x="86" y="40" width="150" height="212" fill="#EFBE41"/>
+    <text x="101" y="62" font-family="Consolas, Menlo, monospace" font-weight="500" font-size="7.5" letter-spacing="2" fill="#16244F">TALLER NORTE · BICICLETAS</text>
+    <text x="101" y="110" font-family="Arial Narrow, Arial, sans-serif" font-weight="800" font-size="48" fill="#16244F" textLength="120" lengthAdjust="spacingAndGlyphs">SERVICE</text>
+    <text x="101" y="142" font-family="Arial Narrow, Arial, sans-serif" font-weight="800" font-size="34" fill="#A33678" textLength="120" lengthAdjust="spacingAndGlyphs">COMPLETO</text>
+    <g fill="none" stroke="#16244F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="120" cy="205" r="20"/><circle cx="184" cy="205" r="20"/>
+      <path d="M120 205 L144 176 L176 176 L184 205 M144 176 L158 205 L120 205 M158 205 L176 176 M176 176 L172 166 L182 166 M144 176 L140 168 L150 168"/>
+    </g>
+    <text x="101" y="242" font-family="Consolas, Menlo, monospace" font-weight="500" font-size="7" letter-spacing="1" fill="#16244F">AJUSTE · FRENOS · CAMBIOS</text>
+  </g>
+</svg>

@@ -85,6 +85,11 @@ input::placeholder,textarea::placeholder{color:var(--muted);opacity:.8}
 .site-foot{background:var(--foot-bg);color:#ECEFF2}
 .site-foot .foot-in p{color:#9AA5B1}
 
+/* Aviso que se muestra si no se pudo cargar data/datos.json */
+.aviso-datos{background:var(--accent);color:var(--on-accent);text-align:center;
+  padding:12px 16px;font:600 .9375rem/1.4 var(--body)}
+.aviso-datos a{text-decoration:underline}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Plancha de stickers con un sol, una etiqueta celeste, una hoja verde, un cartel negro, un círculo y una estrella">
+  <rect x="55" y="48" width="300" height="216" rx="3" fill="#000" opacity=".14"/>
+  <rect x="50" y="42" width="300" height="216" rx="3" fill="#D9E0E6"/>
+  <g stroke="#FFFFFF" stroke-width="7" paint-order="stroke" stroke-linejoin="round">
+    <circle cx="104" cy="98" r="30" fill="#EFBE41"/>
+    <rect x="152" y="80" width="112" height="36" rx="18" fill="#3A9AC2"/>
+    <path d="M286 128c-9-32 10-54 42-54 7 32-8 54-42 54z" fill="#E98346"/>
+    <rect x="70" y="156" width="104" height="66" rx="10" fill="#16244F"/>
+    <circle cx="236" cy="192" r="34" fill="#3A9AC2"/>
+    <polygon points="320,160 327.6,179.5 348.5,180.7 332.4,194 337.6,214.3 320,203 302.4,214.3 307.6,194 291.5,180.7 312.4,179.5" fill="#A33678"/>
+  </g>
+  <circle cx="104" cy="98" r="13" fill="#A33678"/>
+  <text x="170" y="105" font-family="Arial Narrow, Arial, sans-serif" font-weight="800" font-size="17" fill="#16244F" textLength="76" lengthAdjust="spacingAndGlyphs">ÑANDÚ BIKES</text>
+  <path d="M292 122c10-16 22-30 32-42" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <text x="82" y="187" font-family="Arial Narrow, Arial, sans-serif" font-weight="800" font-size="26" fill="#EFBE41" textLength="80" lengthAdjust="spacingAndGlyphs">HECHO</text>
+  <text x="82" y="212" font-family="Arial Narrow, Arial, sans-serif" font-weight="800" font-size="24" fill="#FBFBF9" textLength="80" lengthAdjust="spacingAndGlyphs">A MANO</text>
+  <circle cx="236" cy="192" r="21" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+  <circle cx="236" cy="192" r="8" fill="#EFBE41"/>
+</svg>

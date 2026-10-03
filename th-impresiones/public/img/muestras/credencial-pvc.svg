@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Credencial plástica vertical con foto, nombre y número de identificación ficticios">
+  <rect x="142" y="30" width="128" height="204" rx="12" fill="#000" opacity=".14"/>
+  <rect x="136" y="24" width="128" height="204" rx="12" fill="#FBFBF9" stroke="#16244F" stroke-width="2"/>
+  <circle cx="200" cy="46" r="6" fill="none" stroke="#16244F" stroke-width="2"/>
+  <rect x="146" y="64" width="108" height="34" fill="#233466"/>
+  <text x="154" y="87" font-family="Arial Narrow, Arial, sans-serif" font-weight="800" font-size="13" fill="#F5F3EE" textLength="92" lengthAdjust="spacingAndGlyphs">TH STAFF</text>
+  <circle cx="200" cy="132" r="26" fill="#A33678"/>
+  <circle cx="200" cy="124" r="10" fill="#F5F3EE"/>
+  <path d="M180 156c3-13 12-18 20-18s17 5 20 18" fill="#F5F3EE"/>
+  <text x="154" y="184" font-family="Consolas, Menlo, monospace" font-weight="500" font-size="9" fill="#16244F" letter-spacing=".5">NOMBRE: MARA TORRES</text>
+  <text x="154" y="196" font-family="Consolas, Menlo, monospace" font-weight="500" font-size="9" fill="#16244F" letter-spacing=".5">ID: 00482-TH</text>
+  <g fill="#16244F">
+    <rect x="154" y="206" width="4" height="12"/><rect x="162" y="206" width="2" height="12"/>
+    <rect x="168" y="206" width="6" height="12"/><rect x="178" y="206" width="2" height="12"/>
+    <rect x="184" y="206" width="4" height="12"/><rect x="192" y="206" width="2" height="12"/>
+    <rect x="198" y="206" width="6" height="12"/><rect x="208" y="206" width="2" height="12"/>
+    <rect x="214" y="206" width="4" height="12"/><rect x="222" y="206" width="2" height="12"/>
+    <rect x="228" y="206" width="6" height="12"/><rect x="238" y="206" width="2" height="12"/>
+  </g>
+  <text x="200" y="18" font-family="Consolas, Menlo, monospace" font-weight="500" font-size="9" letter-spacing="1" fill="#F5F3EE" text-anchor="middle">PVC · 54 × 86 MM</text>
+</svg>

@@ -1,0 +1,130 @@
+/* Admin: estilos propios del panel. Reutiliza las variables de ../../css/tokens.css
+   (paleta, tipografías, radios, modo claro/oscuro) y los botones/campos de
+   ../../css/base.css — acá solo se agrega el layout del panel (barra superior,
+   menú, tarjetas, tablas de precios, tarjetas de trabajos, toasts, etc.).
+   Prohibido usar degradados: todo es color plano. */
+
+.panel{min-height:100vh}
+.panel-shell{display:flex;flex-direction:column;min-height:100vh}
+
+.panel-top{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.panel-top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;min-height:56px;flex-wrap:wrap}
+.panel-brand{font:800 1.05rem/1 var(--display);font-stretch:72%;text-transform:uppercase;color:var(--fg)}
+.panel-top-act{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.panel-usuario{font:600 .8125rem var(--mono);color:var(--muted)}
+
+.panel-body{display:flex;flex-direction:column;flex:1}
+@media(min-width:860px){.panel-body{flex-direction:row}}
+
+.panel-nav{display:flex;overflow-x:auto;gap:4px;padding:8px;border-bottom:1px solid var(--line);background:var(--surface)}
+.panel-nav a{flex:none;min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:var(--radius);
+  text-decoration:none;color:var(--fg);font:600 .875rem var(--body);white-space:nowrap}
+.panel-nav a.activo{background:var(--fg);color:var(--bg)}
+@media(min-width:860px){
+  .panel-nav{flex-direction:column;overflow-x:visible;width:220px;flex:none;border-bottom:0;border-right:1px solid var(--line);padding:16px 10px}
+  .panel-nav a{width:100%}
+}
+
+.panel-main{flex:1;min-width:0;padding:16px;padding-bottom:96px}
+@media(min-width:860px){.panel-main{padding:28px;padding-bottom:110px}}
+.panel-main h1{font:800 1.6rem/1.15 var(--display);font-stretch:72%;text-transform:uppercase;margin-bottom:6px}
+.panel-main>.ayuda-pagina{color:var(--muted);margin-bottom:22px;max-width:60ch}
+
+/* Tarjetas de la pantalla de Inicio */
+.panel-cards{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:620px){.panel-cards{grid-template-columns:repeat(2,1fr)}}
+.panel-card{display:flex;flex-direction:column;gap:8px;padding:22px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--surface);text-decoration:none;color:var(--fg);min-height:120px}
+.panel-card:hover{border-color:var(--fg)}
+.panel-card h2{font:700 1.25rem var(--display);font-stretch:85%}
+.panel-card p{color:var(--muted);font-size:.9375rem;margin:0}
+
+/* Barra fija de guardado */
+.panel-guardar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);
+  padding:12px 16px;display:flex;align-items:center;justify-content:flex-end;gap:14px}
+@media(min-width:860px){.panel-guardar{left:220px}}
+.panel-guardar .estado{font:600 .875rem var(--body);color:var(--muted)}
+.panel-guardar .estado.pendiente{color:var(--accent)}
+.panel-guardar .estado.ok{color:#2E7D32}
+.panel-guardar button[disabled]{opacity:.45;cursor:not-allowed}
+
+/* Toast */
+.panel-toast{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);z-index:60;background:var(--fg);color:var(--bg);
+  padding:12px 18px;border-radius:var(--radius);font:600 .875rem var(--body);max-width:90vw;text-align:center;
+  display:flex;gap:10px;align-items:center;justify-content:center}
+.panel-toast button{color:var(--bg);border-color:var(--bg)}
+
+/* Confirmación inline (reemplaza confirm() del navegador) */
+.confirmar{border:1px solid var(--accent);background:var(--surface);border-radius:var(--radius);padding:14px;display:grid;gap:10px}
+.confirmar p{margin:0;font-size:.9375rem}
+.confirmar .acciones{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Login */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+.login-card{width:100%;max-width:380px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);
+  padding:28px;display:grid;gap:16px}
+.login-card h1{font:800 1.4rem var(--display);font-stretch:72%;text-transform:uppercase;text-align:center}
+.login-error{background:#FBE9E7;color:#B3261E;border-radius:var(--radius);padding:10px 12px;font-size:.875rem}
+
+/* Precios */
+.ptab-cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.ptabla{display:grid;gap:12px}
+.pitem{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);padding:16px;display:grid;gap:12px}
+.pitem-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.pitem-campos{display:grid;gap:10px;grid-template-columns:1fr}
+@media(min-width:620px){.pitem-campos{grid-template-columns:repeat(2,1fr)}}
+.pescalas{display:grid;gap:8px}
+.pescala-fila{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
+.pescala-prev{font:600 .8125rem var(--mono);color:var(--muted)}
+.previsualizacion{background:var(--bg);border:1px dashed var(--line);border-radius:var(--radius);padding:12px;
+  font:500 .875rem var(--mono);color:var(--fg)}
+.orden-btns{display:flex;gap:4px}
+.orden-btns button{min-height:36px;min-width:36px}
+
+/* Trabajos */
+.tgrid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:620px){.tgrid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.tgrid{grid-template-columns:repeat(3,1fr)}}
+.tcard{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden;display:flex;flex-direction:column}
+.tcard.oculto{opacity:.55}
+.tcard.subiendo .tcard-foto{opacity:.5}
+.tcard-foto{aspect-ratio:4/3;background:var(--surface-2);position:relative;overflow:hidden}
+.tcard-foto img{width:100%;height:100%;object-fit:cover;display:block}
+.tcard-badge{position:absolute;top:8px;left:8px;background:var(--fg);color:var(--bg);font:600 .6875rem var(--mono);
+  padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+.tcard-cuerpo{padding:14px;display:grid;gap:8px;flex:1}
+.tcard-acciones{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 14px}
+.tdrop{border:2px dashed var(--line);border-radius:var(--radius);padding:22px;text-align:center;color:var(--muted);
+  font-size:.875rem;cursor:pointer}
+.tdrop.sobre{border-color:var(--accent);color:var(--fg)}
+.tdrop input{display:none}
+.tnueva{border:1px dashed var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:12px;background:var(--surface)}
+
+/* Selector de 6 colores de la paleta */
+.colores{display:flex;gap:10px;flex-wrap:wrap}
+.colores label{width:36px;height:36px;border-radius:50%;border:2px solid transparent;cursor:pointer;display:inline-block}
+.colores input{position:absolute;opacity:0;width:1px;height:1px}
+.colores input:checked + label{border-color:var(--fg);box-shadow:0 0 0 2px var(--bg) inset}
+
+/* Contacto y horarios */
+.hfila{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
+.hfilas{display:grid;gap:8px;margin-bottom:8px}
+
+/* Backups */
+.blista{display:grid;gap:10px}
+.bitem{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.bitem time{font:600 .8125rem var(--mono);color:var(--muted)}
+
+/* Medidor de seguridad de contraseña */
+.medidor{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.medidor i{display:block;height:100%;width:0%;background:#C0392B}
+.medidor-txt{font-size:.8125rem;color:var(--muted)}
+
+.panel-form{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:grid;gap:14px}
+.panel-form input,.panel-form select,.panel-form textarea{background:var(--bg)}
+
+.ayuda{font-size:.8125rem;color:var(--muted);margin-top:2px}
+.error-campo{color:#C0392B;font-size:.8125rem;margin-top:4px}
+.subir-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.vacio{color:var(--muted);font-size:.9375rem;padding:24px;text-align:center;border:1px dashed var(--line);border-radius:var(--radius)}

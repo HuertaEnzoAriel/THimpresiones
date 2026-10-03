@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Foto de paisaje con montañas, sol y lago, impresa a página completa sin bordes blancos">
+  <rect x="0" y="0" width="400" height="300" fill="#3A9AC2"/>
+  <polygon points="0,210 130,90 210,210" fill="#16244F"/>
+  <polygon points="150,210 270,70 400,210" fill="#233466"/>
+  <circle cx="320" cy="78" r="28" fill="#EFBE41"/>
+  <rect x="0" y="210" width="400" height="90" fill="#1D5A78"/>
+  <rect x="0" y="210" width="400" height="14" fill="#3A9AC2" opacity=".35"/>
+  <g>
+    <rect x="248" y="250" width="130" height="32" rx="4" fill="#FBFBF9"/>
+    <text x="262" y="272" font-family="Arial Narrow, Arial, sans-serif" font-weight="800" font-size="13" fill="#16244F" textLength="104" lengthAdjust="spacingAndGlyphs">SIN BORDES</text>
+  </g>
+  <text x="22" y="26" font-family="Consolas, Menlo, monospace" font-weight="500" font-size="9" letter-spacing="2" fill="#FBFBF9">FOTOGRÁFICO · 13 × 18 CM</text>
+</svg>

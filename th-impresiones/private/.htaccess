@@ -1,0 +1,11 @@
+# Esta carpeta no debería estar nunca dentro de la raíz pública del sitio
+# (ver DEPLOY.md: la raíz del sitio tiene que apuntar a public/, no a esta
+# carpeta ni a la carpeta del proyecto en general). Este archivo es una
+# segunda barrera por si alguna vez quedara mal configurado el servidor.
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>
