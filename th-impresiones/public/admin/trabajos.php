@@ -102,16 +102,26 @@ require __DIR__ . '/_layout_top.php';
     pintarColores('catt-colores', cat.color);
   }
 
+  function archivoValido(file) {
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      Panel.avisar('Subí una foto en JPG, PNG o WebP.');
+      return false;
+    }
+    return true;
+  }
+
+  async function elegirYEditarFoto(file, nodo) {
+    if (!file || !archivoValido(file)) return;
+    const editada = await Panel.editarFoto(file, { aspectoAncho: 4, aspectoAlto: 3 });
+    if (editada) subirArchivo(editada, nodo);
+  }
+
   async function subirArchivo(file, nodo) {
     if (!file) return;
     const limite = Panel.limiteImagenBytes();
     if (file.size > limite) {
       const limiteMb = (limite / 1024 / 1024).toFixed(1);
       Panel.avisar('La foto pesa más de ' + limiteMb + ' MB. Probá con una más liviana.');
-      return;
-    }
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-      Panel.avisar('Subí una foto en JPG, PNG o WebP.');
       return;
     }
     const fd = new FormData();
@@ -153,13 +163,17 @@ require __DIR__ . '/_layout_top.php';
     foto.append(badge, img, inputFile);
 
     foto.addEventListener('click', e => { if (e.target !== inputFile) inputFile.click(); });
-    inputFile.addEventListener('change', () => subirArchivo(inputFile.files[0], nodo));
+    inputFile.addEventListener('change', () => {
+      const file = inputFile.files[0];
+      inputFile.value = '';
+      elegirYEditarFoto(file, nodo);
+    });
     foto.addEventListener('dragover', e => { e.preventDefault(); foto.classList.add('sobre'); });
     foto.addEventListener('dragleave', () => foto.classList.remove('sobre'));
     foto.addEventListener('drop', e => {
       e.preventDefault();
       foto.classList.remove('sobre');
-      if (e.dataTransfer.files[0]) subirArchivo(e.dataTransfer.files[0], nodo);
+      elegirYEditarFoto(e.dataTransfer.files[0], nodo);
     });
 
     const cuerpo = document.createElement('div');

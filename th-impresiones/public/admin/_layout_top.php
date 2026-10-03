@@ -28,6 +28,7 @@ $items_nav = [
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="assets/admin.css">
 <script src="assets/admin.js"></script>
+<script src="assets/editor-foto.js"></script>
 </head>
 <body class="panel">
 <div class="panel-shell">

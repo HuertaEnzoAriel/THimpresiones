@@ -128,3 +128,22 @@
 .error-campo{color:#C0392B;font-size:.8125rem;margin-top:4px}
 .subir-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .vacio{color:var(--muted);font-size:.9375rem;padding:24px;text-align:center;border:1px dashed var(--line);border-radius:var(--radius)}
+
+/* Editor de foto (recortar, girar, mover antes de subir) */
+body.ed-bloqueado{overflow:hidden}
+.ed-overlay{position:fixed;inset:0;z-index:80;background:rgba(16,23,51,.72);
+  display:flex;align-items:center;justify-content:center;padding:16px;outline:none}
+.ed-modal{width:100%;max-width:520px;max-height:92vh;overflow:auto;background:var(--surface);
+  border-radius:var(--radius);padding:18px;display:grid;gap:12px}
+.ed-cab{font:800 1.05rem var(--display);font-stretch:72%;text-transform:uppercase;color:var(--fg)}
+.ed-viewport{width:100%;aspect-ratio:var(--ed-ar,4/3);position:relative;overflow:hidden;
+  background:#0B0F22;border-radius:var(--radius);touch-action:none;cursor:grab}
+.ed-viewport:active{cursor:grabbing}
+.ed-img{position:absolute;top:50%;left:50%;max-width:none;transform-origin:center center;user-select:none;-webkit-user-drag:none}
+.ed-ayuda{margin:0}
+.ed-controles{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.ed-zoom{display:flex;align-items:center;gap:8px;flex:1;min-width:160px}
+.ed-zoom label{font:600 .8125rem var(--body);color:var(--muted)}
+.ed-zoom input[type="range"]{flex:1}
+.ed-rotar{display:flex;gap:8px;flex-wrap:wrap}
+.ed-acciones{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
