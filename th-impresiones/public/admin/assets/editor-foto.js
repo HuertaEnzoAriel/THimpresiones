@@ -35,7 +35,7 @@
         '<div class="ed-modal" role="dialog" aria-modal="true" aria-label="Ajustar foto">' +
           '<div class="ed-cab">Ajustar foto</div>' +
           '<div class="ed-viewport"><img class="ed-img" alt="" draggable="false"></div>' +
-          '<p class="ayuda ed-ayuda">Arrastrá la foto para moverla. Usá el control de zoom (o la rueda del mouse) para acercar, y girar si hace falta.</p>' +
+          '<p class="ayuda ed-ayuda">Arrastrá la foto para moverla. Usá el control de zoom (o la rueda del mouse) para acercar o alejar hasta que entre completa, y girar si hace falta.</p>' +
           '<div class="ed-controles">' +
             '<div class="ed-zoom">' +
               '<label for="ed-zoom-rango">Zoom</label>' +
@@ -60,14 +60,34 @@
       const img = overlay.querySelector('.ed-img');
       const sliderZoom = overlay.querySelector('#ed-zoom-rango');
 
-      let rot = 0, zoomFactor = 1, offsetX = 0, offsetY = 0, scaleActual = 1;
+      let rot = 0, zoomFactor = 1, offsetX = 0, offsetY = 0, scaleActual = 1, zoomMin = 1;
+
+      // "Cubrir" (zoomFactor=1) llena el recuadro recortando lo que sobre.
+      // "Contener" (zoomMin) muestra la foto completa, con franjas si no
+      // coincide la proporción. El zoom se puede mover libremente entre
+      // esos dos extremos, y también acercar más allá de "cubrir".
+      function limitesZoom() {
+        if (!img.naturalWidth) return { min: 1, cover: 1 };
+        const Wd = viewport.clientWidth, Hd = viewport.clientHeight;
+        const effW = (rot % 180 === 0) ? img.naturalWidth : img.naturalHeight;
+        const effH = (rot % 180 === 0) ? img.naturalHeight : img.naturalWidth;
+        const coverScale = Math.max(Wd / effW, Hd / effH);
+        const containScale = Math.min(Wd / effW, Hd / effH);
+        return { min: containScale / coverScale, cover: coverScale };
+      }
+
+      function actualizarRangoZoom() {
+        zoomMin = limitesZoom().min;
+        sliderZoom.min = String(zoomMin);
+        if (zoomFactor < zoomMin) zoomFactor = zoomMin;
+      }
 
       function render() {
         if (!img.naturalWidth) return;
         const Wd = viewport.clientWidth, Hd = viewport.clientHeight;
         const effW = (rot % 180 === 0) ? img.naturalWidth : img.naturalHeight;
         const effH = (rot % 180 === 0) ? img.naturalHeight : img.naturalWidth;
-        const baseScale = Math.max(Wd / effW, Hd / effH);
+        const { cover: baseScale } = limitesZoom();
         scaleActual = baseScale * zoomFactor;
 
         const extX = (effW * scaleActual) / 2;
@@ -85,6 +105,8 @@
       function alCargarImagen() {
         img.style.width = img.naturalWidth + 'px';
         img.style.height = img.naturalHeight + 'px';
+        actualizarRangoZoom();
+        sliderZoom.value = String(zoomFactor);
         render();
       }
       img.addEventListener('load', alCargarImagen);
@@ -121,7 +143,7 @@
         } else if (pointers.size === 2 && pellizco) {
           const pts = Array.from(pointers.values());
           const d = distancia(pts[0], pts[1]);
-          zoomFactor = clamp(pellizco.startZoom * (d / pellizco.startDist), 1, ZOOM_MAX);
+          zoomFactor = clamp(pellizco.startZoom * (d / pellizco.startDist), zoomMin, ZOOM_MAX);
           sliderZoom.value = String(zoomFactor);
           render();
         }
@@ -142,13 +164,13 @@
 
       viewport.addEventListener('wheel', e => {
         e.preventDefault();
-        zoomFactor = clamp(zoomFactor * (1 - e.deltaY * 0.0015), 1, ZOOM_MAX);
+        zoomFactor = clamp(zoomFactor * (1 - e.deltaY * 0.0015), zoomMin, ZOOM_MAX);
         sliderZoom.value = String(zoomFactor);
         render();
       }, { passive: false });
 
       sliderZoom.addEventListener('input', () => {
-        zoomFactor = parseFloat(sliderZoom.value) || 1;
+        zoomFactor = clamp(parseFloat(sliderZoom.value) || zoomMin, zoomMin, ZOOM_MAX);
         render();
       });
 
@@ -156,13 +178,15 @@
         btn.addEventListener('click', () => {
           rot = (rot + parseInt(btn.dataset.rotar, 10) + 360) % 360;
           offsetX = 0; offsetY = 0; zoomFactor = 1;
-          sliderZoom.value = '1';
+          actualizarRangoZoom();
+          sliderZoom.value = String(zoomFactor);
           render();
         });
       });
       overlay.querySelector('[data-reiniciar]').addEventListener('click', () => {
         rot = 0; offsetX = 0; offsetY = 0; zoomFactor = 1;
-        sliderZoom.value = '1';
+        actualizarRangoZoom();
+        sliderZoom.value = String(zoomFactor);
         render();
       });
 
