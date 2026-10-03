@@ -4,10 +4,10 @@ window.TH = window.TH || {};
 
 TH.config = {
   nombre: "TH Impresiones",
-  whatsapp: "5490000000000",              // solo números, con código de país
-  telefono: "+54 9 0000 00-0000",         // cómo se muestra en la página
-  email: "hola@thimpresiones.ar",
-  instagram: "@th.impresiones",
+  whatsapp: "2644775316",              // solo números, con código de país
+  telefono: "+54 9 2644775316",         // cómo se muestra en la página
+  email: "thimpresiones18@gmail.com",
+  instagram: "@thimpresiones",
   horarios: [
     ["Lunes a viernes", "9:00 a 13:00 y 16:00 a 20:00"],
     ["Sábados", "9:00 a 13:00"],
