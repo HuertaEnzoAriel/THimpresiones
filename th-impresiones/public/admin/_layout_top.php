@@ -25,6 +25,7 @@ $items_nav = [
 <link rel="stylesheet" href="../css/tokens.css">
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="assets/admin.css">
+<script src="assets/admin.js"></script>
 </head>
 <body class="panel">
 <div class="panel-shell">
