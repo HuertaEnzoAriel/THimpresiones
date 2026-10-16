@@ -26,9 +26,9 @@ $items_nav = [
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../css/tokens.css">
 <link rel="stylesheet" href="../css/base.css">
-<link rel="stylesheet" href="assets/admin.css">
-<script src="assets/admin.js"></script>
-<script src="assets/editor-foto.js"></script>
+<link rel="stylesheet" href="assets/admin.css?v=<?= filemtime(__DIR__ . "/assets/admin.css") ?>">
+<script src="assets/admin.js?v=<?= filemtime(__DIR__ . "/assets/admin.js") ?>"></script>
+<script src="assets/editor-foto.js?v=<?= filemtime(__DIR__ . "/assets/editor-foto.js") ?>"></script>
 </head>
 <body class="panel">
 <div class="panel-shell">
