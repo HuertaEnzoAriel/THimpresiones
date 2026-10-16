@@ -14,6 +14,12 @@ window.TH = window.TH || {};
       return;
     }
 
+    const heroFig = document.getElementById("hero-img");
+    if (heroFig && TH.config.imagenHero) {
+      document.getElementById("hero-img-el").src = TH.config.imagenHero;
+      heroFig.hidden = false;
+    }
+
     TH.calculadora.init();
     TH.galeria.init();
     TH.contacto.init();

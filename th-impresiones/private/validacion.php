@@ -78,6 +78,10 @@ function th_validar_negocio($datos): array {
         throw new Th_ErrorValidacion('Revisá el mail: no tiene un formato válido (ej: hola@tunegocio.com).');
     }
     $instagram = th_texto((string) ($datos['instagram'] ?? ''), 60, 'Instagram');
+    $imagenHero = (string) ($datos['imagenHero'] ?? '');
+    if ($imagenHero !== '' && !th_ruta_imagen_valida($imagenHero)) {
+        throw new Th_ErrorValidacion('La imagen principal de la página no es válida. Subila de nuevo.');
+    }
 
     $horarios = [];
     foreach ((is_array($datos['horarios'] ?? null) ? $datos['horarios'] : []) as $fila) {
@@ -101,6 +105,7 @@ function th_validar_negocio($datos): array {
         'telefono' => $telefono,
         'email' => $email,
         'instagram' => $instagram,
+        'imagenHero' => $imagenHero,
         'horarios' => $horarios,
     ];
 }
@@ -238,10 +243,28 @@ function th_validar_trabajos($lista, array $idsCategoriasValidas): array {
         }
         $especificacion = th_texto((string) ($fila['especificacion'] ?? ''), TH_MAX_TEXTO_LARGO, "Especificación de \"$titulo\"");
         $descripcion = th_texto((string) ($fila['descripcion'] ?? ''), TH_MAX_TEXTO_LARGO, "Descripción de \"$titulo\"");
-        $imagen = (string) ($fila['imagen'] ?? '');
-        if ($imagen === '' || !th_ruta_imagen_valida($imagen)) {
+        $imagenes = [];
+        $crudas = is_array($fila['imagenes'] ?? null) ? $fila['imagenes'] : [];
+        if (!$crudas && !empty($fila['imagen'])) {
+            $crudas = [$fila['imagen']];
+        }
+        foreach ($crudas as $ruta) {
+            $ruta = (string) $ruta;
+            if ($ruta === '' || in_array($ruta, $imagenes, true)) {
+                continue;
+            }
+            if (!th_ruta_imagen_valida($ruta)) {
+                throw new Th_ErrorValidacion("Una de las fotos de \"$titulo\" no es válida. Subila de nuevo.");
+            }
+            $imagenes[] = $ruta;
+        }
+        if (!$imagenes) {
             throw new Th_ErrorValidacion("A \"$titulo\" le falta una foto. Subí una antes de guardar.");
         }
+        if (count($imagenes) > 12) {
+            throw new Th_ErrorValidacion("\"$titulo\" tiene demasiadas fotos (máximo 12).");
+        }
+        $imagen = $imagenes[0];
         $visible = !isset($fila['visible']) || $fila['visible'] !== false;
 
         $id = (string) ($fila['id'] ?? '');
@@ -260,6 +283,7 @@ function th_validar_trabajos($lista, array $idsCategoriasValidas): array {
             'descripcion' => $descripcion,
             'categoria' => $categoria,
             'imagen' => $imagen,
+            'imagenes' => $imagenes,
             'visible' => $visible,
         ];
     }

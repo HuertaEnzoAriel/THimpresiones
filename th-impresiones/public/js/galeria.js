@@ -22,6 +22,35 @@ window.TH = window.TH || {};
       ).join("");
   }
 
+  let fotos = [], fotoIdx = 0, fotoTitulo = "";
+
+  function pintarFoto() {
+    const img = $("#visor-img");
+    img.src = fotos[fotoIdx];
+    img.alt = fotoTitulo + (fotos.length > 1 ? " (" + (fotoIdx + 1) + " de " + fotos.length + ")" : "");
+    $$("#visor-thumbs button").forEach((b, i) => b.setAttribute("aria-current", String(i === fotoIdx)));
+  }
+
+  function irAFoto(delta) {
+    fotoIdx = (fotoIdx + delta + fotos.length) % fotos.length;
+    pintarFoto();
+  }
+
+  function mostrarFotos(t) {
+    fotos = Array.isArray(t.imagenes) && t.imagenes.length ? t.imagenes : [t.imagen];
+    fotoIdx = 0;
+    fotoTitulo = t.titulo;
+    const varias = fotos.length > 1;
+    $("#visor-prev").hidden = !varias;
+    $("#visor-next").hidden = !varias;
+    const thumbs = $("#visor-thumbs");
+    thumbs.hidden = !varias;
+    thumbs.innerHTML = varias ? fotos.map((f, i) =>
+      '<button type="button" data-i="' + i + '" aria-label="Ver foto ' + (i + 1) + '"><img src="' + esc(f) + '" alt=""></button>'
+    ).join("") : "";
+    pintarFoto();
+  }
+
   function renderGaleria() {
     const trabajos = TH.trabajos || [];
     galeriaEl.innerHTML = trabajos.map(t => {
@@ -36,9 +65,7 @@ window.TH = window.TH || {};
     $$(".work", galeriaEl).forEach(btn => btn.addEventListener("click", () => {
       const t = trabajos.find(x => x.id === btn.dataset.id);
       if (!t) return;
-      const img = $("#visor-img");
-      img.src = t.imagen;
-      img.alt = t.titulo;
+      mostrarFotos(t);
       $("#visor-art").style.background = colorDeCategoria(t.categoria);
       $("#visor-t").textContent = t.titulo;
       $("#visor-s").textContent = t.especificacion;
@@ -63,6 +90,19 @@ window.TH = window.TH || {};
       $$("#galeria > li").forEach(li => { li.hidden = !(b.dataset.f === "todo" || li.dataset.cat === b.dataset.f); });
     });
 
+    $("#visor-prev").addEventListener("click", () => irAFoto(-1));
+    $("#visor-next").addEventListener("click", () => irAFoto(1));
+    $("#visor-thumbs").addEventListener("click", e => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      fotoIdx = Number(b.dataset.i);
+      pintarFoto();
+    });
+    visor.addEventListener("keydown", e => {
+      if (fotos.length < 2) return;
+      if (e.key === "ArrowLeft") irAFoto(-1);
+      else if (e.key === "ArrowRight") irAFoto(1);
+    });
     $("#visor-x").addEventListener("click", () => visor.close());
     visor.addEventListener("click", e => { if (e.target === visor) visor.close(); });
   }

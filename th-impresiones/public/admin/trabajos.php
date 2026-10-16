@@ -110,13 +110,52 @@ require __DIR__ . '/_layout_top.php';
     return true;
   }
 
-  async function elegirYEditarFoto(file, nodo) {
+  // destino: índice de la foto a reemplazar, o -1 para agregar una nueva al final.
+  async function elegirYEditarFoto(file, nodo, destino) {
     if (!file || !archivoValido(file)) return;
     const editada = await Panel.editarFoto(file, { aspectoAncho: 4, aspectoAlto: 3 });
-    if (editada) subirArchivo(editada, nodo);
+    if (editada) subirArchivo(editada, nodo, destino);
   }
 
-  async function subirArchivo(file, nodo) {
+  function pintarTira(nodo) {
+    const imgs = nodo._imagenes;
+    const principal = nodo.querySelector('[data-foto-img]');
+    const fotoBox = nodo.querySelector('.tcard-foto');
+    principal.src = imgs.length ? '../' + imgs[0] : '';
+    fotoBox.classList.toggle('tdrop', !imgs.length);
+    const tira = nodo.querySelector('.tcard-tira');
+    tira.innerHTML = '';
+    imgs.forEach((ruta, i) => {
+      const caja = document.createElement('div');
+      caja.className = 'tmini';
+      const im = document.createElement('img');
+      im.src = '../' + ruta; im.alt = '';
+      const quitar = document.createElement('button');
+      quitar.type = 'button'; quitar.textContent = '×';
+      quitar.setAttribute('aria-label', 'Quitar la foto ' + (i + 1));
+      quitar.addEventListener('click', () => {
+        imgs.splice(i, 1);
+        pintarTira(nodo);
+        controlador.marcarCambios();
+      });
+      caja.append(im, quitar);
+      if (i > 0) {
+        const primera = document.createElement('button');
+        primera.type = 'button'; primera.className = 'tmini-primera'; primera.textContent = '★';
+        primera.title = 'Usar como foto principal';
+        primera.setAttribute('aria-label', 'Usar la foto ' + (i + 1) + ' como principal');
+        primera.addEventListener('click', () => {
+          imgs.unshift(imgs.splice(i, 1)[0]);
+          pintarTira(nodo);
+          controlador.marcarCambios();
+        });
+        caja.append(primera);
+      }
+      tira.appendChild(caja);
+    });
+  }
+
+  async function subirArchivo(file, nodo, destino) {
     if (!file) return;
     const limite = Panel.limiteImagenBytes();
     if (file.size > limite) {
@@ -129,9 +168,9 @@ require __DIR__ . '/_layout_top.php';
     nodo.classList.add('subiendo');
     try {
       const r = await Panel.apiFetch('api/subir_imagen.php', { method: 'POST', body: fd });
-      nodo.dataset.imagen = r.archivo;
-      nodo.querySelector('[data-foto-img]').src = '../' + r.archivo;
-      nodo.querySelector('.tcard-foto').classList.remove('tdrop');
+      if (destino >= 0 && destino < nodo._imagenes.length) nodo._imagenes[destino] = r.archivo;
+      else nodo._imagenes.push(r.archivo);
+      pintarTira(nodo);
       controlador.marcarCambios();
       Panel.avisar('Foto subida.');
     } catch (e) {
@@ -145,35 +184,40 @@ require __DIR__ . '/_layout_top.php';
     const nodo = document.createElement('div');
     nodo.className = 'tcard' + (item.visible === false ? ' oculto' : '');
     nodo.dataset.id = item.id || '';
-    nodo.dataset.imagen = item.imagen || '';
+    nodo._imagenes = Array.isArray(item.imagenes) && item.imagenes.length ? item.imagenes.slice() : (item.imagen ? [item.imagen] : []);
 
     const foto = document.createElement('div');
-    foto.className = 'tcard-foto' + (item.imagen ? '' : ' tdrop');
+    foto.className = 'tcard-foto tdrop';
     const badge = document.createElement('span');
     badge.className = 'tcard-badge';
     badge.textContent = nombreDeCategoria(item.categoria);
     const img = document.createElement('img');
     img.setAttribute('data-foto-img', '1');
     img.alt = '';
-    img.src = item.imagen ? '../' + item.imagen : '';
     const inputFile = document.createElement('input');
     inputFile.type = 'file';
     inputFile.accept = 'image/jpeg,image/png,image/webp';
     inputFile.style.display = 'none';
+    inputFile.multiple = false;
     foto.append(badge, img, inputFile);
 
-    foto.addEventListener('click', e => { if (e.target !== inputFile) inputFile.click(); });
+    const tira = document.createElement('div');
+    tira.className = 'tcard-tira';
+
+    let destinoActual = 0;
+    // Clic en la foto grande: reemplaza la principal (o sube la primera si no hay).
+    foto.addEventListener('click', e => { if (e.target !== inputFile) { destinoActual = 0; inputFile.click(); } });
     inputFile.addEventListener('change', () => {
       const file = inputFile.files[0];
       inputFile.value = '';
-      elegirYEditarFoto(file, nodo);
+      elegirYEditarFoto(file, nodo, destinoActual);
     });
     foto.addEventListener('dragover', e => { e.preventDefault(); foto.classList.add('sobre'); });
     foto.addEventListener('dragleave', () => foto.classList.remove('sobre'));
     foto.addEventListener('drop', e => {
       e.preventDefault();
       foto.classList.remove('sobre');
-      elegirYEditarFoto(e.dataTransfer.files[0], nodo);
+      elegirYEditarFoto(e.dataTransfer.files[0], nodo, nodo._imagenes.length ? -1 : 0);
     });
 
     const cuerpo = document.createElement('div');
@@ -209,8 +253,15 @@ require __DIR__ . '/_layout_top.php';
     acciones.className = 'tcard-acciones';
     const btnCambiarFoto = document.createElement('button');
     btnCambiarFoto.type = 'button'; btnCambiarFoto.className = 'btn btn-ghost btn-sm';
-    btnCambiarFoto.textContent = 'Cambiar foto';
-    btnCambiarFoto.addEventListener('click', () => inputFile.click());
+    btnCambiarFoto.textContent = 'Cambiar foto principal';
+    btnCambiarFoto.addEventListener('click', () => { destinoActual = 0; inputFile.click(); });
+    const btnAgregarFoto = document.createElement('button');
+    btnAgregarFoto.type = 'button'; btnAgregarFoto.className = 'btn btn-ghost btn-sm';
+    btnAgregarFoto.textContent = 'Agregar otra foto';
+    btnAgregarFoto.addEventListener('click', () => {
+      if (nodo._imagenes.length >= 12) { Panel.avisar('Máximo 12 fotos por trabajo.'); return; }
+      destinoActual = -1; inputFile.click();
+    });
     const btnEliminar = document.createElement('button');
     btnEliminar.type = 'button'; btnEliminar.className = 'btn btn-ghost btn-sm';
     btnEliminar.textContent = 'Eliminar';
@@ -226,9 +277,10 @@ require __DIR__ . '/_layout_top.php';
         });
       });
     });
-    acciones.append(btnCambiarFoto, btnEliminar);
+    acciones.append(btnCambiarFoto, btnAgregarFoto, btnEliminar);
 
-    nodo.append(foto, cuerpo, acciones);
+    nodo.append(foto, tira, cuerpo, acciones);
+    pintarTira(nodo);
     return nodo;
   }
 
@@ -257,7 +309,8 @@ require __DIR__ . '/_layout_top.php';
       especificacion: nodo.querySelector('[data-campo="especificacion"]').value.trim(),
       descripcion: nodo.querySelector('[data-campo="descripcion"]').value.trim(),
       categoria: nodo.querySelector('[data-campo="categoria"]').value,
-      imagen: nodo.dataset.imagen || '',
+      imagen: nodo._imagenes[0] || '',
+      imagenes: nodo._imagenes.slice(),
       visible: nodo.querySelector('[data-campo="visible"]').checked
     };
   }

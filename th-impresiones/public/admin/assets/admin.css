@@ -92,6 +92,14 @@
 .tcard-foto img{width:100%;height:100%;object-fit:cover;display:block}
 .tcard-badge{position:absolute;top:8px;left:8px;background:var(--fg);color:var(--bg);font:600 .6875rem var(--mono);
   padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+.tcard-tira{display:flex;flex-wrap:wrap;gap:6px;padding:8px 14px 0}
+.tcard-tira:empty{display:none}
+.tmini{position:relative;width:56px;height:42px;border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+.tmini img{width:100%;height:100%;object-fit:cover;display:block}
+.tmini button{position:absolute;width:22px;height:22px;padding:0;border:0;border-radius:999px;background:rgba(0,0,0,.65);
+  color:#fff;font:600 .75rem/1 var(--mono);cursor:pointer}
+.tmini button:not(.tmini-primera){top:1px;right:1px}
+.tmini-primera{bottom:1px;left:1px}
 .tcard-cuerpo{padding:14px;display:grid;gap:8px;flex:1}
 .tcard-acciones{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 14px}
 .tdrop{border:2px dashed var(--line);border-radius:var(--radius);padding:22px;text-align:center;color:var(--muted);

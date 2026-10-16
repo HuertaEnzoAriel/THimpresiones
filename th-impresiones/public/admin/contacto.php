@@ -36,6 +36,20 @@ require __DIR__ . '/_layout_top.php';
   </div>
 
   <div class="field">
+    <span class="label">Imagen principal de la página</span>
+    <div class="tcard-foto tdrop" id="hero-foto" style="max-width:320px;aspect-ratio:1/1">
+      <img id="hero-prev" alt="" style="display:none">
+      <input type="file" id="hero-file" accept="image/jpeg,image/png,image/webp">
+      <span id="hero-txt" style="display:block;padding-top:40%">Tocá para elegir una foto</span>
+    </div>
+    <p class="ayuda">Es la imagen grande que se ve arriba, junto al título. Si no ponés ninguna, no se muestra nada.</p>
+    <div class="subir-row">
+      <button class="btn btn-ghost btn-sm" type="button" id="hero-cambiar">Elegir foto</button>
+      <button class="btn btn-ghost btn-sm" type="button" id="hero-quitar">Quitar</button>
+    </div>
+  </div>
+
+  <div class="field">
     <span class="label">Horarios de atención</span>
     <div class="hfilas" id="hfilas"></div>
     <button class="btn btn-ghost btn-sm" type="button" id="btn-agregar-horario">Agregar horario</button>
@@ -51,6 +65,47 @@ require __DIR__ . '/_layout_top.php';
 (function () {
   const hfilas = document.getElementById('hfilas');
   let datosCompletos = null;
+  let imagenHero = '';
+
+  function pintarHero() {
+    const prev = document.getElementById('hero-prev');
+    prev.style.display = imagenHero ? 'block' : 'none';
+    prev.src = imagenHero ? '../' + imagenHero : '';
+    document.getElementById('hero-txt').style.display = imagenHero ? 'none' : 'block';
+    document.getElementById('hero-foto').classList.toggle('tdrop', !imagenHero);
+    document.getElementById('hero-quitar').hidden = !imagenHero;
+  }
+
+  async function subirHero(file) {
+    if (!file) return;
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      Panel.avisar('Subí una foto en JPG, PNG o WebP.');
+      return;
+    }
+    const editada = await Panel.editarFoto(file, { aspectoAncho: 1, aspectoAlto: 1 });
+    if (!editada) return;
+    if (editada.size > Panel.limiteImagenBytes()) {
+      Panel.avisar('La foto pesa demasiado. Probá con una más liviana.');
+      return;
+    }
+    const fd = new FormData();
+    fd.append('foto', editada);
+    try {
+      const r = await Panel.apiFetch('api/subir_imagen.php', { method: 'POST', body: fd });
+      imagenHero = r.archivo;
+      pintarHero();
+      controlador.marcarCambios();
+      Panel.avisar('Foto subida.');
+    } catch (e) {
+      Panel.avisar(e.message);
+    }
+  }
+
+  const heroFile = document.getElementById('hero-file');
+  document.getElementById('hero-foto').addEventListener('click', e => { if (e.target !== heroFile) heroFile.click(); });
+  document.getElementById('hero-cambiar').addEventListener('click', () => heroFile.click());
+  document.getElementById('hero-quitar').addEventListener('click', () => { imagenHero = ''; pintarHero(); controlador.marcarCambios(); });
+  heroFile.addEventListener('change', () => { const f = heroFile.files[0]; heroFile.value = ''; subirHero(f); });
 
   function filaHorario(dia, horas) {
     const fila = document.createElement('div');
@@ -77,6 +132,8 @@ require __DIR__ . '/_layout_top.php';
     document.getElementById('f-telefono').value = negocio.telefono || '';
     document.getElementById('f-email').value = negocio.email || '';
     document.getElementById('f-instagram').value = negocio.instagram || '';
+    imagenHero = negocio.imagenHero || '';
+    pintarHero();
     hfilas.innerHTML = '';
     (negocio.horarios || []).forEach(h => hfilas.appendChild(filaHorario(h.dia, h.horas)));
   }
@@ -96,6 +153,7 @@ require __DIR__ . '/_layout_top.php';
       telefono: document.getElementById('f-telefono').value.trim(),
       email: document.getElementById('f-email').value.trim(),
       instagram: document.getElementById('f-instagram').value.trim(),
+      imagenHero,
       horarios
     };
   }

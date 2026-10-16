@@ -60,30 +60,7 @@
         </dl>
       </div>
 
-      <svg class="sheet" viewBox="0 0 440 440" role="img" aria-label="Hoja de prueba de color con tres círculos cian, magenta y amarillo superpuestos, marcas de corte y una barra de color">
-        <rect x="55" y="57" width="340" height="340" fill="#000" opacity=".12"/>
-        <rect class="paper" x="50" y="50" width="340" height="340"/>
-        <g class="cm">
-          <path d="M22 50H40M50 22V40"/><path d="M400 50H418M390 22V40"/>
-          <path d="M22 390H40M50 400V418"/><path d="M400 390H418M390 400V418"/>
-        </g>
-        <circle class="plate plate-c" cx="172" cy="188" r="88"/>
-        <circle class="plate plate-m" cx="244" cy="188" r="88"/>
-        <circle class="plate plate-y" cx="208" cy="250" r="88"/>
-        <text class="pm" x="72" y="76">PRUEBA DE COLOR · A4</text>
-        <g class="reg"><circle cx="360" cy="74" r="8"/><path d="M349 74H371M360 63V85"/></g>
-        <g>
-          <rect x="72" y="344" width="26" height="22" fill="#3A9AC2"/>
-          <rect x="98" y="344" width="26" height="22" fill="#E06D93"/>
-          <rect x="124" y="344" width="26" height="22" fill="#EFBE41"/>
-          <rect x="150" y="344" width="26" height="22" fill="#16244F"/>
-          <rect x="176" y="344" width="26" height="22" fill="#3A9AC2" fill-opacity=".5"/>
-          <rect x="202" y="344" width="26" height="22" fill="#E06D93" fill-opacity=".5"/>
-          <rect x="228" y="344" width="26" height="22" fill="#EFBE41" fill-opacity=".5"/>
-          <rect x="254" y="344" width="26" height="22" fill="#16244F" fill-opacity=".5"/>
-        </g>
-        <text class="pm" x="72" y="381">C 100 · M 100 · Y 100 · K 100 · 300 ppp</text>
-      </svg>
+      <figure class="hero-img" id="hero-img" hidden><img alt="" id="hero-img-el"></figure>
     </div>
   </section>
 
@@ -264,7 +241,12 @@
 
 <dialog class="visor" id="visor" aria-labelledby="visor-t">
   <div class="visor-body">
-    <div class="visor-art" id="visor-art"><img id="visor-img" alt=""></div>
+    <div class="visor-art" id="visor-art">
+      <img id="visor-img" alt="">
+      <button class="visor-nav visor-prev" type="button" id="visor-prev" aria-label="Foto anterior" hidden>‹</button>
+      <button class="visor-nav visor-next" type="button" id="visor-next" aria-label="Foto siguiente" hidden>›</button>
+      <div class="visor-thumbs" id="visor-thumbs" hidden></div>
+    </div>
     <div class="visor-info">
       <button class="visor-x" type="button" id="visor-x" aria-label="Cerrar">×</button>
       <h3 id="visor-t"></h3>
