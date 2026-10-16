@@ -22,33 +22,37 @@ window.TH = window.TH || {};
       ).join("");
   }
 
-  let fotos = [], fotoIdx = 0, fotoTitulo = "";
-
-  function pintarFoto() {
-    const img = $("#visor-img");
-    img.src = fotos[fotoIdx];
-    img.alt = fotoTitulo + (fotos.length > 1 ? " (" + (fotoIdx + 1) + " de " + fotos.length + ")" : "");
-    $$("#visor-thumbs button").forEach((b, i) => b.setAttribute("aria-current", String(i === fotoIdx)));
+  function listaFotos(t) {
+    return Array.isArray(t.imagenes) && t.imagenes.length ? t.imagenes : [t.imagen];
   }
 
-  function irAFoto(delta) {
-    fotoIdx = (fotoIdx + delta + fotos.length) % fotos.length;
-    pintarFoto();
-  }
-
-  function mostrarFotos(t) {
-    fotos = Array.isArray(t.imagenes) && t.imagenes.length ? t.imagenes : [t.imagen];
-    fotoIdx = 0;
-    fotoTitulo = t.titulo;
+  /* Carrusel: pista con scroll-snap (se desliza con el dedo o el mouse), flechas
+     y puntitos. Devuelve el HTML; carruselInit() le conecta los botones. */
+  function carruselHtml(fotos, titulo, eager) {
     const varias = fotos.length > 1;
-    $("#visor-prev").hidden = !varias;
-    $("#visor-next").hidden = !varias;
-    const thumbs = $("#visor-thumbs");
-    thumbs.hidden = !varias;
-    thumbs.innerHTML = varias ? fotos.map((f, i) =>
-      '<button type="button" data-i="' + i + '" aria-label="Ver foto ' + (i + 1) + '"><img src="' + esc(f) + '" alt=""></button>'
-    ).join("") : "";
-    pintarFoto();
+    return '<div class="car" data-n="' + fotos.length + '">' +
+      '<div class="car-pista">' + fotos.map((f, i) =>
+        '<img src="' + esc(f) + '" alt="' + esc(titulo) + (varias ? " (" + (i + 1) + " de " + fotos.length + ")" : "") + '"' + (eager || i === 0 ? "" : ' loading="lazy"') + '>'
+      ).join("") + '</div>' +
+      (varias ? '<button class="car-nav car-prev" type="button" aria-label="Foto anterior">‹</button>' +
+        '<button class="car-nav car-next" type="button" aria-label="Foto siguiente">›</button>' +
+        '<div class="car-dots" aria-hidden="true">' + fotos.map((_, i) => '<i' + (i === 0 ? ' class="on"' : "") + "></i>").join("") + "</div>" : "") +
+      "</div>";
+  }
+
+  function carruselInit(car) {
+    const pista = $(".car-pista", car);
+    const n = Number(car.dataset.n);
+    if (n < 2) return;
+    const dots = $$(".car-dots i", car);
+    const ir = i => pista.scrollTo({ left: pista.clientWidth * ((i + n) % n), behavior: "smooth" });
+    const actual = () => Math.round(pista.scrollLeft / pista.clientWidth);
+    $(".car-prev", car).addEventListener("click", e => { e.stopPropagation(); ir(actual() - 1); });
+    $(".car-next", car).addEventListener("click", e => { e.stopPropagation(); ir(actual() + 1); });
+    pista.addEventListener("scroll", () => {
+      const i = actual();
+      dots.forEach((d, k) => d.classList.toggle("on", k === i));
+    }, { passive: true });
   }
 
   function renderGaleria() {
@@ -56,23 +60,33 @@ window.TH = window.TH || {};
     galeriaEl.innerHTML = trabajos.map(t => {
       const color = colorDeCategoria(t.categoria);
       return '<li data-cat="' + esc(t.categoria) + '">' +
+        '<div class="work-wrap">' +
+        '<span class="work-art" style="background:' + esc(color) + '">' + carruselHtml(listaFotos(t), t.titulo, false) + "</span>" +
         '<button class="work" type="button" data-id="' + esc(t.id) + '">' +
-        '<span class="work-art" style="background:' + esc(color) + '"><img src="' + esc(t.imagen) + '" alt="' + esc(t.titulo) + '" loading="lazy"></span>' +
         '<span class="work-cap"><span class="work-name">' + esc(t.titulo) + '</span><span class="work-spec">' + esc(t.especificacion) + "</span></span>" +
-        "</button></li>";
+        "</button></div></li>";
     }).join("");
 
-    $$(".work", galeriaEl).forEach(btn => btn.addEventListener("click", () => {
-      const t = trabajos.find(x => x.id === btn.dataset.id);
-      if (!t) return;
-      mostrarFotos(t);
-      $("#visor-art").style.background = colorDeCategoria(t.categoria);
+    $$("#galeria .car").forEach(carruselInit);
+
+    function abrir(t) {
+      const art = $("#visor-art");
+      art.innerHTML = carruselHtml(listaFotos(t), t.titulo, true);
+      carruselInit($(".car", art));
+      art.style.background = colorDeCategoria(t.categoria);
       $("#visor-t").textContent = t.titulo;
       $("#visor-s").textContent = t.especificacion;
       $("#visor-d").textContent = t.descripcion;
       $("#visor-cta").href = waLink("Hola, vi «" + t.titulo + "» en la web y quiero algo parecido.");
       visor.showModal();
-    }));
+    }
+
+    // Clic en la foto o en el título abre el visor; las flechas no.
+    $$("#galeria li").forEach((li, i) => {
+      const t = trabajos[i];
+      $(".work", li).addEventListener("click", () => abrir(t));
+      $(".work-art", li).addEventListener("click", e => { if (!e.target.closest(".car-nav")) abrir(t); });
+    });
   }
 
   function init() {
@@ -90,19 +104,6 @@ window.TH = window.TH || {};
       $$("#galeria > li").forEach(li => { li.hidden = !(b.dataset.f === "todo" || li.dataset.cat === b.dataset.f); });
     });
 
-    $("#visor-prev").addEventListener("click", () => irAFoto(-1));
-    $("#visor-next").addEventListener("click", () => irAFoto(1));
-    $("#visor-thumbs").addEventListener("click", e => {
-      const b = e.target.closest("button");
-      if (!b) return;
-      fotoIdx = Number(b.dataset.i);
-      pintarFoto();
-    });
-    visor.addEventListener("keydown", e => {
-      if (fotos.length < 2) return;
-      if (e.key === "ArrowLeft") irAFoto(-1);
-      else if (e.key === "ArrowRight") irAFoto(1);
-    });
     $("#visor-x").addEventListener("click", () => visor.close());
     visor.addEventListener("click", e => { if (e.target === visor) visor.close(); });
   }

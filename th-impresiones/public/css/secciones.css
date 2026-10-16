@@ -95,7 +95,7 @@
   border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;font:inherit;
   transition:border-color .15s,transform .15s}
 .work:hover{border-color:var(--fg);transform:translateY(-2px)}
-.work-art{display:block;aspect-ratio:4/3;background:var(--surface-2)}
+.work-art{display:block;aspect-ratio:4/3;background:var(--surface-2);overflow:hidden}
 .work-art img{display:block;width:100%;height:100%;object-fit:cover;isolation:isolate}
 .work-cap{display:grid;gap:3px;padding:14px 16px 16px}
 .work-name{font:700 1.0625rem/1.25 var(--display);font-stretch:92%}
@@ -108,18 +108,24 @@ dialog.visor::backdrop{background:rgba(8,10,13,.68)}
 .visor-body{display:grid;gap:0}
 @media(min-width:760px){.visor-body{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}}
 .visor-art{background:var(--surface-2);aspect-ratio:4/3;position:relative;overflow:hidden}
-.visor-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border:1px solid var(--line);
-  border-radius:999px;background:var(--surface);color:var(--fg);font:500 1.5rem/1 var(--body);cursor:pointer}
-.visor-nav[hidden],.visor-thumbs[hidden]{display:none}
-.visor-nav:hover{border-color:var(--fg)}
-.visor-prev{left:10px}
-.visor-next{right:10px}
-.visor-thumbs{position:absolute;left:0;right:0;bottom:0;display:flex;gap:6px;justify-content:center;padding:8px;
-  background:linear-gradient(transparent,rgba(8,10,13,.55))}
-.visor-thumbs button{width:44px;height:34px;padding:0;border:2px solid transparent;border-radius:4px;overflow:hidden;
-  cursor:pointer;opacity:.75;background:none}
-.visor-thumbs button[aria-current="true"]{border-color:#fff;opacity:1}
-.visor-thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.work-wrap{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  transition:border-color .15s,transform .15s}
+.work-wrap:hover{border-color:var(--fg);transform:translateY(-2px)}
+.work-wrap .work{border:0;border-radius:0}
+.work-wrap .work:hover{transform:none}
+.work-art{cursor:pointer}
+.car{position:relative;width:100%;height:100%}
+.car-pista{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.car-pista::-webkit-scrollbar{display:none}
+.car-pista img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:center;scroll-snap-stop:always}
+.car-nav{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border:1px solid var(--line);
+  border-radius:999px;background:var(--surface);color:var(--fg);font:500 1.5rem/1 var(--body);cursor:pointer;padding:0}
+.car-nav:hover{border-color:var(--fg)}
+.car-prev{left:8px}
+.car-next{right:8px}
+.car-dots{position:absolute;left:0;right:0;bottom:8px;display:flex;justify-content:center;gap:6px;pointer-events:none}
+.car-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(0,0,0,.35)}
+.car-dots i.on{background:#fff}
 .visor-art img{display:block;width:100%;height:100%;object-fit:cover;isolation:isolate}
 .visor-info{display:grid;gap:12px;align-content:start;padding:24px;position:relative}
 .visor-info h3{font:800 1.75rem/1 var(--display);font-stretch:72%;text-transform:uppercase;padding-right:44px}
