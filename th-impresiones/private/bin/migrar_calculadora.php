@@ -32,6 +32,22 @@ if (!is_array($inicial)) {
     exit(1);
 }
 
+/* Mismo criterio que TH.iconos.adivinar() en public/js/iconos.js. */
+function mig_icono(string $nombre): string {
+    $t = mb_strtolower($nombre);
+    $pistas = [
+        'foto' => '/foto/u', 'tarjeta' => '/tarjeta/u', 'flyer' => '/flyer|volante/u', 'triptico' => '/tr[ií]ptico|d[ií]ptico/u',
+        'sticker' => '/sticker|adhesiv|etiqueta/u', 'cd' => '/\bcd\b|dvd/u', 'credencial' => '/credencial|pvc/u',
+        'anillado' => '/anillad|encuadern/u', 'hoja' => '/\ba4\b|\ba3\b|\ba5\b|oficio|impresi|hoja|blanco y negro|fotocopia/u',
+    ];
+    foreach ($pistas as $icono => $re) {
+        if (preg_match($re, $t)) {
+            return $icono;
+        }
+    }
+    return 'otro';
+}
+
 function mig_sin_acentos(string $s): string {
     $s = mb_strtolower(trim($s));
     return strtr($s, ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u']);
@@ -127,16 +143,66 @@ $resultado = th_con_lock_datos(function () use ($inicial, &$avisos, &$cambios) {
     $datos = $actual['datos'];
     $idsPrecios = array_column($datos['precios'] ?? [], 'id');
 
-    // 1) Calculadora
+    // 1) Calculadora, adaptada a TU lista de precios
     if (empty($datos['calculadora']['trabajos'])) {
         $calc = $inicial['calculadora'];
-        $calc['trabajos'] = array_values(array_filter($calc['trabajos'], function ($t) use ($idsPrecios, &$avisos) {
-            if (!in_array($t['precioId'], $idsPrecios, true)) {
-                $avisos[] = "No se agregó \"{$t['nombre']}\" a la calculadora: no encontré su precio \"{$t['precioId']}\" en tu lista. Agregalo desde el panel si lo querés.";
-                return false;
+        $precios = $datos['precios'] ?? [];
+        $usados = [];
+        $trabajos = [];
+        foreach ($calc['trabajos'] as $t) {
+            // Si el precio de fábrica no existe, se busca uno tuyo por el nombre (ej: "Foto 21 × 15").
+            if (!in_array($t['precioId'], $idsPrecios, true) || in_array($t['precioId'], $usados, true)) {
+                $t['precioId'] = '';
+                foreach ($precios as $p) {
+                    if (!in_array($p['id'], $usados, true) && mig_icono($p['nombre']) === $t['icono']) {
+                        $t['precioId'] = $p['id'];
+                        break;
+                    }
+                }
+                if ($t['precioId'] === '') {
+                    $avisos[] = "No se agregó \"{$t['nombre']}\": no hay un precio parecido en tu lista.";
+                    continue;
+                }
             }
-            return true;
-        }));
+            // Opciones que dependían de un precio que no tenés: un tamaño con precio
+            // propio se quita; en los demás pasos se usa el precio del trabajo.
+            foreach ($t['pasos'] as $paso => $ops) {
+                $t['pasos'][$paso] = array_values(array_filter(array_map(function ($o) use ($idsPrecios, $paso) {
+                    if ($o['precioId'] !== '' && !in_array($o['precioId'], $idsPrecios, true)) {
+                        if ($paso === 'tamano') {
+                            return null;
+                        }
+                        $o['precioId'] = '';
+                    }
+                    return $o;
+                }, $ops)));
+            }
+            $usados[] = $t['precioId'];
+            foreach ($t['pasos'] as $ops) {
+                foreach ($ops as $o) {
+                    if ($o['precioId'] !== '') {
+                        $usados[] = $o['precioId'];
+                    }
+                }
+            }
+            $trabajos[] = $t;
+        }
+        // Precios tuyos que no quedaron en ningún trabajo: se agregan como trabajo simple.
+        $idsTrabajos = array_column($trabajos, 'id');
+        foreach ($precios as $p) {
+            if (in_array($p['id'], $usados, true)) {
+                continue;
+            }
+            $id = th_id_unico(th_slug($p['nombre']), $idsTrabajos);
+            $idsTrabajos[] = $id;
+            $trabajos[] = [
+                'id' => $id, 'nombre' => $p['nombre'], 'icono' => mig_icono($p['nombre']), 'precioId' => $p['id'],
+                'entrega' => '', 'cuentaPaginas' => false, 'cantidades' => [], 'cantidadInicial' => 1,
+                'pasos' => ['tamano' => [], 'faz' => [], 'color' => [], 'papel' => []],
+            ];
+            $avisos[] = "\"{$p['nombre']}\" se agregó como trabajo simple (solo cantidad). Ajustale nombre, pasos y tiempo de entrega en el panel.";
+        }
+        $calc['trabajos'] = $trabajos;
         $idsCalc = array_column($calc['trabajos'], 'id');
         $calc['atajos'] = array_values(array_filter($calc['atajos'], fn($a) => in_array($a['trabajo'], $idsCalc, true)));
         $datos['calculadora'] = $calc;
@@ -162,9 +228,10 @@ $resultado = th_con_lock_datos(function () use ($inicial, &$avisos, &$cambios) {
 
     // 4) Galería -> calculadora (solo trabajos de fábrica que no tengan vínculo)
     $vinculados = 0;
+    $idsCalcFinal = array_column($datos['calculadora']['trabajos'] ?? [], 'id');
     foreach ($datos['trabajos'] ?? [] as $i => $t) {
         $destino = $inicial['galeriaACalculadora'][$t['id'] ?? ''] ?? '';
-        if (!isset($t['calcTrabajo']) && $destino !== '') {
+        if (!isset($t['calcTrabajo']) && in_array($destino, $idsCalcFinal, true)) {
             $datos['trabajos'][$i]['calcTrabajo'] = $destino;
             $vinculados++;
         }

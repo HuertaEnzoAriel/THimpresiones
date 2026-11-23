@@ -65,7 +65,7 @@ window.TH = window.TH || {};
     cfg.trabajos = cfg.trabajos.filter(t => t && TH.precios.byId(t.precioId));
     // Sin configuración de calculadora (datos viejos): un trabajo por cada precio, sin pasos.
     if (!cfg.trabajos.length) {
-      cfg.trabajos = items().map(i => ({ id: i.id, nombre: i.nombre, icono: "otro", precioId: i.id, pasos: {} }));
+      cfg.trabajos = items().map(i => ({ id: i.id, nombre: i.nombre, icono: I.adivinar(i.nombre), precioId: i.id, pasos: {} }));
     }
     maxCm = cfg.tamanos.reduce((m, t) => Math.max(m, Number(t.ancho) || 0, Number(t.alto) || 0), 1);
   }

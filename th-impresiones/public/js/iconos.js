@@ -57,5 +57,17 @@ window.TH = window.TH || {};
     return '<span class="grosor" aria-hidden="true"><i style="height:' + px.toFixed(1) + 'px"></i></span>';
   }
 
-  TH.iconos = { ICONOS, icono, cm, svgTamano, svgFaz, franja, grosor };
+  /* Adivina el ícono por el nombre del trabajo (ej: "Foto 21 × 15" -> foto). */
+  const PISTAS = [
+    ["foto", /foto/], ["tarjeta", /tarjeta/], ["flyer", /flyer|volante/], ["triptico", /tr[ií]ptico|d[ií]ptico/],
+    ["sticker", /sticker|adhesiv|etiqueta/], ["cd", /\bcd\b|dvd/], ["credencial", /credencial|pvc/], ["anillado", /anillad|encuadern/],
+    ["hoja", /\ba4\b|\ba3\b|\ba5\b|oficio|impresi|hoja|blanco y negro|fotocopia/]
+  ];
+  function adivinar(texto) {
+    const t = String(texto || "").toLowerCase();
+    const p = PISTAS.find(x => x[1].test(t));
+    return p ? p[0] : "otro";
+  }
+
+  TH.iconos = { ICONOS, icono, cm, svgTamano, svgFaz, franja, grosor, adivinar };
 })();
