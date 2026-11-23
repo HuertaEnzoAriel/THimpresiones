@@ -176,7 +176,18 @@ require __DIR__ . '/_layout_top.php';
     nodo.querySelector('[data-accion="eliminar"]').addEventListener('click', e => {
       const boton = e.currentTarget;
       const nombre = nodo.querySelector('[data-campo="nombre"]').value.trim() || 'este trabajo';
-      Panel.confirmarEnLinea(boton, '¿Eliminar "' + nombre + '" de la lista de precios?', () => {
+      // La calculadora toma de acá los precios por cantidad: si un trabajo de la
+      // calculadora usa este precio como base, no se puede borrar sin cambiarlo antes.
+      const calc = ((datosCompletos.calculadora || {}).trabajos || []);
+      const id = nodo.dataset.id;
+      const usaBase = id ? calc.filter(t => t.precioId === id).map(t => t.nombre) : [];
+      if (usaBase.length) {
+        Panel.avisar('No se puede eliminar: la calculadora lo usa en "' + usaBase.join('", "') + '". Cambialo primero en Calculadora.');
+        return;
+      }
+      const usaOpcion = id ? calc.filter(t => Object.values(t.pasos || {}).some(ops => (ops || []).some(o => o.precioId === id))).map(t => t.nombre) : [];
+      const extra = usaOpcion.length ? ' La calculadora lo usa en una opción de "' + usaOpcion.join('", "') + '": esa opción va a pasar a usar el precio base.' : '';
+      Panel.confirmarEnLinea(boton, '¿Eliminar "' + nombre + '" de la lista de precios?' + extra, () => {
         const siguiente = nodo.nextSibling, padre = nodo.parentNode;
         nodo.remove();
         controlador.marcarCambios();

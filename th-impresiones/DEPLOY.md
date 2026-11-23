@@ -321,7 +321,22 @@ cd /var/www/th-impresiones
 git pull
 ```
 
-Los cambios de contenido (precios, fotos, textos) viven en `public/data/datos.json` y `public/uploads/`, que `git pull` no toca. No hace falta reiniciar nada: PHP y el estático se sirven de nuevo en cada pedido.
+Los cambios de contenido (precios, fotos, textos) viven en `public/data/datos.json` y `public/uploads/`. `public/uploads/` no está en git, así que `git pull` nunca la toca. `datos.json` sí está en el repositorio (como contenido inicial), pero los commits de código no lo modifican: así `git pull` deja intacto el que editó el panel. No hace falta reiniciar nada: PHP y el estático se sirven de nuevo en cada pedido.
+
+> **Nunca** uses `git reset --hard`, `git checkout -- .` ni `git stash` en el servidor: eso sí pisaría el `datos.json` con tus precios.
+
+Si un `git pull` avisa *"Your local changes to public/data/datos.json would be overwritten"*, no lo fuerces: es que ese commit trae cambios de contenido. Avisale al programador.
+
+### Actualización a la calculadora visual (una sola vez)
+
+Después del `git pull` que trae la calculadora, agregá lo nuevo a tu `datos.json` (no cambia precios, fotos ni contacto):
+
+```bash
+cd /var/www/th-impresiones
+sudo -u www-data php private/bin/migrar_calculadora.php
+```
+
+Muestra qué agregó y avisa si algo no pudo (por ejemplo, horarios que no entendió). Antes de escribir guarda una copia en `private/backups/`, así que se puede volver atrás desde el panel → "Copias de seguridad". Si lo corrés de nuevo, no hace nada.
 
 ## Resumen de permisos (para volver a revisar si algo falla)
 

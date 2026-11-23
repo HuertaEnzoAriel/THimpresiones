@@ -8,8 +8,10 @@ $limiteImagenBytes = th_limite_imagen_bytes();
 $items_nav = [
     'inicio' => 'Inicio',
     'precios' => 'Precios',
+    'calculadora' => 'Calculadora',
     'trabajos' => 'Trabajos',
     'contacto' => 'Contacto y horarios',
+    'preguntas' => 'Preguntas y checklist',
     'backups' => 'Copias de seguridad',
     'cuenta' => 'Mi cuenta',
 ];

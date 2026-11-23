@@ -1,6 +1,7 @@
 /* Datos: carga data/datos.json una sola vez al iniciar la página pública y lo
-   reparte en TH.config, TH.precios, TH.categoriasTrabajos y TH.trabajos (solo
-   los trabajos marcados como visibles). Si el archivo no existe o está mal
+   reparte en TH.config, TH.precios, TH.categoriasTrabajos, TH.trabajos (solo
+   los trabajos marcados como visibles), TH.calc (calculadora: trabajos,
+   tamaños, papeles y atajos) y TH.ayuda (checklist y preguntas). Si el archivo no existe o está mal
    formado, TH.datos.cargar() devuelve false para que main.js muestre un aviso
    en vez de romper la página. */
 window.TH = window.TH || {};
@@ -17,6 +18,8 @@ window.TH = window.TH || {};
       TH.precios.items = Array.isArray(datos.precios) ? datos.precios : [];
       TH.categoriasTrabajos = Array.isArray(datos.categoriasTrabajos) ? datos.categoriasTrabajos : [];
       TH.trabajos = (Array.isArray(datos.trabajos) ? datos.trabajos : []).filter(t => t.visible !== false);
+      TH.calc = datos.calculadora && typeof datos.calculadora === "object" ? datos.calculadora : {};
+      TH.ayuda = datos.ayuda && typeof datos.ayuda === "object" ? datos.ayuda : {};
 
       return true;
     } catch (e) {

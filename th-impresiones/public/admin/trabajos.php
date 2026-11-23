@@ -227,6 +227,8 @@ require __DIR__ . '/_layout_top.php';
       '<div class="field"><label>Especificación</label><input data-campo="especificacion"><p class="ayuda">Ej: 300 g · mate · 9 × 5 cm</p></div>' +
       '<div class="field"><label>Descripción</label><textarea data-campo="descripcion" rows="3"></textarea></div>' +
       '<div class="field"><label>Categoría</label><select data-campo="categoria"></select></div>' +
+      '<div class="field"><label>"Pedir algo parecido" lleva a</label><select data-campo="calcTrabajo"></select>' +
+      '<p class="ayuda">Si elegís un trabajo, el botón deja la calculadora lista con ese trabajo. Si no, abre WhatsApp.</p></div>' +
       '<label style="display:flex;align-items:center;gap:8px;min-height:44px"><input type="checkbox" data-campo="visible" style="width:20px;height:20px"> Mostrar en la página</label>';
     cuerpo.querySelector('[data-campo="titulo"]').value = item.titulo || '';
     cuerpo.querySelector('[data-campo="especificacion"]').value = item.especificacion || '';
@@ -237,6 +239,16 @@ require __DIR__ . '/_layout_top.php';
       op.value = c.id; op.textContent = c.nombre;
       if (c.id === item.categoria) op.selected = true;
       selectCat.appendChild(op);
+    });
+    const selectCalc = cuerpo.querySelector('[data-campo="calcTrabajo"]');
+    const opWa = document.createElement('option');
+    opWa.value = ''; opWa.textContent = 'WhatsApp (sin calculadora)';
+    selectCalc.appendChild(opWa);
+    ((datosCompletos.calculadora || {}).trabajos || []).forEach(t => {
+      const op = document.createElement('option');
+      op.value = t.id; op.textContent = 'Calculadora: ' + t.nombre;
+      if (t.id === item.calcTrabajo) op.selected = true;
+      selectCalc.appendChild(op);
     });
     cuerpo.querySelector('[data-campo="visible"]').checked = item.visible !== false;
 
@@ -309,6 +321,7 @@ require __DIR__ . '/_layout_top.php';
       especificacion: nodo.querySelector('[data-campo="especificacion"]').value.trim(),
       descripcion: nodo.querySelector('[data-campo="descripcion"]').value.trim(),
       categoria: nodo.querySelector('[data-campo="categoria"]').value,
+      calcTrabajo: nodo.querySelector('[data-campo="calcTrabajo"]').value,
       imagen: nodo._imagenes[0] || '',
       imagenes: nodo._imagenes.slice(),
       visible: nodo.querySelector('[data-campo="visible"]').checked

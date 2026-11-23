@@ -14,6 +14,10 @@ require __DIR__ . '/_layout_top.php';
     <h2>Precios</h2>
     <p>Cambiar lo que sale cada trabajo, agregar o quitar precios por cantidad.</p>
   </a>
+  <a class="panel-card" href="calculadora.php">
+    <h2>Calculadora</h2>
+    <p>Qué trabajos aparecen, sus pasos (tamaño, faz, color, papel), recargos, tiempos de entrega y atajos.</p>
+  </a>
   <a class="panel-card" href="trabajos.php">
     <h2>Trabajos</h2>
     <p>Subir fotos nuevas, cambiar descripciones y mostrar u ocultar trabajos de la galería.</p>
@@ -21,6 +25,10 @@ require __DIR__ . '/_layout_top.php';
   <a class="panel-card" href="contacto.php">
     <h2>Contacto y horarios</h2>
     <p>WhatsApp, mail, Instagram y los horarios de atención.</p>
+  </a>
+  <a class="panel-card" href="preguntas.php">
+    <h2>Preguntas y checklist</h2>
+    <p>Las preguntas frecuentes y el checklist para revisar el archivo antes de mandarlo.</p>
   </a>
   <a class="panel-card" href="backups.php">
     <h2>Copias de seguridad</h2>

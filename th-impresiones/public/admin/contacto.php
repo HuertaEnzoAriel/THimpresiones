@@ -7,7 +7,7 @@ $paginaActiva = 'contacto';
 require __DIR__ . '/_layout_top.php';
 ?>
 <h1>Contacto y horarios</h1>
-<p class="ayuda-pagina">Esto es lo que ve quien entra a la página: el WhatsApp, el mail, el Instagram y los horarios de atención.</p>
+<p class="ayuda-pagina">Esto es lo que ve quien entra a la página: el WhatsApp, el mail, el Instagram y los horarios de atención. Con el horario la página también muestra el cartel "Abierto ahora" o "Cerrado".</p>
 
 <form class="panel-form" id="form-contacto" style="max-width:560px" novalidate>
   <div class="field">
@@ -50,9 +50,11 @@ require __DIR__ . '/_layout_top.php';
   </div>
 
   <div class="field">
-    <span class="label">Horarios de atención</span>
-    <div class="hfilas" id="hfilas"></div>
-    <button class="btn btn-ghost btn-sm" type="button" id="btn-agregar-horario">Agregar horario</button>
+    <span class="label">Horarios de atención (hora de Argentina)</span>
+    <p class="ayuda">Marcá los días que abrís. Si cortás al mediodía, completá también el segundo turno; si no, dejalo vacío.</p>
+    <div class="hsemana" id="hsemana"></div>
+    <div class="subir-row"><button class="btn btn-ghost btn-sm" type="button" id="btn-copiar-lunes">Copiar el lunes a martes–viernes</button></div>
+    <p class="previsualizacion" id="horario-prev"></p>
   </div>
 </form>
 
@@ -61,9 +63,10 @@ require __DIR__ . '/_layout_top.php';
   <button class="btn btn-primary" type="button" id="btn-guardar">Guardar cambios</button>
 </div>
 
+<script src="../js/horario.js?v=<?= filemtime(__DIR__ . '/../js/horario.js') ?>"></script>
 <script>
 (function () {
-  const hfilas = document.getElementById('hfilas');
+  const hsemana = document.getElementById('hsemana');
   let datosCompletos = null;
   let imagenHero = '';
 
@@ -107,22 +110,74 @@ require __DIR__ . '/_layout_top.php';
   document.getElementById('hero-quitar').addEventListener('click', () => { imagenHero = ''; pintarHero(); controlador.marcarCambios(); });
   heroFile.addEventListener('change', () => { const f = heroFile.files[0]; heroFile.value = ''; subirHero(f); });
 
-  function filaHorario(dia, horas) {
+  /* Horario semanal: una fila por día, con "Abre" y hasta dos turnos. */
+  let semana = TH.horario.normalizar([]);
+
+  function filaDia(d) {
     const fila = document.createElement('div');
-    fila.className = 'hfila';
+    fila.className = 'hdia';
+    fila.dataset.dia = d.dia;
+    const nombre = TH.horario.NOMBRE[d.dia];
+    const t = d.turnos;
     fila.innerHTML =
-      '<div class="field"><label>Día</label><input type="text" data-campo="dia" placeholder="Ej: Lunes a viernes"></div>' +
-      '<div class="field"><label>Horario</label><input type="text" data-campo="horas" placeholder="Ej: 9 a 13 y 16 a 20"></div>' +
-      '<button type="button" class="btn btn-ghost btn-sm" aria-label="Quitar este horario">Quitar</button>';
-    fila.querySelector('[data-campo="dia"]').value = dia || '';
-    fila.querySelector('[data-campo="horas"]').value = horas || '';
-    fila.querySelectorAll('input').forEach(i => i.addEventListener('input', () => controlador.marcarCambios()));
-    fila.querySelector('button').addEventListener('click', () => { fila.remove(); controlador.marcarCambios(); });
+      '<label class="hdia-abre"><input type="checkbox" data-campo="abre"> <span></span></label>' +
+      '<div class="hdia-turnos">' +
+      [0, 1].map(i =>
+        '<div class="hturno"><input type="time" data-campo="desde" data-i="' + i + '" aria-label="Turno ' + (i + 1) + ', abre">' +
+        '<span>a</span><input type="time" data-campo="hasta" data-i="' + i + '" aria-label="Turno ' + (i + 1) + ', cierra"></div>'
+      ).join('') + '</div>';
+    fila.querySelector('.hdia-abre span').textContent = nombre.charAt(0).toUpperCase() + nombre.slice(1);
+    fila.querySelector('[data-campo="abre"]').checked = t.length > 0;
+    fila.querySelectorAll('input[type="time"]').forEach(inp => {
+      const turno = t[Number(inp.dataset.i)];
+      inp.value = turno ? turno[inp.dataset.campo] : '';
+    });
     return fila;
   }
 
-  document.getElementById('btn-agregar-horario').addEventListener('click', () => {
-    hfilas.appendChild(filaHorario('', ''));
+  function leerSemana() {
+    return Array.from(hsemana.children).map(fila => {
+      const abre = fila.querySelector('[data-campo="abre"]').checked;
+      const turnos = [0, 1].map(i => ({
+        desde: fila.querySelector('[data-campo="desde"][data-i="' + i + '"]').value,
+        hasta: fila.querySelector('[data-campo="hasta"][data-i="' + i + '"]').value
+      })).filter(x => x.desde || x.hasta);
+      return { dia: fila.dataset.dia, turnos: abre ? turnos : [] };
+    });
+  }
+
+  function actualizarFilas() {
+    Array.from(hsemana.children).forEach(fila => {
+      const abre = fila.querySelector('[data-campo="abre"]').checked;
+      fila.classList.toggle('cerrado', !abre);
+      fila.querySelectorAll('input[type="time"]').forEach(i => { i.disabled = !abre; });
+    });
+  }
+
+  function pintarPrevHorario() {
+    const s = leerSemana();
+    const completos = s.map(d => ({ dia: d.dia, turnos: d.turnos.filter(t => t.desde && t.hasta && t.desde < t.hasta) }));
+    const lineas = TH.horario.agrupar(completos).map(g => g.dia + ': ' + g.horas);
+    const est = TH.horario.estado(completos);
+    document.getElementById('horario-prev').textContent = 'Así se ve en la página: ' + lineas.join(' · ') +
+      (est ? '. Ahora mismo muestra: "' + est.texto + '".' : '. Sin días abiertos no se muestra el cartel Abierto/Cerrado.');
+  }
+
+  function pintarSemana() {
+    hsemana.innerHTML = '';
+    semana.forEach(d => hsemana.appendChild(filaDia(d)));
+    actualizarFilas();
+    pintarPrevHorario();
+  }
+
+  hsemana.addEventListener('input', () => { actualizarFilas(); pintarPrevHorario(); controlador.marcarCambios(); });
+  hsemana.addEventListener('change', () => { actualizarFilas(); pintarPrevHorario(); controlador.marcarCambios(); });
+
+  document.getElementById('btn-copiar-lunes').addEventListener('click', () => {
+    const s = leerSemana();
+    const lunes = s[0];
+    semana = s.map(d => (['mar', 'mie', 'jue', 'vie'].includes(d.dia) ? { dia: d.dia, turnos: lunes.turnos.map(t => Object.assign({}, t)) } : d));
+    pintarSemana();
     controlador.marcarCambios();
   });
 
@@ -134,8 +189,8 @@ require __DIR__ . '/_layout_top.php';
     document.getElementById('f-instagram').value = negocio.instagram || '';
     imagenHero = negocio.imagenHero || '';
     pintarHero();
-    hfilas.innerHTML = '';
-    (negocio.horarios || []).forEach(h => hfilas.appendChild(filaHorario(h.dia, h.horas)));
+    semana = TH.horario.normalizar(negocio.horariosSemana || []);
+    pintarSemana();
   }
 
   document.getElementById('form-contacto').addEventListener('input', e => {
@@ -143,10 +198,6 @@ require __DIR__ . '/_layout_top.php';
   });
 
   function leerFormulario() {
-    const horarios = Array.from(hfilas.children).map(fila => ({
-      dia: fila.querySelector('[data-campo="dia"]').value.trim(),
-      horas: fila.querySelector('[data-campo="horas"]').value.trim()
-    })).filter(h => h.dia && h.horas);
     return {
       nombre: document.getElementById('f-nombre').value.trim(),
       whatsapp: document.getElementById('f-whatsapp').value.trim(),
@@ -154,7 +205,7 @@ require __DIR__ . '/_layout_top.php';
       email: document.getElementById('f-email').value.trim(),
       instagram: document.getElementById('f-instagram').value.trim(),
       imagenHero,
-      horarios
+      horariosSemana: leerSemana()
     };
   }
 

@@ -77,7 +77,18 @@ window.TH = window.TH || {};
       $("#visor-t").textContent = t.titulo;
       $("#visor-s").textContent = t.especificacion;
       $("#visor-d").textContent = t.descripcion;
-      $("#visor-cta").href = waLink("Hola, vi «" + t.titulo + "» en la web y quiero algo parecido.");
+      // Si el trabajo está vinculado a la calculadora, "Pedir algo parecido" la
+      // deja preseleccionada; si no, abre WhatsApp como siempre.
+      const cta = $("#visor-cta");
+      const enCalc = t.calcTrabajo && TH.calculadora && TH.calculadora.existe(t.calcTrabajo);
+      cta.dataset.calc = enCalc ? t.calcTrabajo : "";
+      if (enCalc) {
+        cta.href = "#precios";
+        cta.removeAttribute("target");
+      } else {
+        cta.href = waLink("Hola, vi «" + t.titulo + "» en la web y quiero algo parecido.");
+        cta.target = "_blank";
+      }
       visor.showModal();
     }
 
@@ -104,6 +115,13 @@ window.TH = window.TH || {};
       $$("#galeria > li").forEach(li => { li.hidden = !(b.dataset.f === "todo" || li.dataset.cat === b.dataset.f); });
     });
 
+    $("#visor-cta").addEventListener("click", e => {
+      const id = e.currentTarget.dataset.calc;
+      if (!id) return;
+      e.preventDefault();
+      visor.close();
+      TH.calculadora.pedir(id);
+    });
     $("#visor-x").addEventListener("click", () => visor.close());
     visor.addEventListener("click", e => { if (e.target === visor) visor.close(); });
   }
