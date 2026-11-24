@@ -11,9 +11,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="css/tokens.css?v=6">
-<link rel="stylesheet" href="css/base.css?v=6">
-<link rel="stylesheet" href="css/secciones.css?v=6">
+<link rel="stylesheet" href="css/tokens.css?v=7">
+<link rel="stylesheet" href="css/base.css?v=7">
+<link rel="stylesheet" href="css/secciones.css?v=7">
 </head>
 <body>
 
@@ -271,54 +271,48 @@
     </div>
   </section>
 
-  <section id="contacto" class="sec band band-pink">
-    <div class="wrap contacto-grid">
-      <div>
-        <div class="sec-head">
-          <p class="eyebrow">Contacto</p>
-          <h2>Escribinos</h2>
-          <p class="sec-lead">Por WhatsApp, mail o Instagram, con tu archivo o con la idea. Te respondemos con precio y plazo.</p>
-        </div>
-        <ol class="pasos">
-          <li><div><h3>Mandanos el archivo</h3><p>Por WhatsApp o por mail, en PDF, JPG o PNG. Si no tenés diseño, contanos qué necesitás.</p></div></li>
-          <li><div><h3>Confirmamos precio y detalles</h3><p>Revisamos medidas, papel y colores, y te pasamos el presupuesto final.</p></div></li>
-          <li><div><h3>Retirás o coordinamos el envío</h3><p>Te avisamos apenas está listo.</p></div></li>
-        </ol>
-      </div>
-
-      <div class="ficha">
-          <div class="ficha-row">
-            <div><p class="ficha-k">WhatsApp</p><p class="ficha-v" id="v-tel" data-cfg="telefono"></p></div>
-            <div class="ficha-btns">
-              <a class="btn btn-primary btn-sm js-wa" target="_blank" rel="noopener" href="#contacto">Abrir</a>
-              <button class="btn btn-ghost btn-sm" type="button" data-copy="v-tel">Copiar</button>
-            </div>
-          </div>
-          <div class="ficha-row">
-            <div><p class="ficha-k">Mail</p><p class="ficha-v" id="v-mail" data-cfg="email"></p></div>
-            <div class="ficha-btns"><button class="btn btn-ghost btn-sm" type="button" data-copy="v-mail">Copiar</button></div>
-          </div>
-          <div class="ficha-row">
-            <div><p class="ficha-k">Instagram</p><p class="ficha-v" id="v-ig" data-cfg="instagram"></p></div>
-            <div class="ficha-btns">
-              <a class="btn btn-ghost btn-sm" id="ig-link" target="_blank" rel="noopener" href="https://instagram.com">Abrir</a>
-              <button class="btn btn-ghost btn-sm" type="button" data-copy="v-ig">Copiar</button>
-            </div>
-          </div>
-          <div class="horarios-box">
-            <p class="abierto" hidden></p>
-            <dl class="horarios" id="horarios"></dl>
-          </div>
-      </div>
-
-    </div>
-  </section>
 </main>
 
-<footer class="site-foot">
+<footer class="site-foot" id="contacto">
   <div class="cmyk-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-  <div class="wrap foot-in">
-    <a class="brand" href="#inicio"><span class="brand-mark" role="img" aria-hidden="true"></span><span data-cfg="nombre">TH Impresiones</span></a>
+  <div class="wrap foot-grid">
+    <div class="foot-marca">
+      <a class="brand" href="#inicio"><span class="brand-mark" role="img" aria-hidden="true"></span><span data-cfg="nombre">TH Impresiones</span></a>
+      <p class="foot-desc">Impresión digital, fotografía y papelería. Mandanos tu archivo o tu idea y te pasamos precio y plazo.</p>
+      <a class="btn btn-primary js-wa" target="_blank" rel="noopener" href="#contacto">Escribinos por WhatsApp</a>
+    </div>
+
+    <div class="foot-col">
+      <h2 class="foot-t">Contacto</h2>
+      <ul class="foot-datos">
+        <li>
+          <div><p class="ficha-k">WhatsApp</p><p class="ficha-v" id="v-tel" data-cfg="telefono"></p></div>
+          <div class="ficha-btns">
+            <a class="btn btn-ghost btn-sm js-wa" target="_blank" rel="noopener" href="#contacto">Abrir</a>
+            <button class="btn btn-ghost btn-sm" type="button" data-copy="v-tel">Copiar</button>
+          </div>
+        </li>
+        <li>
+          <div><p class="ficha-k">Mail</p><p class="ficha-v" id="v-mail" data-cfg="email"></p></div>
+          <div class="ficha-btns"><button class="btn btn-ghost btn-sm" type="button" data-copy="v-mail">Copiar</button></div>
+        </li>
+        <li>
+          <div><p class="ficha-k">Instagram</p><p class="ficha-v" id="v-ig" data-cfg="instagram"></p></div>
+          <div class="ficha-btns">
+            <a class="btn btn-ghost btn-sm" id="ig-link" target="_blank" rel="noopener" href="https://instagram.com">Abrir</a>
+            <button class="btn btn-ghost btn-sm" type="button" data-copy="v-ig">Copiar</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="foot-col">
+      <h2 class="foot-t">Horarios</h2>
+      <p class="abierto" hidden></p>
+      <dl class="horarios" id="horarios"></dl>
+    </div>
+  </div>
+  <div class="wrap foot-base">
     <p>© 2026 · Precios de referencia, sujetos a confirmación según archivo, papel y terminación.</p>
   </div>
 </footer>
@@ -345,17 +339,17 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></svg>
 </a>
 
-<script src="js/config.js?v=6" defer></script>
-<script src="js/precios.js?v=6" defer></script>
-<script src="js/utils.js?v=6" defer></script>
-<script src="js/iconos.js?v=6" defer></script>
-<script src="js/horario.js?v=6" defer></script>
-<script src="js/datos.js?v=6" defer></script>
-<script src="js/calculadora.js?v=6" defer></script>
-<script src="js/galeria.js?v=6" defer></script>
-<script src="js/contacto.js?v=6" defer></script>
-<script src="js/tema.js?v=6" defer></script>
-<script src="js/main.js?v=6" defer></script>
+<script src="js/config.js?v=7" defer></script>
+<script src="js/precios.js?v=7" defer></script>
+<script src="js/utils.js?v=7" defer></script>
+<script src="js/iconos.js?v=7" defer></script>
+<script src="js/horario.js?v=7" defer></script>
+<script src="js/datos.js?v=7" defer></script>
+<script src="js/calculadora.js?v=7" defer></script>
+<script src="js/galeria.js?v=7" defer></script>
+<script src="js/contacto.js?v=7" defer></script>
+<script src="js/tema.js?v=7" defer></script>
+<script src="js/main.js?v=7" defer></script>
 
 </body>
 </html>
