@@ -1,5 +1,4 @@
-/* Calculadora: lista de precios por categoría (pestañas + enlaces "Ver precios")
-   y la calculadora visual de pedido. Todo lo que se puede elegir sale de
+/* Calculadora visual de pedido. Todo lo que se puede elegir sale de
    TH.calc (sección "calculadora" de data/datos.json, editable desde el panel):
    - trabajos: tarjetas con ícono; cada uno dice qué pasos usa (tamaño, faz,
      color, papel) y con qué opciones. Un paso con una sola opción no se
@@ -35,27 +34,7 @@ window.TH = window.TH || {};
   let maxCm = 1;
   const st = { trabajo: null, sel: {}, qty: 1, archivo: null };
 
-  /* ===== Lista de precios (pestañas) ===== */
-  let catActual = null;
-  let tabs, listaEl;
-
-  function categorias() { return TH.precios.categorias; }
   function items() { return TH.precios.items; }
-
-  function renderLista() {
-    $$(".tab", tabs).forEach(b => b.setAttribute("aria-pressed", String(b.dataset.cat === catActual)));
-    listaEl.innerHTML = items().filter(i => i.categoria === catActual).map(i =>
-      '<li class="row"><div><h3>' + esc(i.nombre) + '</h3><p class="spec">' + esc(i.detalle) + " · precio por " + esc(i.unidad) + "</p></div>" +
-      '<ul class="tiers" aria-label="Precio según cantidad">' +
-      i.escalas.map((e, idx) => '<li class="tier"><span class="q">' + esc(rangeLabel(i, idx)) + "</span><strong>" + money(e.precio) + "</strong></li>").join("") +
-      "</ul></li>"
-    ).join("");
-  }
-  function setCat(id) {
-    if (!categorias().some(c => c.id === id)) return;
-    catActual = id;
-    renderLista();
-  }
 
   /* ===== Configuración ===== */
   function leerConfig() {
@@ -276,8 +255,6 @@ window.TH = window.TH || {};
     renderPasos();
     renderCantidad();
     render();
-    const item = TH.precios.byId(t.precioId);
-    if (item) setCat(item.categoria);
     return true;
   }
 
@@ -365,17 +342,7 @@ window.TH = window.TH || {};
   }
 
   function init() {
-    const cats = categorias();
-    if (!cats.length || !items().length) return;
-
-    tabs = $("#tabs");
-    listaEl = $("#lista");
-    catActual = cats[0].id;
-    tabs.innerHTML = cats.map(c =>
-      '<button class="tab" type="button" data-cat="' + esc(c.id) + '" aria-pressed="false" style="--tab-c:' + esc(c.color) + ';--tab-c-fg:#16244F">' + esc(c.nombre) + "</button>"
-    ).join("");
-    renderLista();
-    tabs.addEventListener("click", e => { const b = e.target.closest(".tab"); if (b) setCat(b.dataset.cat); });
+    if (!items().length) return;
 
     leerConfig();
 
@@ -424,13 +391,6 @@ window.TH = window.TH || {};
 
     $("#calc-copy").addEventListener("click", e => copyText(mensaje(calcular()), e.currentTarget, $("#calc-msg")));
 
-    // "Ver precios" de cada servicio: muestra su categoría y preselecciona el trabajo.
-    $$(".serv a[data-cat]").forEach(a => a.addEventListener("click", () => {
-      modo("calc");
-      setCat(a.dataset.cat);
-      if (a.dataset.trabajo) elegirTrabajo(a.dataset.trabajo);
-    }));
-
     const preferido = cfg.trabajos[0];
     elegirTrabajo(preferido.id);
     initModos();
@@ -446,5 +406,5 @@ window.TH = window.TH || {};
     return true;
   }
 
-  TH.calculadora = { init, setCat, pedir, modo, existe: id => cfg.trabajos.some(t => t.id === id) };
+  TH.calculadora = { init, pedir, modo, existe: id => cfg.trabajos.some(t => t.id === id) };
 })();

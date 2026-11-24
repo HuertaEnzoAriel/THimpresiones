@@ -12,7 +12,7 @@ require __DIR__ . '/_layout_top.php';
 <div class="panel-cards">
   <a class="panel-card" href="precios.php">
     <h2>Precios</h2>
-    <p>Cambiar lo que sale cada trabajo, agregar o quitar precios por cantidad.</p>
+    <p>Lo que sale cada trabajo y los descuentos por cantidad que usa la calculadora.</p>
   </a>
   <a class="panel-card" href="calculadora.php">
     <h2>Calculadora</h2>

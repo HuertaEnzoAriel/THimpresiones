@@ -46,7 +46,7 @@ a{color:inherit}
 .band-hero{--band-bg:var(--hero-bg);--band-fg:var(--hero-fg);--band-muted:var(--hero-muted);--band-line:var(--hero-line)}
 .band-cyan{--band-bg:var(--cyan-bg);--band-fg:var(--cyan-fg);--band-muted:var(--cyan-muted);--band-line:var(--cyan-line)}
 .band-pink{--band-bg:var(--pink-bg);--band-fg:var(--pink-fg);--band-muted:var(--pink-muted);--band-line:var(--pink-line)}
-.lista,.calc{color:var(--fg)}
+.calc{color:var(--fg)}
 .head-in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;
   font:800 1.3rem/1 var(--display);font-stretch:72%;letter-spacing:.01em;text-transform:uppercase}

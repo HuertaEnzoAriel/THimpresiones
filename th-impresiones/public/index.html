@@ -11,9 +11,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="css/tokens.css?v=7">
-<link rel="stylesheet" href="css/base.css?v=7">
-<link rel="stylesheet" href="css/secciones.css?v=7">
+<link rel="stylesheet" href="css/tokens.css?v=8">
+<link rel="stylesheet" href="css/base.css?v=8">
+<link rel="stylesheet" href="css/secciones.css?v=8">
 </head>
 <body>
 
@@ -31,7 +31,6 @@
     </a>
     <nav class="nav" aria-label="Secciones">
       <a href="#trabajos">Trabajos</a>
-      <a href="#servicios">Servicios</a>
       <a href="#precios">Precios</a>
       <a href="#contacto">Contacto</a>
     </nav>
@@ -88,60 +87,12 @@
     </div>
   </section>
 
-  <section id="servicios" class="sec">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">Servicios</p>
-        <h2>Qué imprimimos</h2>
-        <p class="sec-lead">Desde una hoja suelta hasta fotos, credenciales y CD/DVD. Si no ves lo que buscás, escribinos y lo resolvemos.</p>
-      </div>
-      <ul class="servicios">
-        <li class="serv">
-          <h3>Impresiones</h3>
-          <p>Archivos en A4 y Oficio, blanco y negro o color, en papel de 64 a 90 g. Sin fotocopias.</p>
-          <p class="spec">A4 · Oficio · 64 a 90 g</p>
-          <a href="#precios" data-cat="oficina" data-trabajo="impresiones">Ver precios</a>
-        </li>
-        <li class="serv">
-          <h3>Fotografías</h3>
-          <p>Fotos en 10 × 15, 13 × 18, 20 × 25 cm y A4, con impresión sin bordes.</p>
-          <p class="spec">Sin bordes · hasta A4</p>
-          <a href="#precios" data-cat="fotos" data-trabajo="fotos">Ver precios</a>
-        </li>
-        <li class="serv">
-          <h3>Tarjetas y flyers</h3>
-          <p>Papelería para tu comercio en papel fotográfico o ilustración de 102 a 300 g, con doble faz manual.</p>
-          <p class="spec">102 a 300 g · doble faz manual</p>
-          <a href="#precios" data-cat="comercial" data-trabajo="tarjetas">Ver precios</a>
-        </li>
-        <li class="serv">
-          <h3>Stickers</h3>
-          <p>Stickers en plancha A4 de papel adhesivo, listos para pegar.</p>
-          <p class="spec">Papel adhesivo · plancha A4</p>
-          <a href="#precios" data-cat="especiales" data-trabajo="stickers">Ver precios</a>
-        </li>
-        <li class="serv">
-          <h3>CD/DVD y credenciales PVC</h3>
-          <p>Impresión directa sobre CD, DVD y credenciales PVC de 54 × 86 mm.</p>
-          <p class="spec">CD · DVD · PVC 54 × 86 mm</p>
-          <a href="#precios" data-cat="especiales" data-trabajo="credenciales">Ver precios</a>
-        </li>
-        <li class="serv">
-          <h3>Anillado y armado</h3>
-          <p>Anillados, tapas y armado de cuadernillos para entregas y cursos.</p>
-          <p class="spec">Hasta 100 hojas</p>
-          <a href="#precios" data-cat="especiales" data-trabajo="anillado">Ver precios</a>
-        </li>
-      </ul>
-    </div>
-  </section>
-
   <section id="precios" class="sec band band-cyan">
     <div class="wrap">
       <div class="sec-head">
         <p class="eyebrow">Precios</p>
         <h2>Cuanto más imprimís, menos pagás</h2>
-        <p class="sec-lead">Elegí tu trabajo y mirá el precio al instante, o contanos tu idea si necesitás algo que no está en la lista. Más abajo está la lista completa de precios.</p>
+        <p class="sec-lead">Elegí tu trabajo y mirá el precio al instante, o contanos tu idea si necesitás algo que no está en la lista.</p>
       </div>
       <div class="modos" id="modos" role="tablist" aria-label="Cómo querés pedir">
         <button class="modo" type="button" role="tab" id="tab-calc" aria-selected="true" aria-controls="calc">
@@ -244,13 +195,6 @@
           </div>
         </form>
       </div>
-
-      <div class="lista-bloque">
-        <h3 class="lista-t">Lista de precios</h3>
-        <div class="tabs" id="tabs" role="group" aria-label="Categorías de precios"></div>
-        <ul class="lista" id="lista"></ul>
-        <p class="nota">Precios de referencia en pesos argentinos. El valor final se confirma al revisar tu archivo, el papel y la terminación.</p>
-      </div>
     </div>
   </section>
 
@@ -339,17 +283,17 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></svg>
 </a>
 
-<script src="js/config.js?v=7" defer></script>
-<script src="js/precios.js?v=7" defer></script>
-<script src="js/utils.js?v=7" defer></script>
-<script src="js/iconos.js?v=7" defer></script>
-<script src="js/horario.js?v=7" defer></script>
-<script src="js/datos.js?v=7" defer></script>
-<script src="js/calculadora.js?v=7" defer></script>
-<script src="js/galeria.js?v=7" defer></script>
-<script src="js/contacto.js?v=7" defer></script>
-<script src="js/tema.js?v=7" defer></script>
-<script src="js/main.js?v=7" defer></script>
+<script src="js/config.js?v=8" defer></script>
+<script src="js/precios.js?v=8" defer></script>
+<script src="js/utils.js?v=8" defer></script>
+<script src="js/iconos.js?v=8" defer></script>
+<script src="js/horario.js?v=8" defer></script>
+<script src="js/datos.js?v=8" defer></script>
+<script src="js/calculadora.js?v=8" defer></script>
+<script src="js/galeria.js?v=8" defer></script>
+<script src="js/contacto.js?v=8" defer></script>
+<script src="js/tema.js?v=8" defer></script>
+<script src="js/main.js?v=8" defer></script>
 
 </body>
 </html>

@@ -7,7 +7,7 @@ $paginaActiva = 'precios';
 require __DIR__ . '/_layout_top.php';
 ?>
 <h1>Precios</h1>
-<p class="ayuda-pagina">Elegí una categoría de la lista. Para cada trabajo podés poner varios precios según la cantidad: cuanto más pide el cliente, más barato sale cada uno.</p>
+<p class="ayuda-pagina">De acá salen los precios de la calculadora. Para cada trabajo podés poner varios precios según la cantidad: cuanto más pide el cliente, más barato sale cada uno (son los tramos de descuento que ve en la calculadora). Las categorías solo sirven para ordenar esta pantalla. Qué trabajo usa cada precio se elige en <a href="calculadora.php">Calculadora</a>.</p>
 
 <div class="ptab-cats" id="ptab-cats"></div>
 
@@ -99,7 +99,7 @@ require __DIR__ . '/_layout_top.php';
       return 'desde ' + desde + ' sale ' + Panel.money(parseInt(precio, 10) || 0);
     });
     nodo.querySelector('[data-preview]').textContent = partes.length
-      ? 'Así lo ve el cliente: "' + nombre + '" — ' + partes.join(' · ') + ' (por ' + unidad + ').'
+      ? 'Tramos de descuento: "' + nombre + '" — ' + partes.join(' · ') + ' (por ' + unidad + ').'
       : 'Agregá al menos un precio por cantidad.';
     nodo.querySelector('.pitem-cab strong').textContent = nombre;
   }
