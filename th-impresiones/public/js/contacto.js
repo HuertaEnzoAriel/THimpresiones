@@ -16,6 +16,25 @@ window.TH = window.TH || {};
       el.classList.toggle("cerrado", !e.abierto);
       el.innerHTML = '<i aria-hidden="true"></i>' + esc(e.texto);
     });
+    // Desplegable de la portada: la semana completa con el día de hoy resaltado.
+    const drop = $("#horario-drop");
+    if (!drop) return;
+    drop.hidden = !e;
+    if (!e) return;
+    $("#hd-lista").innerHTML = TH.horario.semanaCompleta(semana).map(d =>
+      '<div' + (d.hoy ? ' class="hoy"' : "") + "><dt>" + esc(d.dia) + (d.hoy ? ' <span class="hd-hoy">hoy</span>' : "") +
+      "</dt><dd>" + esc(d.horas) + "</dd></div>"
+    ).join("");
+  }
+
+  // Cierra el desplegable al tocar afuera o con Escape.
+  function initDesplegable() {
+    const drop = $("#horario-drop");
+    if (!drop) return;
+    document.addEventListener("click", e => { if (drop.open && !drop.contains(e.target)) drop.open = false; });
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape" && drop.open) { drop.open = false; $("summary", drop).focus(); }
+    });
   }
 
   /* Checklist de archivo y preguntas frecuentes (sección "Antes de pedir"). */
@@ -47,6 +66,7 @@ window.TH = window.TH || {};
       "<div><dt>" + esc(h.dia) + "</dt><dd>" + esc(h.horas) + "</dd></div>"
     ).join("");
     pintarEstado(semana);
+    initDesplegable();
     setInterval(() => pintarEstado(semana), 60000);
 
     renderAyuda();

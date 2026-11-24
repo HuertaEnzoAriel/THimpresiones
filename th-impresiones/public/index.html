@@ -11,9 +11,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="css/tokens.css?v=4">
-<link rel="stylesheet" href="css/base.css?v=4">
-<link rel="stylesheet" href="css/secciones.css?v=4">
+<link rel="stylesheet" href="css/tokens.css?v=5">
+<link rel="stylesheet" href="css/base.css?v=5">
+<link rel="stylesheet" href="css/secciones.css?v=5">
 </head>
 <body>
 
@@ -30,9 +30,9 @@
       <span data-cfg="nombre">TH Impresiones</span>
     </a>
     <nav class="nav" aria-label="Secciones">
+      <a href="#trabajos">Trabajos</a>
       <a href="#servicios">Servicios</a>
       <a href="#precios">Precios</a>
-      <a href="#trabajos">Trabajos</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <div class="head-act">
@@ -53,7 +53,16 @@
           <a class="btn btn-primary" href="#precios">Calcular mi pedido</a>
           <a class="btn btn-ghost" href="#trabajos">Ver trabajos</a>
         </div>
-        <p class="abierto" hidden></p>
+        <details class="horario-drop" id="horario-drop" hidden>
+          <summary>
+            <span class="abierto"></span>
+            <span class="hd-ver">Ver horarios <i aria-hidden="true"></i></span>
+          </summary>
+          <div class="hd-panel">
+            <p class="hd-t">Horarios de atención</p>
+            <dl class="hd-lista" id="hd-lista"></dl>
+          </div>
+        </details>
         <dl class="facts">
           <div><dt>Formatos</dt><dd>A6 a A4</dd></div>
           <div><dt>Papeles</dt><dd>64 a 300 g</dd></div>
@@ -62,6 +71,20 @@
       </div>
 
       <figure class="hero-img" id="hero-img" hidden><img alt="" id="hero-img-el"></figure>
+    </div>
+  </section>
+
+  <section id="trabajos" class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Trabajos</p>
+        <h2>Muestras de lo que hacemos</h2>
+        <p class="sec-lead">Tocá cualquier pieza para verla más grande y pedir algo parecido.</p>
+      </div>
+      <div class="filtros" role="group" aria-label="Filtrar trabajos"></div>
+
+      <ul class="galeria" id="galeria"></ul>
+      <p class="muestra-nota">Las marcas y los diseños de estas muestras son ilustrativos.</p>
     </div>
   </section>
 
@@ -193,20 +216,6 @@
     </div>
   </section>
 
-  <section id="trabajos" class="sec">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">Trabajos</p>
-        <h2>Muestras de lo que hacemos</h2>
-        <p class="sec-lead">Tocá cualquier pieza para verla más grande y pedir algo parecido.</p>
-      </div>
-      <div class="filtros" role="group" aria-label="Filtrar trabajos"></div>
-
-      <ul class="galeria" id="galeria"></ul>
-      <p class="muestra-nota">Las marcas y los diseños de estas muestras son ilustrativos.</p>
-    </div>
-  </section>
-
   <section id="preguntas" class="sec sec-alt" hidden>
     <div class="wrap ayuda-grid">
       <div id="faq-box">
@@ -321,17 +330,17 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></svg>
 </a>
 
-<script src="js/config.js?v=4" defer></script>
-<script src="js/precios.js?v=4" defer></script>
-<script src="js/utils.js?v=4" defer></script>
-<script src="js/iconos.js?v=4" defer></script>
-<script src="js/horario.js?v=4" defer></script>
-<script src="js/datos.js?v=4" defer></script>
-<script src="js/calculadora.js?v=4" defer></script>
-<script src="js/galeria.js?v=4" defer></script>
-<script src="js/contacto.js?v=4" defer></script>
-<script src="js/tema.js?v=4" defer></script>
-<script src="js/main.js?v=4" defer></script>
+<script src="js/config.js?v=5" defer></script>
+<script src="js/precios.js?v=5" defer></script>
+<script src="js/utils.js?v=5" defer></script>
+<script src="js/iconos.js?v=5" defer></script>
+<script src="js/horario.js?v=5" defer></script>
+<script src="js/datos.js?v=5" defer></script>
+<script src="js/calculadora.js?v=5" defer></script>
+<script src="js/galeria.js?v=5" defer></script>
+<script src="js/contacto.js?v=5" defer></script>
+<script src="js/tema.js?v=5" defer></script>
+<script src="js/main.js?v=5" defer></script>
 
 </body>
 </html>

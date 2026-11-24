@@ -71,5 +71,11 @@ window.TH = window.TH || {};
     return null;
   }
 
-  TH.horario = { DIAS, NOMBRE, normalizar, agrupar, estado, textoTurnos };
+  /* Los 7 días con su horario, marcando cuál es hoy (en Argentina). */
+  function semanaCompleta(semana, fecha) {
+    const hoy = ahoraArgentina(fecha).dia;
+    return normalizar(semana).map((d, i) => ({ dia: cap(NOMBRE[d.dia]), horas: textoTurnos(d.turnos), hoy: i === hoy }));
+  }
+
+  TH.horario = { DIAS, NOMBRE, normalizar, agrupar, estado, textoTurnos, semanaCompleta };
 })();
