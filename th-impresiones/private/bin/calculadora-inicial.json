@@ -62,13 +62,13 @@
         "papeles": [
             {
                 "id": "obra-75",
-                "nombre": "Obra",
+                "nombre": "Común",
                 "gramaje": 75,
                 "comparacion": "Como una hoja de impresora común"
             },
             {
                 "id": "obra-90",
-                "nombre": "Obra",
+                "nombre": "Común",
                 "gramaje": 90,
                 "comparacion": "Un poco más firme, se transparenta menos"
             },
