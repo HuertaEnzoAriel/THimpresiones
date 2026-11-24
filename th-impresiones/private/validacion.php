@@ -604,5 +604,22 @@ function th_validar_ayuda($a): array {
     if (count($preguntas) > 30) {
         throw new Th_ErrorValidacion('Hay demasiadas preguntas (máximo 30).');
     }
-    return ['checklist' => $checklist, 'preguntas' => $preguntas];
+    $resultado = ['checklist' => $checklist, 'preguntas' => $preguntas];
+
+    // Opciones del menú "Qué necesitás" en "¿Necesitás algo distinto?".
+    // Si nunca se cargaron, la página usa unas por defecto.
+    if (isset($a['consultas'])) {
+        $consultas = [];
+        foreach (is_array($a['consultas']) ? $a['consultas'] : [] as $txt) {
+            $txt = th_texto(is_scalar($txt) ? (string) $txt : '', 60, 'Opción de consulta');
+            if ($txt !== '' && !in_array($txt, $consultas, true)) {
+                $consultas[] = $txt;
+            }
+        }
+        if (count($consultas) > 12) {
+            throw new Th_ErrorValidacion('Hay demasiadas opciones de consulta (máximo 12).');
+        }
+        $resultado['consultas'] = $consultas;
+    }
+    return $resultado;
 }

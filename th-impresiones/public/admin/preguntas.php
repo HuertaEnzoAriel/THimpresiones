@@ -7,7 +7,14 @@ $paginaActiva = 'preguntas';
 require __DIR__ . '/_layout_top.php';
 ?>
 <h1>Preguntas y checklist</h1>
-<p class="ayuda-pagina">Se ven en la sección "Antes de pedir" de la página. Las preguntas se abren y cierran al tocarlas; el checklist ayuda a que te manden el archivo bien. Si dejás las dos listas vacías, la sección no se muestra.</p>
+<p class="ayuda-pagina">El checklist y las preguntas se ven en la sección "Antes de pedir" de la página (si dejás las dos listas vacías, la sección no se muestra). Las opciones de consulta son el menú "Qué necesitás" de la pestaña "¿Necesitás algo distinto?", en Precios.</p>
+
+<h2 class="panel-sub">Opciones de "¿Necesitás algo distinto?"</h2>
+<p class="ayuda" style="margin-bottom:10px">Lo que el cliente elige en "Qué necesitás" y aparece en el mensaje de WhatsApp. Si no dejás ninguna, ese menú no se muestra.</p>
+<div class="ptabla" id="lista-consultas"></div>
+<div class="subir-row" style="margin:10px 0 28px">
+  <button class="btn btn-ghost" type="button" id="btn-agregar-consulta">Agregar opción</button>
+</div>
 
 <h2 class="panel-sub">Checklist de archivo</h2>
 <div class="ptabla" id="lista-checklist"></div>
@@ -30,6 +37,8 @@ require __DIR__ . '/_layout_top.php';
 (function () {
   const checkEl = document.getElementById('lista-checklist');
   const pregEl = document.getElementById('lista-preguntas');
+  const consEl = document.getElementById('lista-consultas');
+  const CONSULTAS_POR_DEFECTO = ['Un trabajo a medida', 'No tengo diseño', 'Consulta de plazos o cantidades', 'Otra cosa'];
   let datosCompletos = null;
 
   // Botones ↑ ↓ Eliminar comunes a las dos listas. Cada fila guarda su objeto en nodo._dato.
@@ -60,13 +69,17 @@ require __DIR__ . '/_layout_top.php';
     return cont;
   }
 
-  function filaCheck(texto) {
+  function filaCheck(texto, opciones) {
+    const o = opciones || { etiqueta: 'Punto', ejemplo: 'Ej: Archivo en PDF, JPG o PNG', max: 160, cuadro: true };
     const nodo = document.createElement('div');
     nodo.className = 'pitem pitem-fila';
-    nodo.innerHTML = '<span class="check-prev" aria-hidden="true"></span><div class="field"><label>Punto</label><input data-campo="texto" maxlength="160"></div>';
+    nodo.innerHTML = (o.cuadro ? '<span class="check-prev" aria-hidden="true"></span>' : '<span></span>') +
+      '<div class="field"><label></label><input data-campo="texto"></div>';
+    nodo.querySelector('label').textContent = o.etiqueta;
     const input = nodo.querySelector('input');
+    input.maxLength = o.max;
     input.value = texto || '';
-    input.placeholder = 'Ej: Archivo en PDF, JPG o PNG';
+    input.placeholder = o.ejemplo;
     input.addEventListener('input', () => controlador.marcarCambios());
     nodo.appendChild(botonesOrden(nodo, () => '"' + (input.value.trim() || 'este punto') + '"'));
     return nodo;
@@ -97,11 +110,18 @@ require __DIR__ . '/_layout_top.php';
     (ayuda.checklist || []).forEach(t => checkEl.appendChild(filaCheck(t)));
     pregEl.innerHTML = '';
     (ayuda.preguntas || []).forEach(p => pregEl.appendChild(filaPregunta(p)));
+    consEl.innerHTML = '';
+    (Array.isArray(ayuda.consultas) ? ayuda.consultas : CONSULTAS_POR_DEFECTO).forEach(t => consEl.appendChild(filaConsulta(t)));
+  }
+
+  function filaConsulta(texto) {
+    return filaCheck(texto, { etiqueta: 'Opción', ejemplo: 'Ej: Un trabajo a medida', max: 60, cuadro: false });
   }
 
   function leer() {
     return {
       checklist: Array.from(checkEl.querySelectorAll('[data-campo="texto"]')).map(i => i.value.trim()).filter(Boolean),
+      consultas: Array.from(consEl.querySelectorAll('[data-campo="texto"]')).map(i => i.value.trim()).filter(Boolean),
       preguntas: Array.from(pregEl.children).map(n => ({
         pregunta: n.querySelector('[data-campo="pregunta"]').value.trim(),
         respuesta: n.querySelector('[data-campo="respuesta"]').value.trim()
@@ -112,6 +132,12 @@ require __DIR__ . '/_layout_top.php';
   document.getElementById('btn-agregar-check').addEventListener('click', () => {
     const n = filaCheck('');
     checkEl.appendChild(n);
+    n.querySelector('input').focus();
+    controlador.marcarCambios();
+  });
+  document.getElementById('btn-agregar-consulta').addEventListener('click', () => {
+    const n = filaConsulta('');
+    consEl.appendChild(n);
     n.querySelector('input').focus();
     controlador.marcarCambios();
   });

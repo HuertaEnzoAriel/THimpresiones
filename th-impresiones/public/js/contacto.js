@@ -53,9 +53,10 @@ window.TH = window.TH || {};
     $("#preguntas").hidden = !checklist.length && !preguntas.length;
   }
 
+  const CONSULTAS_POR_DEFECTO = ["Un trabajo a medida", "No tengo diseño", "Consulta de plazos o cantidades", "Otra cosa"];
+
   function init() {
     const CONFIG = TH.config;
-    const ITEMS = TH.precios.items;
 
     $$("[data-cfg]").forEach(el => { el.textContent = CONFIG[el.dataset.cfg] || ""; });
     if (CONFIG.instagram) $("#ig-link").href = "https://instagram.com/" + CONFIG.instagram.replace(/^@/, "");
@@ -75,15 +76,18 @@ window.TH = window.TH || {};
       copyText(el.textContent, b, el);
     }));
 
+    // "¿Necesitás algo distinto?": tipos de consulta editables desde el panel.
     const pTrabajo = $("#p-trabajo");
-    pTrabajo.innerHTML = ITEMS.map(i => '<option value="' + esc(i.nombre) + '">' + esc(i.nombre) + "</option>").join("") +
-      '<option value="un trabajo a medida">Otro trabajo a medida</option>';
+    const consultas = Array.isArray((TH.ayuda || {}).consultas) ? TH.ayuda.consultas.filter(Boolean) : CONSULTAS_POR_DEFECTO;
+    pTrabajo.innerHTML = consultas.map(c => '<option value="' + esc(c) + '">' + esc(c) + "</option>").join("");
+    $("#p-trabajo-field").hidden = !consultas.length;
 
     function mensajePedido() {
       const nombre = $("#p-nombre").value.trim();
       const detalle = $("#p-detalle").value.trim();
-      return "Hola" + (nombre ? ", soy " + nombre : "") + ". Quiero consultar por: " + pTrabajo.value + "." +
-        (detalle ? " Detalle: " + detalle + "." : "") + " ¿Me pasan precio y plazo?";
+      return "Hola" + (nombre ? ", soy " + nombre : "") + "." +
+        (consultas.length ? " Te escribo por: " + pTrabajo.value + "." : "") +
+        (detalle ? "\n" + detalle : "") + "\n¿Me pasan precio y plazo?";
     }
     function renderPedido() {
       const msg = mensajePedido();
@@ -91,7 +95,7 @@ window.TH = window.TH || {};
       $("#p-wa").href = waLink(msg);
     }
 
-    ["#p-nombre", "#p-trabajo", "#p-detalle"].forEach(s => $(s).addEventListener("input", renderPedido));
+    ["#p-nombre", "#p-trabajo", "#p-detalle"].forEach(s => { $(s).addEventListener("input", renderPedido); $(s).addEventListener("change", renderPedido); });
     $("#pedido").addEventListener("submit", e => e.preventDefault());
     $("#p-copy").addEventListener("click", e => copyText(mensajePedido(), e.currentTarget, $("#p-preview")));
     renderPedido();

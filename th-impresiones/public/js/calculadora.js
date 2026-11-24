@@ -312,17 +312,50 @@ window.TH = window.TH || {};
     }
   }
 
-  /* ===== Barra fija en celular (solo mientras se ve la sección Precios) ===== */
+  /* ===== Pestañas: "Armá tu pedido" / "¿Necesitás algo distinto?" ===== */
+  let modoActual = "calc";
+  function modo(cual) {
+    modoActual = cual === "distinto" ? "distinto" : "calc";
+    $$("#modos .modo").forEach(b => {
+      const on = b.getAttribute("aria-controls") === modoActual;
+      b.setAttribute("aria-selected", String(on));
+      b.tabIndex = on ? 0 : -1;
+    });
+    $("#calc").hidden = modoActual !== "calc";
+    $("#distinto").hidden = modoActual !== "distinto";
+    actualizarBarra();
+  }
+  function initModos() {
+    const cont = $("#modos");
+    if (!cont) return;
+    cont.addEventListener("click", e => { const b = e.target.closest(".modo"); if (b) modo(b.getAttribute("aria-controls")); });
+    // Flechas izquierda/derecha para moverse entre pestañas con el teclado.
+    cont.addEventListener("keydown", e => {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      const otra = modoActual === "calc" ? "distinto" : "calc";
+      modo(otra);
+      $('#modos .modo[aria-controls="' + otra + '"]').focus();
+      e.preventDefault();
+    });
+  }
+
+  /* ===== Barra fija en celular (mientras se ve Precios y está abierta la calculadora) ===== */
+  let enPrecios = false;
+  function actualizarBarra() {
+    const barra = $("#barra-movil");
+    if (!barra) return;
+    const on = enPrecios && modoActual === "calc";
+    barra.classList.toggle("on", on);
+    barra.setAttribute("aria-hidden", String(!on));
+    $$("a", barra).forEach(a => { a.tabIndex = on ? 0 : -1; });
+    document.body.classList.toggle("barra-on", on);
+  }
   function barraMovil() {
     const sec = $("#precios");
-    const barra = $("#barra-movil");
-    if (!sec || !barra || !("IntersectionObserver" in window)) return;
+    if (!sec || !("IntersectionObserver" in window)) return;
     new IntersectionObserver(entradas => {
-      const on = entradas[0].isIntersecting;
-      barra.classList.toggle("on", on);
-      barra.setAttribute("aria-hidden", String(!on));
-      $$("a", barra).forEach(a => { a.tabIndex = on ? 0 : -1; });
-      document.body.classList.toggle("barra-on", on);
+      enPrecios = entradas[0].isIntersecting;
+      actualizarBarra();
     }, { rootMargin: "-30% 0px -30% 0px" }).observe(sec);
   }
 
@@ -393,22 +426,25 @@ window.TH = window.TH || {};
 
     // "Ver precios" de cada servicio: muestra su categoría y preselecciona el trabajo.
     $$(".serv a[data-cat]").forEach(a => a.addEventListener("click", () => {
+      modo("calc");
       setCat(a.dataset.cat);
       if (a.dataset.trabajo) elegirTrabajo(a.dataset.trabajo);
     }));
 
     const preferido = cfg.trabajos[0];
     elegirTrabajo(preferido.id);
+    initModos();
     barraMovil();
   }
 
   /* Para la galería: preselecciona un trabajo y lleva a la calculadora. */
   function pedir(id) {
     if (!cfg.trabajos.some(t => t.id === id)) return false;
+    modo("calc");
     elegirTrabajo(id);
     irACalculadora();
     return true;
   }
 
-  TH.calculadora = { init, setCat, pedir, existe: id => cfg.trabajos.some(t => t.id === id) };
+  TH.calculadora = { init, setCat, pedir, modo, existe: id => cfg.trabajos.some(t => t.id === id) };
 })();
