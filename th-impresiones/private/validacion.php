@@ -53,6 +53,7 @@ function th_validar_datos(array $entrada): array {
     $idsCatTrabajos = array_column($categoriasTrabajos, 'id');
     $trabajos = th_validar_trabajos($entrada['trabajos'] ?? [], $idsCatTrabajos, $idsCalc);
     $ayuda = th_validar_ayuda($entrada['ayuda'] ?? []);
+    $portada = isset($entrada['portada']) ? th_validar_portada($entrada['portada']) : null;
 
     return [
         'negocio' => $negocio,
@@ -62,7 +63,7 @@ function th_validar_datos(array $entrada): array {
         'trabajos' => $trabajos,
         'calculadora' => $calculadora,
         'ayuda' => $ayuda,
-    ];
+    ] + ($portada !== null ? ['portada' => $portada] : []);
 }
 
 function th_validar_negocio($datos): array {
@@ -622,4 +623,53 @@ function th_validar_ayuda($a): array {
         $resultado['consultas'] = $consultas;
     }
     return $resultado;
+}
+
+/* ===== Portada (textos de la parte de arriba de la página) =====
+ * La imagen sigue en negocio.imagenHero. Si "portada" no existe, la página
+ * muestra los textos que vienen escritos en index.html. */
+function th_validar_portada($p): array {
+    if (!is_array($p)) {
+        $p = [];
+    }
+    $titulo = str_replace("\r", '', (string) ($p['titulo'] ?? ''));
+    $lineas = array_values(array_filter(array_map('trim', explode("\n", $titulo)), fn($l) => $l !== ''));
+    if (!$lineas) {
+        throw new Th_ErrorValidacion('El título de la portada no puede quedar vacío.');
+    }
+    if (count($lineas) > 4) {
+        throw new Th_ErrorValidacion('El título de la portada puede tener hasta 4 renglones.');
+    }
+    foreach ($lineas as $l) {
+        th_texto($l, 40, 'Cada renglón del título');
+    }
+    $datos = [];
+    foreach (is_array($p['datos'] ?? null) ? $p['datos'] : [] as $d) {
+        if (!is_array($d)) {
+            continue;
+        }
+        $t = th_texto((string) ($d['titulo'] ?? ''), 30, 'Título de un dato de la portada');
+        $v = th_texto((string) ($d['valor'] ?? ''), 40, 'Valor de un dato de la portada');
+        if ($t === '' && $v === '') {
+            continue;
+        }
+        if ($t === '' || $v === '') {
+            throw new Th_ErrorValidacion('Cada dato de la portada necesita título y valor (ej: "Papeles" / "64 a 300 g").');
+        }
+        $datos[] = ['titulo' => $t, 'valor' => $v];
+    }
+    if (count($datos) > 4) {
+        throw new Th_ErrorValidacion('La portada puede tener hasta 4 datos.');
+    }
+    $boton1 = th_texto((string) ($p['botonPrincipal'] ?? ''), 40, 'Texto del botón principal');
+    $boton2 = th_texto((string) ($p['botonSecundario'] ?? ''), 40, 'Texto del botón secundario');
+    return [
+        'etiqueta' => th_texto((string) ($p['etiqueta'] ?? ''), 80, 'Etiqueta de arriba del título'),
+        'titulo' => implode("\n", $lineas),
+        'texto' => th_texto((string) ($p['texto'] ?? ''), 300, 'Texto de la portada'),
+        'botonPrincipal' => $boton1 !== '' ? $boton1 : 'Calcular mi pedido',
+        'botonSecundario' => $boton2,
+        'datos' => $datos,
+        'imagenAlt' => th_texto((string) ($p['imagenAlt'] ?? ''), 160, 'Descripción de la imagen'),
+    ];
 }

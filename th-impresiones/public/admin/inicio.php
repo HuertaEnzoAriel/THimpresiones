@@ -10,6 +10,10 @@ require __DIR__ . '/_layout_top.php';
 <p class="ayuda-pagina">Elegí qué querés actualizar. Los cambios no se publican hasta que apretás "Guardar cambios" en cada pantalla.</p>
 
 <div class="panel-cards">
+  <a class="panel-card" href="portada.php">
+    <h2>Portada</h2>
+    <p>La imagen principal y los textos de arriba de todo: título, texto, botones y datos.</p>
+  </a>
   <a class="panel-card" href="precios.php">
     <h2>Precios</h2>
     <p>Lo que sale cada trabajo y los descuentos por cantidad que usa la calculadora.</p>

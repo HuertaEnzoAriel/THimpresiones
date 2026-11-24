@@ -20,6 +20,7 @@ window.TH = window.TH || {};
       TH.trabajos = (Array.isArray(datos.trabajos) ? datos.trabajos : []).filter(t => t.visible !== false);
       TH.calc = datos.calculadora && typeof datos.calculadora === "object" ? datos.calculadora : {};
       TH.ayuda = datos.ayuda && typeof datos.ayuda === "object" ? datos.ayuda : {};
+      TH.portada = datos.portada && typeof datos.portada === "object" ? datos.portada : null;
 
       return true;
     } catch (e) {

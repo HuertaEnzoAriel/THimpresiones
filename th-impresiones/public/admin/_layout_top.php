@@ -7,6 +7,7 @@ $csrf = th_token_csrf();
 $limiteImagenBytes = th_limite_imagen_bytes();
 $items_nav = [
     'inicio' => 'Inicio',
+    'portada' => 'Portada',
     'precios' => 'Precios',
     'calculadora' => 'Calculadora',
     'trabajos' => 'Trabajos',
